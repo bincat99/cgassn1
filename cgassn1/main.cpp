@@ -7,9 +7,29 @@
 //
 
 #include <iostream>
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <OpenGL/glext.h>
+#include <GLUT/GLUT.h>
+#else
+#endif
+using namespace std;
+void renderScene(void) {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glFlush();
+}
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+int main(int argc, char * argv[]) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+    glutInitWindowPosition(100, 100);
+    glutInitWindowSize(320, 320);
+    glutCreateWindow("Hello OpenGL");
+    glutDisplayFunc(renderScene);
+    glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+#ifndef __APPLE__
+    glewInit();
+#endif
+    glutMainLoop();
 }
