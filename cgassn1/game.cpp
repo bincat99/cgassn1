@@ -91,7 +91,7 @@ init_ (void)
 {
     glClearColor (1.0, 1.0, 1.0, 0.0);
     glShadeModel (GL_FLAT);
-    rectangle.x = 0.1; rectangle.y = 0.1; rectangle.width = 0.1; rectangle.height = 0.15;
+    rectangle.x = 0.1; rectangle.y = 0.1; rectangle.width = 0.1; rectangle.height = 0.10;
 }
 
 void
@@ -144,19 +144,19 @@ moveObjects()
             
         }
         
-        if (i < 4 && arrowBuffer[i])
+        if (specialKeyBuffer[i])
         {
-            if (i == 0)
+            if (i == GLUT_KEY_LEFT)
                 rectangle.x -= 0.005;
             
-            if (i == 1)
+            if (i == GLUT_KEY_UP)
                 rectangle.y += 0.005;
             
             
-            if (i == 2)
+            if (i == GLUT_KEY_RIGHT)
                 rectangle.x += 0.005;
             
-            if (i == 3)
+            if (i == GLUT_KEY_DOWN)
                 rectangle.y -= 0.005;
         
         }

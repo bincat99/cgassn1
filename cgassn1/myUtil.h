@@ -16,7 +16,7 @@ keyboardBuffer [KEYBOARD_BUFFER_SIZE];
 
 
 extern bool
-arrowBuffer [4];
+specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 
 
 void

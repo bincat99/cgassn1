@@ -21,30 +21,19 @@
 bool
 keyboardBuffer [KEYBOARD_BUFFER_SIZE];
 
-enum arrowNum
-{
-    ARROW_LEFT = 100,
-    ARROW_UP,
-    ARROW_RIGHT,
-    ARROW_DOWN
-};
 
 bool
-arrowBuffer [4];
+specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 
 void
 myUtilInit ()
 {
     int i;
-
+    
     for (i=0 ; i < KEYBOARD_BUFFER_SIZE ; i++)
     {
-        keyboardBuffer[i] = 0;
-    }
-    
-    for (i=0 ; i < 4 ; i++)
-    {
-        arrowBuffer[i] = 0;
+        keyboardBuffer[i] = false;
+        specialKeyBuffer[i] = false;
     }
 }
 //
@@ -52,7 +41,7 @@ void
 myKeyboardFunc (unsigned char key, int x, int y)
 {
     keyboardBuffer[key] = true;
-
+    
 }
 
 void
@@ -65,11 +54,11 @@ myKeyboardUpFunc (unsigned char key, int x, int y)
 void
 mySpecialFunc (int key, int x, int y)
 {
-    arrowBuffer[key-100] = true;
+    specialKeyBuffer[key] = true;
 }
 
 void
 mySpecialUpFunc (int key, int x, int y)
 {
-       arrowBuffer[key-100] = false;
+    specialKeyBuffer[key] = false;
 }
