@@ -9,5 +9,8 @@
 #ifndef player_h
 #define player_h
 
+class Player{
+    
+};
 
 #endif /* player_h */

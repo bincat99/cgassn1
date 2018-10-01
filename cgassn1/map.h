@@ -9,5 +9,11 @@
 #ifndef map_h
 #define map_h
 
+class Map{
+    
+    
+    //public Map () = 0;
+    
+};
 
 #endif /* map_h */

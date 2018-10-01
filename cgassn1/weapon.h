@@ -10,5 +10,9 @@
 #ifndef weapon_h
 #define weapon_h
 
+class Weapon{
+    
+    
+};
 
 #endif /* weapon_h */

@@ -1,18 +1,19 @@
 //
-//  enemy.h
+//  wall.h
 //  cgassn1
 //
 //  Created by Dahun Lee on 2018. 10. 1..
 //  Copyright © 2018년 Dahun Lee. All rights reserved.
 //
 
-#ifndef enemy_h
-#define enemy_h
+#ifndef wall_h
+#define wall_h
+#include "map.h"
 
-class Enemy
+class Wall 
 {
     
     
 };
 
-#endif /* enemy_h */
+#endif /* wall_h */
