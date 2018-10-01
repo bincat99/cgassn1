@@ -19,6 +19,7 @@ class Player{
 public:
     Player ();
     void playerInit ();
+    void drawPlayer ();
 };
 
 #endif /* player_h */

@@ -14,6 +14,7 @@ class Object {
     
     
     virtual void Test () = 0;
+    virtual void drawThing () = 0;
 };
 
 #endif /* object_h */
