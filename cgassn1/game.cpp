@@ -19,6 +19,7 @@
 
 #include "game.h"
 #include "myUtil.h"
+#include <stdio.h>
 using namespace std;
 
 void renderScene(void) {
@@ -71,6 +72,8 @@ Game::init (int * argc, char ** argv)
     glutIdleFunc(moveObjects);
     glutKeyboardFunc (myKeyboardFunc);
     glutKeyboardUpFunc (myKeyboardUpFunc);
+    glutSpecialFunc(mySpecialFunc);
+    glutSpecialUpFunc(mySpecialUpFunc);
     glutMainLoop();
     
     
@@ -138,6 +141,24 @@ moveObjects()
             if (i == 'w')
                 rectangle.y += 0.005;
             
+            
+        }
+        
+        if (i < 4 && arrowBuffer[i])
+        {
+            if (i == 0)
+                rectangle.x -= 0.005;
+            
+            if (i == 1)
+                rectangle.y += 0.005;
+            
+            
+            if (i == 2)
+                rectangle.x += 0.005;
+            
+            if (i == 3)
+                rectangle.y -= 0.005;
+        
         }
     }
     glutPostRedisplay();

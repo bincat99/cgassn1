@@ -15,6 +15,10 @@ extern bool
 keyboardBuffer [KEYBOARD_BUFFER_SIZE];
 
 
+extern bool
+arrowBuffer [4];
+
+
 void
 myUtilInit ();
 
@@ -24,4 +28,9 @@ myKeyboardFunc (unsigned char, int, int);
 void
 myKeyboardUpFunc (unsigned char, int, int);
 
+void
+mySpecialFunc (int key, int x, int y);
+
+void
+mySpecialUpFunc (int key, int x, int y);
 #endif /* myUtil_h */
