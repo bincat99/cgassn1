@@ -14,6 +14,7 @@
 
 #include "enemy.h"
 
+
 class Game
 {
 private:
@@ -24,6 +25,8 @@ private:
     
 public:
     Game ();
+    void init (int *, char **);
+    void play ();
     //private:
  /*   Game ()
     {

@@ -12,6 +12,8 @@
 class Object {
     
     
+    
+    virtual void Test () = 0;
 };
 
 #endif /* object_h */

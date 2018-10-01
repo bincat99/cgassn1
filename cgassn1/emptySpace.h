@@ -9,5 +9,11 @@
 #ifndef emptySpace_h
 #define emptySpace_h
 
+#include "object.h"
+
+class emptySpace : public Object
+{
+    
+};
 
 #endif /* emptySpace_h */

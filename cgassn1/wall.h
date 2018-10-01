@@ -9,8 +9,9 @@
 #ifndef wall_h
 #define wall_h
 #include "map.h"
+#include "object.h"
 
-class Wall 
+class Wall : public Object
 {
     
     

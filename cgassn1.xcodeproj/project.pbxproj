@@ -13,6 +13,7 @@
 		1389CFCB2161D45300321F96 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1389CFCA2161D45300321F96 /* OpenGL.framework */; };
 		13A0768D21621E1700057B52 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13A0768C21621E1700057B52 /* game.cpp */; };
 		13A0769021621E2B00057B52 /* wall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13A0768E21621E2B00057B52 /* wall.cpp */; };
+		13A076962162505400057B52 /* myUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13A076942162505400057B52 /* myUtil.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,8 @@
 		13A0768B21621A1900057B52 /* game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		13A0768C21621E1700057B52 /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		13A0768E21621E2B00057B52 /* wall.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = wall.cpp; sourceTree = "<group>"; };
+		13A076942162505400057B52 /* myUtil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = myUtil.cpp; sourceTree = "<group>"; };
+		13A07698216250EE00057B52 /* myUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = myUtil.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 				13A0768A2162169600057B52 /* object.h */,
 				13A076872162158300057B52 /* wall.h */,
 				13A0768B21621A1900057B52 /* game.h */,
+				13A07698216250EE00057B52 /* myUtil.h */,
+				13A076942162505400057B52 /* myUtil.cpp */,
 				13A0768C21621E1700057B52 /* game.cpp */,
 				13A0768E21621E2B00057B52 /* wall.cpp */,
 				13A076882162159500057B52 /* emptySpace.h */,
@@ -164,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13A076962162505400057B52 /* myUtil.cpp in Sources */,
 				1389CFBF2161D42400321F96 /* main.cpp in Sources */,
 				13A0768D21621E1700057B52 /* game.cpp in Sources */,
 				13A0769021621E2B00057B52 /* wall.cpp in Sources */,
@@ -179,13 +185,13 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES_ERROR;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
@@ -238,13 +244,13 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES_ERROR;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
@@ -288,6 +294,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_VERSION = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -296,6 +303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_VERSION = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

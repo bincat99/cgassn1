@@ -9,5 +9,11 @@
 #ifndef item_h
 #define item_h
 
+#include "object.h"
+
+class Item : public Object {
+    
+};
+
 
 #endif /* item_h */
