@@ -11,8 +11,12 @@
 
 class Enemy
 {
-    
-    
+    unsigned int HP;
+    int x;
+    int y;
+public:
+    Enemy ();
+
 };
 
 #endif /* enemy_h */

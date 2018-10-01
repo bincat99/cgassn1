@@ -11,6 +11,14 @@
 
 class Player{
     
+    unsigned int HP;
+    
+    int x;
+    int y;
+    
+public:
+    Player ();
+    void playerInit ();
 };
 
 #endif /* player_h */
