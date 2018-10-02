@@ -6,19 +6,25 @@
 //  Copyright © 2018년 Dahun Lee. All rights reserved.
 //
 
-#include <iostream>
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <OpenGL/glext.h>
-#include <GLUT/GLUT.h>
-#else
-#endif
+//#include <iostream>
+//#ifdef __APPLE__
+//#include <OpenGL/gl.h>
+//#include <OpenGL/glu.h>
+//#include <OpenGL/glext.h>
+//#include <GLUT/GLUT.h>
+//#else
+//#endif
 
-//#include "map.h"
-//#include "enemy.h"
-//#include "player.h"
-//#include "weapon.h"
+#include <windows.h>
+#include <GL/GL.h>
+#include <GL/GLU.h>
+#include <GL/glut.h>
+#include <GL/freeglut.h>
+
+#include "map.h"
+#include "enemy.h"
+#include "player.h"
+#include "weapon.h"
 #include "game.h"
 
 
@@ -53,9 +59,7 @@ main (int argc, char * argv[])
     glutCreateWindow("Hello OpenGL");
 //    glutDisplayFunc(renderScene);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-#ifndef __APPLE__
-    glewInit();
-#endif
+
     init ();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
