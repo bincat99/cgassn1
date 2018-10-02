@@ -53,7 +53,7 @@ int
 main (int argc, char * argv[])
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(100, 100);
     glutInitWindowSize(1024, 768);
     glutCreateWindow("Hello OpenGL");
@@ -77,7 +77,7 @@ void
 init (void)
 {
     glClearColor (0.0, 0.0, 0.0, 0.0); glShadeModel (GL_FLAT);
-    rectangle.x = 0.1; rectangle.y = 0.1; rectangle.width = 0.1; rectangle.height = 0.15;
+    rectangle.x = 0.3; rectangle.y = 0.5; rectangle.width = 0.1; rectangle.height = 0.15;
 }
 
 void

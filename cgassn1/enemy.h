@@ -11,7 +11,14 @@
 
 class Enemy
 {
-    
+private:
+	Position pos;
+	Direction dir;
+	Size size;
+	float speed;  // pos~speed 는 object로부터 상속.
+
+public:
+	void move(void);
     
 };
 
