@@ -11,7 +11,8 @@
 
 #include "object.h"
 
-class Item : public Object {
+class Item : virtual public Object
+{
     
 };
 

@@ -37,6 +37,12 @@ keyboardBuffer [KEYBOARD_BUFFER_SIZE];
 extern bool
 specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 
+typedef struct
+{
+    float x;
+    float y;
+}pos;
+
 
 void
 utilInit ();

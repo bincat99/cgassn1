@@ -11,7 +11,7 @@
 
 #include "object.h"
 
-class emptySpace : public Object
+class emptySpace : virtual public Object
 {
     
 };

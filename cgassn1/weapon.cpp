@@ -1,6 +1,6 @@
 #include "weapon.h"
 #include "util.h"
-
+#include <stdio.h>
 Weapon::Weapon(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_, float range_) {
 	x = x_;
 	y = y_;
@@ -27,28 +27,33 @@ void Weapon::display(void) {
 void Weapon::move(void) {
 	if (status == ALIVE) {
 		if (range > 0) {
-			switch (dir) {
-			UP: y += speed;
+			switch ((enum Direction) dir) {
+			case UP: y += speed;
 				range -= speed;
 				break;
-			DOWN:
+			case DOWN:
 				y -= speed;
 				range -= speed;
 				break;
-			LEFT:
+			case LEFT:
 				x -= speed;
 				range -= speed;
 				break;
-			RIGHT:
+			case RIGHT:
 				x += speed;
 				range -= speed;
 				break;
 			}
 		}
-		else {
-			status = KILLED;
-		}
+        else {
+            status = KILLED;
+        }
 	}
+}
+
+enum Status Weapon::getStatus ()
+{
+    return status;
 }
 
 Weapon::~Weapon() {

@@ -11,9 +11,10 @@
 #define weapon_h
 
 #include "util.h"
+#include "object.h"
 
-
-class Weapon{
+class Weapon : virtual public Object
+{
 private :
 	float x, y;
 	enum Direction dir;
@@ -28,6 +29,7 @@ public:
 	void move(void);
 	~Weapon();
     
+    enum Status getStatus (void);
 };
 
 #endif /* weapon_h */

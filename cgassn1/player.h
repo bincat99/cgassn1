@@ -12,10 +12,11 @@
 
 #include "util.h"
 #include "weapon.h"
+#include "object.h"
 
 
 
-class Player{
+class Player : virtual public Object{
 
 private:
 	float x, y;

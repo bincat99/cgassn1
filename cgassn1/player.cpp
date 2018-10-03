@@ -1,7 +1,7 @@
 
 #include "player.h"
 #include "util.h"
-
+#include <stdio.h>
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_) {
     x = x_;
     y = y_;
@@ -14,14 +14,13 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     speed = speed_;
 #endif
     status = ALIVE;
-    weapon = new Weapon(x, y, dir, w, h, 0.0, 0.0);
+    weapon = NULL;
 }
 
 void Player::display(void) {
     if (status == ALIVE)
     {
         glColor3f(0.0, 0.0, 0.0);
-        weapon->display();
         glBegin(GL_LINE_LOOP);
         glVertex2f(x, y);
         glVertex2f(x, y + h);
@@ -29,13 +28,14 @@ void Player::display(void) {
         glVertex2f(x + w, y);
         glEnd();
     }
-    
+    glColor3f(0.0, 0.0, 0.0);
+    if (weapon != NULL) weapon->display();
 }
 
 void Player::move(void) {
     int i = 0;
     
-    weapon->move();
+    
     for (i = 0; i < KEYBOARD_BUFFER_SIZE; i++)
     {
         if (keyboardBuffer[i])
@@ -66,6 +66,14 @@ void Player::move(void) {
                 dir = UP;
             }
             
+            if (i == 'k')
+            {
+                
+                if (weapon == NULL){
+                    printf ("Shoot!\n");
+                    weapon = new Weapon(x, y, dir, w / 5, h / 5, speed * 2, speed * 50);
+                }
+            }
             
         }
         
@@ -74,8 +82,9 @@ void Player::move(void) {
             if (i == GLUT_KEY_LEFT)
             {
                 dir = LEFT;
+                x -= speed;
+
             }
-            x -= speed;
             
             if (i == GLUT_KEY_UP)
             {
@@ -96,6 +105,15 @@ void Player::move(void) {
             }
         }
     }
+    
+    if(weapon != NULL) {
+        weapon->move();
+        if (weapon->getStatus() == KILLED)
+        {
+            weapon->~Weapon();
+            weapon = NULL;
+        }
+    }
 }
 
 float Player::getX() {
@@ -107,17 +125,8 @@ float Player::getY() {
 }
 
 void Player::bang(void) {
-    int i = 0;
-    for (i = 0; i < KEYBOARD_BUFFER_SIZE; i++)
-    {
-        if (keyboardBuffer[i])
-        {
-            if (i == 'k')
-            {
-                weapon = new Weapon(x, y, dir, w / 5, h / 5, speed * 2, speed * 50);
-            }
-        }
-    }
+
+
 }
 
 float Player::getXcord ()

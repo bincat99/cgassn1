@@ -11,7 +11,7 @@
 #include "map.h"
 #include "object.h"
 
-class Wall : public Object
+class Wall : virtual public Object
 {
     
     

@@ -8,8 +8,8 @@
 
 #ifndef enemy_h
 #define enemy_h
-
-class Enemy
+#include "object.h"
+class Enemy : virtual public Object
 {
     unsigned int HP;
     int x;

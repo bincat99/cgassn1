@@ -11,10 +11,11 @@
 
 class Object {
     
+
     
-    
-    virtual void Test () = 0;
-    virtual void drawThing () = 0;
+public:
+    virtual void move () = 0;
+    virtual void display () = 0;
 };
 
 #endif /* object_h */
