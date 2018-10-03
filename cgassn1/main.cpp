@@ -15,8 +15,11 @@
 #include <OpenGL/glext.h>
 #include <GLUT/GLUT.h>
 #else
-#include <GL/gl.h>
+#include <windows.h>
+#include <GL/GL.h>
+#include <GL/GLU.h>
 #include <GL/glut.h>
+#include <GL/freeglut.h>
 #endif
 
 #include "game.h"
@@ -37,7 +40,6 @@ init (void)
 {
     glClearColor (1.0, 1.0, 1.0, 0.0);
     glShadeModel (GL_FLAT);
-    rectangle.x = 0.1; rectangle.y = 0.1; rectangle.width = 0.1; rectangle.height = 0.10;
     
     game->init ();
 }
@@ -47,12 +49,7 @@ display (void)
 {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0.0, 0.0, 0.0);
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(rectangle.x, rectangle.y);
-    glVertex2f(rectangle.x, rectangle.y + rectangle.width);
-    glVertex2f(rectangle.x + rectangle.height, rectangle.y + rectangle.width);
-    glVertex2f(rectangle.x + rectangle.height, rectangle.y);
-    glEnd();
+	game->display();
     glutSwapBuffers();
     
 }
@@ -69,73 +66,7 @@ reshape(int w, int h)
 void
 moveObjects()
 {
-    //rectangle.x += 0.001; rectangle.y += 0.001;
-    int i = 0;
-    for (i = 0; i < KEYBOARD_BUFFER_SIZE; i++)
-    {
-        if (keyboardBuffer[i])
-        {
-            if (i == 'a')
-                rectangle.x -= 0.005;
-            
-            if (i == 's')
-                rectangle.y -= 0.005;
-            
-            
-            if (i == 'd')
-                rectangle.x += 0.005;
-            
-            
-            if (i == 'w')
-                rectangle.y += 0.005;
-            
-            
-        }
-        
-        if (specialKeyBuffer[i])
-        {
-            if (i == GLUT_KEY_LEFT)
-                rectangle.x -= 0.005;
-            
-            if (i == GLUT_KEY_UP)
-                rectangle.y += 0.005;
-            
-            
-            if (i == GLUT_KEY_RIGHT)
-                rectangle.x += 0.005;
-            
-            if (i == GLUT_KEY_DOWN)
-                rectangle.y -= 0.005;
-            
-        }
-    }
-    glutPostRedisplay();
-}
-
-
-void
-myKeyboardFuncMain (unsigned char key, int x, int y)
-{
-    switch (key)
-    {
-        case 'a':
-            rectangle.x -= 0.005;
-            break;
-            
-        case 's':
-            rectangle.y -= 0.005;
-            break;
-            
-        case 'd':
-            rectangle.x += 0.005;
-            break;
-            
-        case 'w':
-            rectangle.y += 0.005;
-            break;
-            
-            
-    }
+	game->moveObjects();
     glutPostRedisplay();
 }
 
@@ -153,7 +84,9 @@ main (int argc, char * argv[])
     glutCreateWindow("Hello OpenGL");
     //    glutDisplayFunc(renderScene);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-    
+
+
+	game = new Game();
 
     
     init ();
@@ -165,10 +98,6 @@ main (int argc, char * argv[])
     glutSpecialFunc(mySpecialFunc);
     glutSpecialUpFunc(mySpecialUpFunc);
     glutMainLoop();
-    
-    game = new Game();
-
-    game->init();
 
 }
 

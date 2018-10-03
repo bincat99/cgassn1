@@ -14,8 +14,11 @@
 #include <OpenGL/glext.h>
 #include <GLUT/GLUT.h>
 #else
-#include <GL/gl.h>
+#include <windows.h>
+#include <GL/GL.h>
+#include <GL/GLU.h>
 #include <GL/glut.h>
+#include <GL/freeglut.h>
 #endif
 
 bool

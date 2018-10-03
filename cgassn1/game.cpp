@@ -9,6 +9,7 @@
 
 
 
+
 #include "game.h"
 #include "util.h"
 #include <stdio.h>
@@ -19,12 +20,12 @@ void renderScene(void) {
     glFlush();
 }
 
+
 Game::Game()
 {
     map = new Map();
 
- /*   player = new Player();
-    enemy = new Enemy ();*/
+
 }
 
 
@@ -33,8 +34,14 @@ Game* myGame = new Game();
 void
 Game::init (void)
 {
-
-    
+	player = new Player(0.1,0.2,UP, 0.1,0.2,0.0005);
 }
 
 
+void Game::display(void) {
+	player->display();
+}
+
+void Game::moveObjects(void) {
+	player->move();
+}
