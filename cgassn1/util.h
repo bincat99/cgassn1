@@ -17,6 +17,8 @@
 
  enum Direction { UP, DOWN, LEFT, RIGHT };
 
+ enum Status {ALIVE, KILLED};
+
 class Position {
 private:
 	float x_, y_;

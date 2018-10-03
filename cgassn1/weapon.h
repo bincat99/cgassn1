@@ -19,13 +19,29 @@ private :
 	Size size;
 	float speed;  // pos~speed 는 object로부터 상속.
 	float range;
+	Status Status;
 
 public :
-	Weapon(Position pos, Direction dir, Size size, float speed, float range);
+	Weapon(Position pos, Direction dir, Size size, float speed, float range, Status status);
 	~Weapon();
 
 	void move(void); // 상속
 	void display(void); // 상속
+
+// GET/SET method
+	Position getPos();
+	Direction getDir();
+	Size getSize();
+	float getSpeed();
+	float getRange();
+	Status getStatus();
+
+	void setPos(Position);
+	void setDir(Direction);
+	void setSize(Size);
+	void setSpeed(float);
+	void setRange(float);
+	void setStatus(Status);
     
 };
 

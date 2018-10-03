@@ -9,12 +9,13 @@
 #include "weapon.h"
 
 
-Weapon::Weapon(Position pos_, Direction dir_, Size size_, float speed_, float range_) {
-	pos = pos_;
+Weapon::Weapon(Position pos_, Direction dir_, Size size_, float speed_, float range_, Status status_) {
+	pos.set(pos_.x(), pos.y());
 	dir = dir_;
-	size = size_;
+	size.set(size_.w(), size_.h());
 	speed = speed_;
 	range = range_;
+	status = status_;
 }
 
 void Weapon::move(void) {
@@ -47,6 +48,12 @@ void Weapon::move(void) {
 }
 
 void Weapon::display(void) {
+	if(Status == ALIVE) {
+		// DISPLAY
+	}
+	else {
+		// DO NOT THING
+	}
 
 }
 
@@ -64,6 +71,10 @@ float Weapon::getSpeed() {
 }
 float Weapon::getRange() {
 	return range;
+}
+
+Status Weapon::getStatus() {
+	return status;
 }
 
 void Weapon::setPos(Position pos_) {
@@ -84,6 +95,10 @@ void Weapon::setSpeed(float speed_) {
 
 void Weapon::setRange(float range_) {
 	range = range_;
+}
+
+void Weapon::killed() {
+	status = KILLED;
 }
 
 Weapon::~Weapon() {

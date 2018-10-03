@@ -13,13 +13,35 @@ class Enemy
 {
 private:
 	Position pos;
-	Direction dir;
+	Direction dir; 
 	Size size;
 	float speed;  // pos~speed 는 object로부터 상속.
+	Status status;
+
+	bool isWall[4];
 
 public:
+	Enemy(Position, Direction, Size, float, Status)
 	void move(void);
-    
+	void display(void);
+
+
+	// GET/SET method
+	Position getPos();
+	Direction getDir();
+	Size getSize();
+	float getSpeed();
+	Status getStatus();
+
+	void setPos(Position);
+	void setDir(Direction);
+	void setSize(Size);
+	void setSpeed(float);
+
+	void checkWall(bool*);
+	void killed();
+
+	~Enemy();
 };
 
 #endif /* enemy_h */

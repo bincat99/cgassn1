@@ -9,34 +9,43 @@
 #include "player.h"
 
 Player::Player(Position pos_, Direction dir_, Size size_, float speed_, Weapon* weapon_) {
-	pos = pos_;
+	pos.set(pos_.x(), pos.y());
 	dir = dir_;
-	size = size_;
+	size.set(size_.w(), size_.h());
 	speed = speed_;
 	weapon = weapon_;
+	isWall = {false, false, false, false};
 }
 
 void Player::move(unsigned char key) {
 	switch (key)
 	{
 	case 'a':
-		pos.set(pos.x()-speed, pos.y());
-		dir = LEFT;
+		if(!isWall[2]){
+			pos.set(pos.x()-speed, pos.y());
+			dir = LEFT;
+		}
 		break;
 
 	case 's':
-		pos.set(pos.x(), pos.y() - speed);
-		dir = DOWN;
+		if(!isWall[1]) {
+			pos.set(pos.x(), pos.y() - speed);
+			dir = DOWN;
+		}
 		break;
 
 	case 'd':
-		pos.set(pos.x() + speed, pos.y());
-		dir = RIGHT;
+		if(!isWall[3]) {
+			pos.set(pos.x() + speed, pos.y());
+			dir = RIGHT;
+		}
 		break;
 
 	case 'w':
-		pos.set(pos.x(), pos.y() + speed);
-		dir = UP;
+		if(!isWall[0]) {
+			pos.set(pos.x(), pos.y() + speed);
+			dir = UP;
+		}
 		break;
 	}
 	glutPostRedisplay();
@@ -53,11 +62,17 @@ void Player::shoot() {
 
 void Player::useItem(unsigned char key) {
 	if (key == 'i') {
-
+		// use item
 	}
 }
 
 void Player::display() {
+	if(Status == ALIVE) {
+		// DISPLAY
+	}
+	else {
+		// DO NOT THING
+	}
 
 }
 
@@ -80,8 +95,12 @@ float Player::getSpeed() {
 }
 
 
-Weapon Player::getWeapon() {
+Weapon* Player::getWeapon() {
 	return weapon;
+}
+
+Status Player::getStatus() {
+	return Status;
 }
 
 void Player::setPos(Position pos_) {
@@ -100,8 +119,19 @@ void Player::setSpeed(float speed_) {
 	speed = speed_;
 }
 
-void Player::setWeapon(Weapon weapon_) {
+void Player::setWeapon(Weapon* weapon_) {
 	weapon = weapon_;
+}
+
+void Player::checkWall(bool dirWall[4]) {
+	isWall[0] = dirWall[0];
+	isWall[1] = dirWall[1];
+	isWall[2] = dirWall[2];
+	isWall[3] = dirWall[3];
+}
+
+void Player::killed() {
+	Status = KILLED;
 }
 
 Player::~Player() {

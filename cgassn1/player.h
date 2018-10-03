@@ -17,7 +17,10 @@ private :
 	Direction dir; 
 	Size size;
 	float speed;  // pos~speed 는 object로부터 상속.
-	Weapon weapon;
+	Weapon* weapon;
+	Status status;
+
+	bool isWall[4]; // UP DOWN LEFT RIGHT
 
 	// Shape
 	// Item list
@@ -25,12 +28,12 @@ private :
 
 public :
 	Player();
-	Player(Position pos, Direction dir, Size size, float speed, Weapon weapon);
+	Player(Position pos, Direction dir, Size size, float speed, Weapon* weapon, Status status);
 
 	void move(unsigned char);
 	void shoot(void);
 
-	void addItem(Item);
+	void addItem(Item*);
 	bool useItem(unsigned char);
 	void display(void);
 
@@ -39,13 +42,17 @@ public :
 	Direction getDir();
 	Size getSize();
 	float getSpeed();
-	Weapon getWeapon();
+	Weapon* getWeapon();
+	Status getStatus();
 
 	void setPos(Position);
 	void setDir(Direction);
 	void setSize(Size);
 	void setSpeed(float);
-	void setWeapon(Weapon);
+	void setWeapon(Weapon*);
+
+	void checkWall(bool*);
+	void killed();
 
 	~Player();
 };
