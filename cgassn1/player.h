@@ -27,6 +27,8 @@ private:
 	enum Status status;
     position pos;
 
+	bool isWall[4] = {false, false, false, false,};
+
 public :
 	Player(float, float, enum Direction, float, float, float);
 	void display(void);
@@ -43,6 +45,8 @@ public :
     
     position getPos (void);
 
+	void killed(void);
+	void checkWall(bool isWall_[4]);
 };
 
 #endif /* player_h */

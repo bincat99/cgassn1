@@ -11,17 +11,28 @@
 #include "object.h"
 #include "util.h"
 
+
 class Enemy : virtual public GameObject
 {
-    unsigned int HP;
-    int x;
-    int y;
-    
-    position pos;
+    float x;
+    float y;
+	enum Direction dir;
+	float w, h;
+	float speed;
+	enum Status status;
+
+	bool isWall[4] = {false, false, false, false,};
+
+
 public:
-    Enemy ();
+    Enemy (float, float, enum Direction, float, float, float);
     void display ();
     position getPos ();
+	void move(float x, float y);
+
+	void checkWall(bool isWall_[4]);
+	void killed();
+	~Enemy();
 };
 
 #endif /* enemy_h */

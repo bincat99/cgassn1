@@ -24,12 +24,17 @@ private :
 	float range;
 	enum Status status;
 
+	bool isWall[4] = { false, false, false, false, };
 public:
 	Weapon(float, float, enum Direction, float, float, float, float );
 	void display(void);
 	void move(void);
 	~Weapon();
+	
+	void killed();
     
+	void checkWall(bool isWall_[4]);
+
     enum Status getStatus (void);
     
     position getPos();
