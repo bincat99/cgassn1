@@ -8,12 +8,18 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 	dir = dir_;
 	w = w_;
 	h = h_;
+#ifdef __APPLE__
+    speed = speed_ * 10;
+#else
 	speed = speed_;
+#endif
 	//weapon = weapon_;
 
 }
 
 void Player::display(void) {
+  
+    glColor3f(1.0, 1.0, 0.0);
 	glBegin(GL_LINE_LOOP);
 	glVertex2f(x, y);
 	glVertex2f(x, y + h);

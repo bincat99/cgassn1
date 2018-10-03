@@ -47,8 +47,7 @@ init (void)
 void
 display (void)
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0, 0.0, 0.0);
+
 	game->display();
     glutSwapBuffers();
     

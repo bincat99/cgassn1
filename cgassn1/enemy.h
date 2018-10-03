@@ -16,7 +16,7 @@ class Enemy
     int y;
 public:
     Enemy ();
-    void drawEnemy ();
+    void display ();
 
 };
 

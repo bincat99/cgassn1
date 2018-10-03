@@ -23,7 +23,7 @@ void renderScene(void) {
 
 Game::Game()
 {
-    map = new Map();
+  
 
 
 }
@@ -34,12 +34,15 @@ Game* myGame = new Game();
 void
 Game::init (void)
 {
+    map = new Map(1, 1, 5);
 	player = new Player(0.1,0.2,UP, 0.1,0.2,0.0005);
 }
 
 
 void Game::display(void) {
-	player->display();
+    glClear(GL_COLOR_BUFFER_BIT);
+    map->display();
+    player->display();
 }
 
 void Game::moveObjects(void) {
