@@ -10,10 +10,14 @@
 #define emptySpace_h
 
 #include "object.h"
+#include "util.h"
 
-class emptySpace : virtual public Object
+class EmptySpace : virtual public GameObject
 {
-    
+    position pos;
+public:
+    position getPos();
+    void display ();
 };
 
 #endif /* emptySpace_h */

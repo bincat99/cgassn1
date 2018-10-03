@@ -15,17 +15,16 @@
 #include <OpenGL/glext.h>
 #include <GLUT/GLUT.h>
 #else
-
 #include <windows.h>
 #include <GL/GL.h>
 #include <GL/GLU.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #endif
-
+#include <stdio.h>
 
 #define KEYBOARD_BUFFER_SIZE 256
-
+#define GLOBAL_GRID_LENGTH 50
 
 enum Direction { LEFT, UP, RIGHT, DOWN };
 enum Status { ALIVE, KILLED };
@@ -41,7 +40,7 @@ typedef struct
 {
     float x;
     float y;
-}pos;
+}position;
 
 
 void

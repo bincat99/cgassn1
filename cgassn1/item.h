@@ -10,10 +10,13 @@
 #define item_h
 
 #include "object.h"
-
-class Item : virtual public Object
+#include "util.h"
+class Item : virtual public GameObject
 {
-    
+    position pos;
+public:
+    position getPos();
+    void display ();
 };
 
 

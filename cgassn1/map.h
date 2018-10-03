@@ -10,16 +10,24 @@
 #define map_h
 
 #include "util.h"
+#include "object.h"
+#include "wall.h"
+#include <list>
+
+
 
 class Map{
     float width;
     float height;
     float gridLength;
 
+    std::list<GameObject*> listObject;
+    std::list<Wall*> listWall;
     //public Map () = 0;
+   
 public:
     Map ();
-    Map (float, float , float );
+    Map (float, float , float);
     void mapInit ();
     void display ();
 };

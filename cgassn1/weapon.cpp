@@ -58,3 +58,8 @@ enum Status Weapon::getStatus ()
 
 Weapon::~Weapon() {
 }
+
+position Weapon::getPos()
+{
+    return pos;
+}

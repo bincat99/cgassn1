@@ -9,12 +9,15 @@
 #ifndef object_h
 #define object_h
 
-class Object {
+#include "util.h"
+
+class GameObject {
     
 
     
 public:
-    virtual void move () = 0;
+    virtual position getPos () = 0;
+    //virtual void move () = 0;
     virtual void display () = 0;
 };
 

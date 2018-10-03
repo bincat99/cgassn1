@@ -5,6 +5,8 @@
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_) {
     x = x_;
     y = y_;
+    pos.x = x_;
+    pos.y = y_;
     dir = dir_;
     w = w_;
     h = h_;
@@ -15,6 +17,7 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 #endif
     status = ALIVE;
     weapon = NULL;
+
 }
 
 void Player::display(void) {
@@ -70,8 +73,8 @@ void Player::move(void) {
             {
                 
                 if (weapon == NULL){
-                    printf ("Shoot!\n");
-                    weapon = new Weapon(x, y, dir, w / 5, h / 5, speed * 2, speed * 50);
+                   // printf ("Shoot!\n");
+                    weapon = new Weapon(x, y, dir, w / 5, h / 5, speed * 2, speed * 500);
                 }
             }
             
@@ -139,6 +142,10 @@ float Player::getYcord ()
     return y;
 }
 
+position Player::getPos ()
+{
+    return pos;
+}
 
 Player::~Player()
 {

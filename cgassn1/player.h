@@ -16,7 +16,7 @@
 
 
 
-class Player : virtual public Object{
+class Player : virtual public GameObject{
 
 private:
 	float x, y;
@@ -25,6 +25,7 @@ private:
 	float speed;
 	Weapon* weapon;
 	enum Status status;
+    position pos;
 
 public :
 	Player(float, float, enum Direction, float, float, float);
@@ -39,6 +40,8 @@ public :
 	
     float getXcord ();
     float getYcord ();
+    
+    position getPos (void);
 
 };
 

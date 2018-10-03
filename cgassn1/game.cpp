@@ -32,8 +32,10 @@ Game::Game()
 void
 Game::init (void)
 {
-    map = new Map(5, 5, 5);
-	player = new Player(0.1,0.2,UP, 0.1,0.1,0.0005);
+    map = new Map(800, 800, 50);
+	player = new Player(50,50,UP, 50,50,1);
+    
+    map->mapInit();
 }
 
 Player* Game::getPlayer(void) {
@@ -45,7 +47,7 @@ void Game::display(void) {
 
     glClear(GL_COLOR_BUFFER_BIT);
        glLoadIdentity();
-    glTranslated(0.5-player->getXcord(), 0.5-player->getYcord(), 0);
+    glTranslated(400-player->getXcord(), 400-player->getYcord(), 0);
     //gluLookAt(50.0, 50.0f, 10.0, player->getXcord(), player->getYcord(), .0, 0.0, .0, 1.0);
 
     map->display();

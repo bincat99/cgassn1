@@ -14,3 +14,15 @@ Enemy::Enemy ()
     this->x = 500;
     this->y = 500;
 }
+
+
+
+position Enemy::getPos()
+{
+    return pos;
+}
+
+void Enemy::display()
+{
+    
+}

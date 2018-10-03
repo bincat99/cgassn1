@@ -8,23 +8,59 @@
 
 #include "map.h"
 #include <stdio.h>
+#include "util.h"
 
 Map::Map()
 {
 
 }
 
+
+/*
+ create map  (-w, -h) to (w, h)
+ */
 Map::Map (float w, float h, float g)
 {
     width = w;
     height = h;
     gridLength = g;
+
 }
 
 
 void Map::mapInit()
 {
-
+    float x, y;
+    
+    
+    for (x = - width; x < width; x += gridLength)
+    {
+        listWall.push_back (new Wall (x, -height));
+        listWall.push_back (new Wall (x, height));
+    }
+    for (y = - height; y < height; y += gridLength)
+    {
+        listWall.push_back (new Wall (-width, y));
+        listWall.push_back (new Wall (width, y));
+    }
+    listWall.push_back (new Wall (width, height));
+//
+//    {
+//
+//
+//        glBegin (GL_QUAD_STRIP);
+//        //glVertex3f(x, y, .0);
+//
+//        for (x = -width ; x < width; x += gridLength)
+//        {
+//            glColor3f(0 , 0, 1.0);
+//            glVertex2f(x, y);
+//            glVertex2f(x, y + gridLength);
+//        }
+//        glVertex2f(width, y);
+//        glVertex2f(width, y+ gridLength);
+//        glEnd();
+//    }
 }
 
 void Map::display()
@@ -34,22 +70,26 @@ void Map::display()
   
     
 
-    for (y = - height; y < height; y += gridLength/100)
+    for (y = - height; y < height; y += gridLength)
     {
 
   
         glBegin (GL_QUAD_STRIP);
         //glVertex3f(x, y, .0);
         
-        for (x = -width ; x < width; x += gridLength/100)
+        for (x = -width ; x < width; x += gridLength)
         {
-            glColor3f(x+y , +x-y, 1.0);
+            glColor3f(0 , 0, 1.0);
             glVertex2f(x, y);
-            glVertex2f(x, y + gridLength/100);
+            glVertex2f(x, y + gridLength);
         }
         glVertex2f(width, y);
         glVertex2f(width, y+ gridLength);
         glEnd();
     }
+    
+    
+    for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+        (*it)->display();
     
 }

@@ -9,15 +9,19 @@
 #ifndef enemy_h
 #define enemy_h
 #include "object.h"
-class Enemy : virtual public Object
+#include "util.h"
+
+class Enemy : virtual public GameObject
 {
     unsigned int HP;
     int x;
     int y;
+    
+    position pos;
 public:
     Enemy ();
     void display ();
-
+    position getPos ();
 };
 
 #endif /* enemy_h */

@@ -13,10 +13,11 @@
 #include "util.h"
 #include "object.h"
 
-class Weapon : virtual public Object
+class Weapon : virtual public GameObject
 {
 private :
 	float x, y;
+    position pos;
 	enum Direction dir;
 	float w, h;
 	float speed;
@@ -30,6 +31,8 @@ public:
 	~Weapon();
     
     enum Status getStatus (void);
+    
+    position getPos();
 };
 
 #endif /* weapon_h */

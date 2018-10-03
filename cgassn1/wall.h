@@ -8,13 +8,24 @@
 
 #ifndef wall_h
 #define wall_h
-#include "map.h"
+
 #include "object.h"
 
-class Wall : virtual public Object
+class Wall : virtual public GameObject
 {
+    position pos;
+    float width;
+    float height;
     
     
+    
+public:
+    Wall (float x, float y);
+    position getPos();
+    void display ();
 };
+
+
+
 
 #endif /* wall_h */
