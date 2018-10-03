@@ -37,8 +37,13 @@ Game::init (void)
 	player = new Player(0.1,0.2,UP, 0.1,0.2,0.0005);
 }
 
+Player* Game::getPlayer(void) {
+	return player;
+}
+
 
 void Game::display(void) {
+	glClear(GL_COLOR_BUFFER_BIT);
 	player->display();
 }
 

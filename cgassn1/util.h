@@ -26,6 +26,10 @@
 
 #define KEYBOARD_BUFFER_SIZE 256
 
+
+enum Direction { LEFT, UP, RIGHT, DOWN };
+enum Status { ALIVE, KILLED };
+
 extern bool
 keyboardBuffer [KEYBOARD_BUFFER_SIZE];
 

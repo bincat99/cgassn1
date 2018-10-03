@@ -32,6 +32,8 @@ public:
 	void display(void);
 	void reshape(int w, int h);
 	void moveObjects();
+
+	Player* getPlayer();
     //private:
  /*   Game ()
     {
