@@ -6,19 +6,25 @@
 //  Copyright © 2018년 Dahun Lee. All rights reserved.
 //
 
-#include <iostream>
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <OpenGL/glext.h>
-#include <GLUT/GLUT.h>
-#else
-#endif
+//#include <iostream>
+//#ifdef __APPLE__
+//#include <OpenGL/gl.h>
+//#include <OpenGL/glu.h>
+//#include <OpenGL/glext.h>
+//#include <GLUT/GLUT.h>
+//#else
+//#endif
 
-//#include "map.h"
-//#include "enemy.h"
-//#include "player.h"
-//#include "weapon.h"
+#include <windows.h>
+#include <GL/GL.h>
+#include <GL/GLU.h>
+#include <GL/glut.h>
+#include <GL/freeglut.h>
+
+#include "map.h"
+#include "enemy.h"
+#include "player.h"
+#include "weapon.h"
 #include "game.h"
 
 
@@ -47,15 +53,13 @@ int
 main (int argc, char * argv[])
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(100, 100);
     glutInitWindowSize(1024, 768);
     glutCreateWindow("Hello OpenGL");
 //    glutDisplayFunc(renderScene);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-#ifndef __APPLE__
-    glewInit();
-#endif
+
     init ();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
@@ -73,7 +77,7 @@ void
 init (void)
 {
     glClearColor (0.0, 0.0, 0.0, 0.0); glShadeModel (GL_FLAT);
-    rectangle.x = 0.1; rectangle.y = 0.1; rectangle.width = 0.1; rectangle.height = 0.15;
+    rectangle.x = 0.3; rectangle.y = 0.5; rectangle.width = 0.1; rectangle.height = 0.15;
 }
 
 void
