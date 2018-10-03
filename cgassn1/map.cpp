@@ -12,3 +12,9 @@ Map::Map()
 {
     
 }
+
+
+void Map::mapInit()
+{
+ 
+}

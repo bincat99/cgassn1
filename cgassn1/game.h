@@ -25,7 +25,7 @@ private:
     
 public:
     Game ();
-    void init (int *, char **);
+    void init (void);
     void play ();
     //private:
  /*   Game ()
