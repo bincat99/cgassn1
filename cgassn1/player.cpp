@@ -1,16 +1,16 @@
-//
-//  player.cpp
-//  cgassn1
-//
-//  Created by Dahun Lee on 2018. 10. 1..
-//  Copyright © 2018년 Dahun Lee. All rights reserved.
-//
 
 #include "player.h"
 
-Player::Player ()
-{
-    this->HP = 1;
-    this->x = 200;
-    this->y = 700;
+Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_/*, Weapon* weapon_*/) {
+	x = x_;
+	y = y_;
+	dir = dir_;
+	w = w_;
+	h = h_;
+	speed = speed_;
+	//weapon = weapon_;
+
+}
+
+Player::~Player() {
 }

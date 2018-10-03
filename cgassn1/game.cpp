@@ -43,10 +43,10 @@ void
 myKeyboardFuncMain (unsigned char Key, int x, int y);
 
 Game::Game()
-{
+{/*
     map = new Map();
     player = new Player();
-    enemy = new Enemy ();
+    enemy = new Enemy ();*/
 }
 
 
