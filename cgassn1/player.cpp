@@ -175,6 +175,21 @@ void Player::checkWall(bool isWall_[4]) {
 
 }
 
+void Player::addItem(Item* item_) {
+	item_list.push_back(item_);
+}
+
+bool Player::useItem(void) {
+	if (item_list.front() != NULL) {
+		// Do something with Item.
+		item_list.pop_front();
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 Player::~Player()
 {
 }
