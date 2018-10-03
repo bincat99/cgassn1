@@ -21,7 +21,7 @@ private:
 	bool isWall[4];
 
 public:
-	Enemy(Position, Direction, Size, float, Status)
+	Enemy(Position, Direction, Size, float, Status);
 	void move(void);
 	void display(void);
 

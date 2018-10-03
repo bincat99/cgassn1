@@ -41,7 +41,8 @@ public :
 	void setSize(Size);
 	void setSpeed(float);
 	void setRange(float);
-	void setStatus(Status);
+
+	void killed();
     
 };
 
