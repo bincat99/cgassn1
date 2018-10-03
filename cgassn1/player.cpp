@@ -81,11 +81,7 @@ void Player::move(void) {
             {
                 
                 if (weapon == NULL){
-<<<<<<< HEAD
-                   // printf ("Shoot!\n");
-=======
-                    printf ("Shoot!\n");
->>>>>>> 24e4897ce03ad639611dfbb1b3c090fc6acd574d
+
                     weapon = new Weapon(x, y, dir, w / 5, h / 5, speed * 2, speed * 500);
                 }
             }

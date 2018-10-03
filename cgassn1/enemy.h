@@ -16,13 +16,14 @@ class Enemy : virtual public GameObject
 {
     float x;
     float y;
+    position pos;
 	enum Direction dir;
 	float w, h;
 	float speed;
 	enum Status status;
 
 	bool isWall[4] = {false, false, false, false,};
-
+    
 
 public:
     Enemy (float, float, enum Direction, float, float, float);

@@ -115,7 +115,3 @@ position Enemy::getPos()
     return pos;
 }
 
-void Enemy::display()
-{
-    
-}

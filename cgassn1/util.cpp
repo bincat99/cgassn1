@@ -8,6 +8,8 @@
 
 #include "util.h"
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
