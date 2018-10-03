@@ -47,7 +47,12 @@ init (void)
 void
 display (void)
 {
+<<<<<<< HEAD
 
+=======
+	glLoadIdentity();
+	glTranslatef(0.5 - game->getPlayer()->getX(), 0.5 - game->getPlayer()->getY(), 0);
+>>>>>>> bb8dd4bf3a59ec52099b03227648c0d218620200
 	game->display();
     glutSwapBuffers();
     
@@ -59,12 +64,15 @@ reshape(int w, int h)
     glViewport(0, 0, (GLsizei) w, (GLsizei) h);
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity ();
-
+<<<<<<< HEAD
     //gluOrtho2D(0, 1000, 0, 1000);
     gluOrtho2D(0, 1, 0, 1);
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity();
-
+=======
+    gluOrtho2D(0,1,0,1);
+    glMatrixMode (GL_MODELVIEW); glLoadIdentity();
+>>>>>>> bb8dd4bf3a59ec52099b03227648c0d218620200
 }
 void
 moveObjects()

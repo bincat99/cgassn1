@@ -29,6 +29,8 @@ Game::Game()
 }
 
 
+Game* myGame = new Game();
+
 void
 Game::init (void)
 {
@@ -42,7 +44,7 @@ Player* Game::getPlayer(void) {
 
 
 void Game::display(void) {
-
+<<<<<<< HEAD
     glClear(GL_COLOR_BUFFER_BIT);
        glLoadIdentity();
     glTranslated(0.5-player->getXcord(), 0.5-player->getYcord(), 0);
@@ -50,7 +52,10 @@ void Game::display(void) {
 
     map->display();
     player->display();
-
+=======
+	glClear(GL_COLOR_BUFFER_BIT);
+	player->display();
+>>>>>>> bb8dd4bf3a59ec52099b03227648c0d218620200
 }
    
 

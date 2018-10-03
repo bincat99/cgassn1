@@ -9,8 +9,10 @@
 #ifndef player_h
 #define player_h
 
-enum Direction { LEFT,UP,RIGHT,DOWN};
-enum Status { ALIVE, KILLED };
+
+#include "util.h"
+#include "weapon.h"
+
 
 
 class Player{
@@ -20,16 +22,22 @@ private:
 	enum Direction dir;
 	float w, h;
 	float speed;
-	//Weapon* Weapon;
+	Weapon* weapon;
 	enum Status status;
 
 public :
 	Player(float, float, enum Direction, float, float, float);
 	void display(void);
 	void move(void);
+	void bang(void);
+
+	float getX();
+	float getY();
 
 	~Player();
 	
+    float getXcord ();
+    float getYcord ();
 
 };
 

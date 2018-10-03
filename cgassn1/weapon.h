@@ -10,8 +10,23 @@
 #ifndef weapon_h
 #define weapon_h
 
+#include "util.h"
+
+
 class Weapon{
-    
+private :
+	float x, y;
+	enum Direction dir;
+	float w, h;
+	float speed;
+	float range;
+	enum Status status;
+
+public:
+	Weapon(float, float, enum Direction, float, float, float, float );
+	void display(void);
+	void move(void);
+	~Weapon();
     
 };
 
