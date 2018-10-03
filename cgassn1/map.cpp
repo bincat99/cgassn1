@@ -93,3 +93,20 @@ void Map::display()
         (*it)->display();
     
 }
+
+
+void Map::checkWall (Player * player){
+    unsigned int colBit = 0;
+    bool colSide[4] = {0,};
+    for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+    {
+        colBit |= CheckCollision(player->getPos(), (*it)->getPos());
+    }
+    if (colBit != 0) printf ("%d\n", colBit);
+    colSide[LEFT] = colBit & COL_LEFT;
+    colSide[UP] = colBit & COL_UP;
+    colSide[RIGHT] = colBit & COL_RIGHT;
+    colSide[DOWN] = colBit & COL_DOWN;
+    
+    player->checkWall (colSide);
+}

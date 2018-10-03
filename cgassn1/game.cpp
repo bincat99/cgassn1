@@ -57,5 +57,8 @@ void Game::display(void) {
    
 
 void Game::moveObjects(void) {
+    map->checkWall(player);
 	player->move();
+    player->cleanWall();
+    
 }

@@ -12,6 +12,7 @@
 #include "util.h"
 #include "object.h"
 #include "wall.h"
+#include "player.h"
 #include <list>
 
 
@@ -30,6 +31,7 @@ public:
     Map (float, float , float);
     void mapInit ();
     void display ();
+    void checkWall (Player *);
 };
 
 #endif /* map_h */

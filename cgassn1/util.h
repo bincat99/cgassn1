@@ -31,6 +31,12 @@
 #define KEYBOARD_BUFFER_SIZE 256
 #define GLOBAL_GRID_LENGTH 50
 
+
+#define COL_LEFT (1<<0)
+#define COL_UP (1<<1)
+#define COL_RIGHT (1<<2)
+#define COL_DOWN (1<<3)
+
 enum Direction { LEFT, UP, RIGHT, DOWN };
 enum Status { ALIVE, KILLED };
 
@@ -62,4 +68,9 @@ mySpecialFunc (int key, int x, int y);
 
 void
 mySpecialUpFunc (int key, int x, int y);
+
+unsigned int
+CheckCollision (position , position );
 #endif /* util_h */
+
+

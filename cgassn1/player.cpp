@@ -47,6 +47,7 @@ void Player::move(void) {
             {
 				if (!isWall[0]) {
 					x -= speed;
+                    pos.x -= speed;
 					dir = LEFT;
 				}
             }
@@ -55,6 +56,7 @@ void Player::move(void) {
             {
 				if (!isWall[3]) {
 					y -= speed;
+                        pos.y -= speed;
 					dir = DOWN;
 				}
             }
@@ -64,6 +66,7 @@ void Player::move(void) {
             {
 				if (!isWall[2]) {
 					x += speed;
+                        pos.x += speed;
 					dir = RIGHT;
 				}
             }
@@ -73,6 +76,7 @@ void Player::move(void) {
             {
 				if (!isWall[1]) {
 					y += speed;
+                        pos.y += speed;
 					dir = UP;
 				}
             }
@@ -168,11 +172,19 @@ void Player::killed(void) {
 }
 
 void Player::checkWall(bool isWall_[4]) {
-	isWall[0] = isWall_[0];
-	isWall[1] = isWall_[1];
-	isWall[2] = isWall_[2];
-	isWall[3] = isWall_[3];
+	isWall[LEFT] = isWall_[0];
+	isWall[UP] = isWall_[1];
+	isWall[RIGHT] = isWall_[2];
+	isWall[DOWN] = isWall_[3];
 
+}
+
+void Player::cleanWall ()
+{
+    isWall[LEFT] = false;
+    isWall[UP] = false;
+    isWall[RIGHT] = false;
+    isWall[DOWN] = false;
 }
 
 Player::~Player()
