@@ -18,7 +18,7 @@ void Player::display(void) {
 	glVertex2f(x, y);
 	glVertex2f(x, y + h);
 	glVertex2f(x + w, y +h);
-	glVertex2f(x + w);
+	glVertex2f(x + w, y);
 	glEnd();
 }
 
@@ -62,7 +62,6 @@ void Player::move(void) {
 
 		}
 	}
-	glutPostRedisplay();
 }
 
 Player::~Player() {
