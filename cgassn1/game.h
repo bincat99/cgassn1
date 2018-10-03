@@ -25,8 +25,9 @@ private:
     
 public:
     Game ();
-    void init (int *, char **);
-	void init_(void);
+
+    void init (void);
+
     void play ();
 	void display(void);
 	void reshape(int w, int h);

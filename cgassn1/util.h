@@ -15,12 +15,14 @@
 #include <OpenGL/glext.h>
 #include <GLUT/GLUT.h>
 #else
+
 #include <windows.h>
 #include <GL/GL.h>
 #include <GL/GLU.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #endif
+
 
 #define KEYBOARD_BUFFER_SIZE 256
 
