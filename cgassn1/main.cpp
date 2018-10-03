@@ -154,10 +154,7 @@ main (int argc, char * argv[])
     //    glutDisplayFunc(renderScene);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
     
-    
-#ifndef __APPLE__
-    glewInit();
-#endif
+
     
     init ();
     glutDisplayFunc(display);
