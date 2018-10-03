@@ -12,8 +12,12 @@
 class Map{
     
     
-    //public Map () = 0;
     
+    //public Map () = 0;
+public:
+    Map ();
+    void mapInit ();
+    void drawMap ();
 };
 
 #endif /* map_h */

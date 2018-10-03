@@ -1,12 +1,20 @@
-﻿//
+
+
 //  player.cpp
 //  cgassn1
 //
 //  Created by WonJong Jang on 2018. 10. 2..
+
+//
+//  player.cpp
+//  cgassn1
+//
+//  Created by Dahun Lee on 2018. 10. 1..
 //  Copyright © 2018년 Dahun Lee. All rights reserved.
 //
 
 #include "player.h"
+
 
 Player::Player(Position pos_, Direction dir_, Size size_, float speed_, Weapon* weapon_) {
 	pos.set(pos_.x(), pos.y());
@@ -136,3 +144,4 @@ void Player::killed() {
 
 Player::~Player() {
 }
+

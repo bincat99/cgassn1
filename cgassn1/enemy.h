@@ -11,6 +11,7 @@
 
 class Enemy
 {
+
 private:
 	Position pos;
 	Direction dir; 
@@ -42,6 +43,7 @@ public:
 	void killed();
 
 	~Enemy();
+
 };
 
 #endif /* enemy_h */

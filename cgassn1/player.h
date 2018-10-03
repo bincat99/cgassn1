@@ -55,6 +55,7 @@ public :
 	void killed();
 
 	~Player();
+
 };
 
 #endif /* player_h */
