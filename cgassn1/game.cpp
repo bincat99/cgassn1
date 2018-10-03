@@ -43,9 +43,10 @@ void
 myKeyboardFuncMain (unsigned char Key, int x, int y);
 
 Game::Game()
-{/*
+{
     map = new Map();
-    player = new Player();
+
+ /*   player = new Player();
     enemy = new Enemy ();*/
 }
 
@@ -56,12 +57,10 @@ Game::init (int * argc, char ** argv)
     utilInit ();
     
     glutInit (argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
-    glutInitWindowPosition(200, 150);
-    glutInitWindowSize(1024, 768);
-    glutCreateWindow("Hello OpenGL");
-    //    glutDisplayFunc(renderScene);
-    glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    
+
+    map->mapInit();
 #ifndef __APPLE__
     glewInit();
 #endif

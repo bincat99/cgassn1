@@ -8,7 +8,16 @@
 
 #ifndef util_h
 #define util_h
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <OpenGL/glext.h>
+#include <GLUT/GLUT.h>
+#else
+#include <GL/gl.h>
+#include <GL/glut.h>
 
+#endif
 #define KEYBOARD_BUFFER_SIZE 256
 
 extern bool

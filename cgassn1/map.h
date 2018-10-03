@@ -9,6 +9,8 @@
 #ifndef map_h
 #define map_h
 
+#include "util.h"
+
 class Map{
     
     
