@@ -1,12 +1,12 @@
 //
-//  myUtil.cpp
+//  util.cpp
 //  cgassn1
 //
 //  Created by Dahun Lee on 2018. 10. 1..
 //  Copyright © 2018년 Dahun Lee. All rights reserved.
 //
 
-#include "myUtil.h"
+#include "util.h"
 #include <stdio.h>
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
@@ -26,7 +26,7 @@ bool
 specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 
 void
-myUtilInit ()
+utilInit ()
 {
     int i;
     

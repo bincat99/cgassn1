@@ -18,7 +18,7 @@
 #endif
 
 #include "game.h"
-#include "myUtil.h"
+#include "util.h"
 #include <stdio.h>
 using namespace std;
 
@@ -53,7 +53,7 @@ Game::Game()
 void
 Game::init (int * argc, char ** argv)
 {
-    myUtilInit ();
+    utilInit ();
     
     glutInit (argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
