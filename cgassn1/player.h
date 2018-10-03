@@ -24,7 +24,10 @@ private:
 	enum Status status;
 
 public :
-	Player(float, float, enum Direction, float, float, float /*,Weapon**/);
+	Player(float, float, enum Direction, float, float, float);
+	void display(void);
+	void move(void);
+
 	~Player();
 	
 
