@@ -14,6 +14,7 @@ enum Status { ALIVE, KILLED };
 
 
 class Player{
+
 private:
 	float x, y;
 	enum Direction dir;
@@ -26,6 +27,7 @@ public :
 	Player(float, float, enum Direction, float, float, float /*,Weapon**/);
 	~Player();
 	
+
 };
 
 #endif /* player_h */

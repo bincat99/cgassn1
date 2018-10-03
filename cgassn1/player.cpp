@@ -1,3 +1,4 @@
+
 #include "player.h"
 
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_/*, Weapon* weapon_*/) {
