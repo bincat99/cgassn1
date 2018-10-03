@@ -9,15 +9,24 @@
 #ifndef enemy_h
 #define enemy_h
 #include "object.h"
+#include "util.h"
+
 class Enemy : virtual public Object
 {
-    unsigned int HP;
-    int x;
-    int y;
-public:
-    Enemy ();
-    void display ();
+    float x;
+    float y;
+	enum Direction dir;
+	float w, h;
+	float speed;
+	enum Status status;
 
+public:
+    Enemy (float, float, enum Direction, float, float, float);
+    void display ();
+	void move();
+
+	void killed();
+	~Enemy();
 };
 
 #endif /* enemy_h */

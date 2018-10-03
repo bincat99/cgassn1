@@ -56,5 +56,9 @@ enum Status Weapon::getStatus ()
     return status;
 }
 
+void Weapon::killed() {
+	status = KILLED;
+}
+
 Weapon::~Weapon() {
 }

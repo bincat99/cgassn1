@@ -28,6 +28,8 @@ public:
 	void display(void);
 	void move(void);
 	~Weapon();
+	
+	void killed();
     
     enum Status getStatus (void);
 };

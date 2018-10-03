@@ -31,6 +31,7 @@ specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 void
 utilInit ()
 {
+	srand(time(NULL));
     int i;
     
     for (i=0 ; i < KEYBOARD_BUFFER_SIZE ; i++)

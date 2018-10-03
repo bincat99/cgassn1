@@ -71,7 +71,7 @@ void Player::move(void) {
                 
                 if (weapon == NULL){
                     printf ("Shoot!\n");
-                    weapon = new Weapon(x, y, dir, w / 5, h / 5, speed * 2, speed * 50);
+                    weapon = new Weapon(x, y, dir, w / 5, h / 5, speed * 2, speed * 500);
                 }
             }
             
@@ -139,6 +139,9 @@ float Player::getYcord ()
     return y;
 }
 
+void Player::killed(void) {
+	status = KILLED;
+}
 
 Player::~Player()
 {

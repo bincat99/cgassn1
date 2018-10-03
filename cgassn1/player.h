@@ -40,6 +40,7 @@ public :
     float getXcord ();
     float getYcord ();
 
+	void killed(void);
 };
 
 #endif /* player_h */

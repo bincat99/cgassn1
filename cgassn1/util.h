@@ -24,6 +24,11 @@
 #endif
 
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+
 #define KEYBOARD_BUFFER_SIZE 256
 
 
