@@ -59,8 +59,10 @@ reshape(int w, int h)
     glViewport(0, 0, (GLsizei) w, (GLsizei) h);
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity ();
+    //gluOrtho2D(0, 1000, 0, 1000);
     gluOrtho2D(0, 1, 0, 1);
-    glMatrixMode (GL_MODELVIEW); glLoadIdentity();
+    glMatrixMode (GL_MODELVIEW);
+    glLoadIdentity();
 }
 void
 moveObjects()
@@ -79,7 +81,7 @@ main (int argc, char * argv[])
     glutInit (& argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(200, 150);
-    glutInitWindowSize(1024, 768);
+    glutInitWindowSize(800, 800);
     glutCreateWindow("Hello OpenGL");
     //    glutDisplayFunc(renderScene);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);

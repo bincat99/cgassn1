@@ -19,7 +19,7 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 
 void Player::display(void) {
   
-    glColor3f(1.0, 1.0, 0.0);
+    glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_LINE_LOOP);
 	glVertex2f(x, y);
 	glVertex2f(x, y + h);
@@ -69,6 +69,17 @@ void Player::move(void) {
 		}
 	}
 }
+
+float Player::getXcord ()
+{
+    return x;
+}
+
+float Player::getYcord ()
+{
+    return y;
+}
+
 
 Player::~Player() {
 }

@@ -34,16 +34,21 @@ Game* myGame = new Game();
 void
 Game::init (void)
 {
-    map = new Map(1, 1, 5);
-	player = new Player(0.1,0.2,UP, 0.1,0.2,0.0005);
+    map = new Map(20, 20, 5);
+	player = new Player(0.1,0.2,UP, 0.1,0.1,0.0005);
 }
 
 
 void Game::display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
+       glLoadIdentity();
+    glTranslated(0.5-player->getXcord(), 0.5-player->getYcord(), 0);
+    //gluLookAt(50.0, 50.0f, 10.0, player->getXcord(), player->getYcord(), .0, 0.0, .0, 1.0);
+
     map->display();
     player->display();
 }
+   
 
 void Game::moveObjects(void) {
 	player->move();

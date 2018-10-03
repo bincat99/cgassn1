@@ -30,6 +30,8 @@ public :
 
 	~Player();
 	
+    float getXcord ();
+    float getYcord ();
 
 };
 

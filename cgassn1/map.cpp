@@ -31,17 +31,19 @@ void Map::display()
 {
     float x, y;
 
-    glColor3f(.0, .0, .0);
+  
     
 
-    for (y = 0.0; y < height; y += gridLength/100)
+    for (y = - height; y < height; y += gridLength/100)
     {
 
   
         glBegin (GL_QUAD_STRIP);
         //glVertex3f(x, y, .0);
-        for (x = 0.0; x < width; x += gridLength/100)
+        
+        for (x = -width ; x < width; x += gridLength/100)
         {
+            glColor3f(x+y , +x-y, 1.0);
             glVertex2f(x, y);
             glVertex2f(x, y + gridLength/100);
         }
