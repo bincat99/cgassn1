@@ -82,6 +82,7 @@ void Weapon::checkWall(bool isWall_[4]) {
 	isWall[2] = isWall_[2];
 	isWall[3] = isWall_[3];
 }
+
 enum Status Weapon::getStatus ()
 {
     return status;
