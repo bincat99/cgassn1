@@ -23,6 +23,7 @@ private :
 	float range;
 	enum Status status;
 
+	bool isWall[4] = { false, false, false, false, };
 public:
 	Weapon(float, float, enum Direction, float, float, float, float );
 	void display(void);
@@ -31,6 +32,8 @@ public:
 	
 	void killed();
     
+	void checkWall(bool isWall_[4]);
+
     enum Status getStatus (void);
 };
 

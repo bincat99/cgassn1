@@ -20,11 +20,14 @@ class Enemy : virtual public Object
 	float speed;
 	enum Status status;
 
+	bool isWall[4] = {false, false, false, false,};
+
 public:
     Enemy (float, float, enum Direction, float, float, float);
     void display ();
-	void move();
+	void move(float x, float y);
 
+	void checkWall(bool isWall_[4]);
 	void killed();
 	~Enemy();
 };

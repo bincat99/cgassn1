@@ -42,28 +42,36 @@ void Player::move(void) {
         {
             if (i == 'a')
             {
-                x -= speed;
-                dir = LEFT;
+				if (!isWall[0]) {
+					x -= speed;
+					dir = LEFT;
+				}
             }
             
             if (i == 's')
             {
-                y -= speed;
-                dir = DOWN;
+				if (!isWall[3]) {
+					y -= speed;
+					dir = DOWN;
+				}
             }
             
             
             if (i == 'd')
             {
-                x += speed;
-                dir = RIGHT;
+				if (!isWall[2]) {
+					x += speed;
+					dir = RIGHT;
+				}
             }
             
             
             if (i == 'w')
             {
-                y += speed;
-                dir = UP;
+				if (!isWall[1]) {
+					y += speed;
+					dir = UP;
+				}
             }
             
             if (i == 'k')
@@ -81,27 +89,35 @@ void Player::move(void) {
         {
             if (i == GLUT_KEY_LEFT)
             {
-                dir = LEFT;
-                x -= speed;
+				if (!isWall[0]) {
+					dir = LEFT;
+					x -= speed;
+				}
 
             }
             
             if (i == GLUT_KEY_UP)
             {
-                y += speed;
-                dir = UP;
+				if (!isWall[1]) {
+					y += speed;
+					dir = UP;
+				}
             }
             
             if (i == GLUT_KEY_RIGHT)
             {
-                x += speed;
-                dir = RIGHT;
+				if (!isWall[2]) {
+					x += speed;
+					dir = RIGHT;
+				}
             }
             
             if (i == GLUT_KEY_DOWN)
             {
-                y -= speed;
-                dir = DOWN;
+				if (!isWall[3]) {
+					y -= speed;
+					dir = DOWN;
+				}
             }
         }
     }
@@ -141,6 +157,14 @@ float Player::getYcord ()
 
 void Player::killed(void) {
 	status = KILLED;
+}
+
+void Player::checkWall(bool isWall_[4]) {
+	isWall[0] = isWall_[0];
+	isWall[1] = isWall_[1];
+	isWall[2] = isWall_[2];
+	isWall[3] = isWall_[3];
+
 }
 
 Player::~Player()

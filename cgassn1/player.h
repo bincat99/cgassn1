@@ -26,6 +26,8 @@ private:
 	Weapon* weapon;
 	enum Status status;
 
+	bool isWall[4] = {false, false, false, false,};
+
 public :
 	Player(float, float, enum Direction, float, float, float);
 	void display(void);
@@ -41,6 +43,7 @@ public :
     float getYcord ();
 
 	void killed(void);
+	void checkWall(bool isWall_[4]);
 };
 
 #endif /* player_h */

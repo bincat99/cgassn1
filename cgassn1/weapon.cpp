@@ -28,20 +28,41 @@ void Weapon::move(void) {
 	if (status == ALIVE) {
 		if (range > 0) {
 			switch ((enum Direction) dir) {
-			case UP: y += speed;
-				range -= speed;
+			case UP:
+				if (!isWall[1]) {
+					y += speed;
+					range -= speed;
+				}
+				else {
+					status = KILLED;
+				}
 				break;
 			case DOWN:
-				y -= speed;
-				range -= speed;
+				if (!isWall[3]) {
+					y -= speed;
+					range -= speed;
+				}
+				else {
+					status = KILLED;
+				}
 				break;
 			case LEFT:
-				x -= speed;
-				range -= speed;
+				if (!isWall[0]) {
+					x -= speed;
+					range -= speed;
+				}
+				else {
+					status = KILLED;
+				}
 				break;
 			case RIGHT:
-				x += speed;
-				range -= speed;
+				if (!isWall[2]) {
+					x += speed;
+					range -= speed;
+				}
+				else {
+					status = KILLED;
+				}
 				break;
 			}
 		}
@@ -51,14 +72,21 @@ void Weapon::move(void) {
 	}
 }
 
+void Weapon::killed() {
+	status = KILLED;
+}
+
+void Weapon::checkWall(bool isWall_[4]) {
+	isWall[0] = isWall_[0];
+	isWall[1] = isWall_[1];
+	isWall[2] = isWall_[2];
+	isWall[3] = isWall_[3];
+}
 enum Status Weapon::getStatus ()
 {
     return status;
 }
 
-void Weapon::killed() {
-	status = KILLED;
-}
 
 Weapon::~Weapon() {
 }
