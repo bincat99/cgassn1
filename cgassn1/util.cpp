@@ -93,7 +93,7 @@ CheckCollision (position pos1, position pos2){
     if (CollisionX && CollisionY) ret |= COL_UP;
     
     // check down side
-    CollisionX = pos1.x + GLOBAL_GRID_LENGTH > pos2.x  && pos2.x + GLOBAL_GRID_LENGTH >aaa pos1.x;
+    CollisionX = pos1.x + GLOBAL_GRID_LENGTH > pos2.x  && pos2.x + GLOBAL_GRID_LENGTH > pos1.x;
     CollisionY = pos1.y  <= pos2.y + GLOBAL_GRID_LENGTH && pos2.y <= pos1.y;
     
     if (CollisionX && CollisionY) ret |= COL_DOWN;
