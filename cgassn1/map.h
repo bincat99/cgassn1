@@ -13,6 +13,7 @@
 #include "object.h"
 #include "wall.h"
 #include "player.h"
+#include "emptySpace.h"
 #include <list>
 
 
@@ -24,6 +25,7 @@ class Map{
 
     std::list<GameObject*> listObject;
     std::list<Wall*> listWall;
+    std::list<EmptySpace*> listEmpty;
     //public Map () = 0;
    
 public:
