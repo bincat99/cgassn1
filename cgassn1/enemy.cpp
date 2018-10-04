@@ -26,8 +26,8 @@ Enemy::Enemy (float x_, float y_, enum Direction dir_, float w_, float h_, float
 void Enemy::display()
 {
     if (status == ALIVE) {
-        glColor3f(0.0, 0.0, 0.0);
-        glBegin(GL_LINE_LOOP);
+        glColor3f(1.0, 0.0, 0.0);
+        glBegin(GL_POLYGON);
         glVertex2f(pos.x, pos.y);
         glVertex2f(pos.x, pos.y + h);
         glVertex2f(pos.x + w, pos.y + h);

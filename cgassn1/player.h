@@ -16,6 +16,7 @@
 #include "item.h"
 
 
+
 class Player : virtual public GameObject
 {
 
@@ -26,6 +27,11 @@ private:
 	Weapon* weapon;
 	enum Status status;
     position pos;
+    
+    clock_t lastbang;
+    clock_t bangDelay;
+    clock_t stimpackDuration;
+    
 
 	bool isWall[4] = {false, false, false, false,};
 	std::list<Item*> listItem;
@@ -48,6 +54,7 @@ public :
 
 	void addItem(Item*);
 	bool useItem(void);
+    void checkItemDuration ();
 
     std::list<Weapon*> getWeaponList ();
 

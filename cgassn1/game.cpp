@@ -70,5 +70,11 @@ void Game::moveObjects(void)
     map->checkEnemyKill(player->getWeaponList());
     player->checkWeapon();
     
+    // player and item
+    
+    map->checkItem (player);
+    
+    player->checkItemDuration();
+    
     // player kill check
 }

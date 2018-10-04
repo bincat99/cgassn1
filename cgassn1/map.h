@@ -31,6 +31,7 @@ class Map
     std::list<Wall*> listWall;
     std::list<EmptySpace*> listEmpty;
     std::list<Enemy*> listEnemy;
+    std::list<Item*> listItem;
     //public Map () = 0;
    
 public:
@@ -39,6 +40,7 @@ public:
     void mapInit ();
     void display ();
     void checkWall (Player *);
+    void checkItem (Player *);
     void checkWallEnemy ();
     void cleanWallEnemy ();
     void moveEnemy (position);

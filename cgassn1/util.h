@@ -40,6 +40,7 @@
 
 enum Direction { LEFT, UP, RIGHT, DOWN };
 enum Status { ALIVE, KILLED };
+enum ItemType { ONE, TWO, THREE};
 
 extern bool
 keyboardBuffer [KEYBOARD_BUFFER_SIZE];

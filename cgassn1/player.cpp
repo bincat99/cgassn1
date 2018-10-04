@@ -17,6 +17,9 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 #endif
     status = ALIVE;
     weapon = NULL;
+    bangDelay = 10000;
+    lastbang = 0;
+    stimpackDuration = 0;
     
 }
 
@@ -24,8 +27,8 @@ void Player::display(void)
 {
     if (status == ALIVE)
     {
-        glColor3f(0.0, 0.0, 0.0);
-        glBegin(GL_LINE_LOOP);
+        glColor3f(0.0, 1.0, 0.0);
+        glBegin(GL_POLYGON);
         glVertex2f(pos.x, pos.y);
         glVertex2f(pos.x, pos.y + h);
         glVertex2f(pos.x + w, pos.y + h);
@@ -89,7 +92,13 @@ void Player::move(void)
             
             if (i == 'k')
             {
-                bang();
+                if (clock() - lastbang > bangDelay)
+                    bang();
+            }
+            
+            if (i == 't')
+            {
+                useItem ();
             }
             
         }
@@ -150,6 +159,7 @@ void Player::move(void)
 void Player::bang(void)
 {
     listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/2, pos.y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150));
+    lastbang = clock ();
 }
 
 
@@ -186,12 +196,27 @@ Player::addItem(Item* item_)
     listItem.push_back(item_);
 }
 
+void
+Player::checkItemDuration ()
+{
+    if (stimpackDuration != 0)
+    {
+        if (clock() > stimpackDuration)
+        {
+            stimpackDuration = 0;
+            bangDelay = 10000;
+        }
+    }
+}
+
 bool
 Player::useItem(void)
 {
     if (listItem.front() != NULL)
     {
         // Do something with Item.
+        stimpackDuration = 100000 + clock();
+        bangDelay  = 5000;
         listItem.pop_front();
         return true;
     }

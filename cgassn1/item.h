@@ -11,13 +11,17 @@
 
 #include "object.h"
 #include "util.h"
+
 class Item : virtual public GameObject
 {
+    enum ItemType type;
     position pos;
+    float width;
+    float height;
 public:
     position getPos();
     void display ();
+    Item (float , float , enum ItemType);
 };
-
 
 #endif /* item_h */

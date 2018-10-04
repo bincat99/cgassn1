@@ -11,6 +11,7 @@
 #include "util.h"
 #include "weapon.h"
 
+
 Map::Map()
 {
     
@@ -55,11 +56,17 @@ void Map::mapInit()
         
     }
     
+    /* create enemies */
     for (int i = 0; i < 1; i++)
     {
         listEnemy.push_back(new Enemy(300, 300, (enum Direction)(rand () % 4), GLOBAL_GRID_LENGTH, GLOBAL_GRID_LENGTH, 1));
         listEnemy.push_back(new Enemy(350, 250, (enum Direction)(rand () % 4), GLOBAL_GRID_LENGTH, GLOBAL_GRID_LENGTH, 1));
     }
+    
+    /* create items */
+    listItem.push_back(new Item(-100, 300, ONE));
+    
+    
 }
 
 void Map::display()
@@ -75,6 +82,8 @@ void Map::display()
     for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
         (*it)->display();
     
+    for (std::list<Item*>::iterator it = listItem.begin(); it != listItem.end(); it++)
+        (*it)->display();
 }
 
 
@@ -93,6 +102,25 @@ void Map::checkWall (Player * player)
     colSide[DOWN] = colBit & COL_DOWN;
     
     player->checkWall (colSide);
+}
+
+void Map::checkItem(Player * player)
+{
+
+    std::list<Item*>::iterator it = listItem.begin();
+    
+    while (it != listItem.end ())
+    {
+        if (CheckCollision(player->getPos(), (*it)->getPos()) != 0)
+        {
+            Item *tmp = NULL;
+            tmp = *it;
+            listItem.erase(it);
+            it++;
+            player->addItem (tmp);
+        }
+        else it++;
+    }
 }
 
 void Map::checkWallEnemy ()
