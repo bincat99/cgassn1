@@ -27,6 +27,10 @@ private:
 	enum Status status;
     position pos;
 
+	int sprite = 0;
+
+	unsigned int textureID;
+
 	bool isWall[4] = {false, false, false, false,};
 	std::list<Item*> item_list;
 
@@ -39,7 +43,6 @@ public :
 	float getX();
 	float getY();
 
-	
     float getXcord ();
     float getYcord ();
     
@@ -54,6 +57,8 @@ public :
 	bool useItem(void);
 
 
+	void
+		LoadTexture(const char* filename);
 	~Player();
 
 };

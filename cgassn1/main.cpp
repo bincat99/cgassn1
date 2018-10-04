@@ -27,6 +27,7 @@
 
 using namespace std;
 
+
 typedef struct rect{ float x;
     float y; float width; float height;
 } rect;

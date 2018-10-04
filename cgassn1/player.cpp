@@ -1,7 +1,9 @@
 
 #include "player.h"
 #include "util.h"
+#include "BmpLoader.h"
 #include <stdio.h>
+
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_) {
     x = x_;
     y = y_;
@@ -13,7 +15,7 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 #ifdef __APPLE__
     speed = speed_ * 10;
 #else
-    speed = speed_;
+    speed = speed_ * 10;
 #endif
     status = ALIVE;
     weapon = NULL;
@@ -23,15 +25,130 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 void Player::display(void) {
     if (status == ALIVE)
     {
-        glColor3f(0.0, 0.0, 0.0);
-        glBegin(GL_LINE_LOOP);
-        glVertex2f(x, y);
-        glVertex2f(x, y + h);
-        glVertex2f(x + w, y + h);
-        glVertex2f(x + w, y);
-        glEnd();
+		glEnable(GL_TEXTURE_2D);
+		switch (dir) {
+		case DOWN :
+			sprite = (sprite + 1) % 3;
+			switch (sprite) {
+			case 0 :
+				LoadTexture("down0.bmp");
+				break;
+			case 1 :
+				LoadTexture("down1.bmp");
+				break;
+			case 2 :
+				LoadTexture("down2.bmp");
+				break;
+			}
+
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_QUADS);
+
+			glTexCoord2f(0.0, 0.0); // Need to check
+			glVertex2f(x, y);
+			glTexCoord2f(0.0, 1.0);
+			glVertex2f(x, y + h);
+
+			glTexCoord2f(1.0, 1.0);
+			glVertex2f(x + w, y + h);
+
+
+			glTexCoord2f(1.0, 0.0);
+			glVertex2f(x + w, y);
+			glEnd();
+			break;
+		case UP:
+			sprite = (sprite + 1) % 3;
+			switch (sprite) {
+			case 0:
+				LoadTexture("up0.bmp");
+				break;
+			case 1:
+				LoadTexture("up1.bmp");
+				break;
+			case 2:
+				LoadTexture("up2.bmp");
+				break;
+			}
+
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_QUADS);
+
+			glTexCoord2f(0.0, 0.0); // Need to check
+			glVertex2f(x, y);
+			glTexCoord2f(0.0, 1.0);
+			glVertex2f(x, y + h);
+
+			glTexCoord2f(1.0, 1.0);
+			glVertex2f(x + w, y + h);
+
+
+			glTexCoord2f(1.0, 0.0);
+			glVertex2f(x + w, y);
+			glEnd();
+			break;
+		case RIGHT :
+			sprite = (sprite + 1) % 3;
+			switch (sprite) {
+			case 0:
+				LoadTexture("right0.bmp");
+				break;
+			case 1:
+				LoadTexture("right1.bmp");
+				break;
+			case 2:
+				LoadTexture("right2.bmp");
+				break;
+			}
+
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_QUADS);
+
+			glTexCoord2f(0.0, 0.0); // Need to check
+			glVertex2f(x, y);
+			glTexCoord2f(0.0, 1.0);
+			glVertex2f(x, y + h);
+
+			glTexCoord2f(1.0, 1.0);
+			glVertex2f(x + w, y + h);
+
+
+			glTexCoord2f(1.0, 0.0);
+			glVertex2f(x + w, y);
+			glEnd();
+			break;
+		case LEFT :
+			sprite = (sprite + 1) % 3;
+			switch (sprite) {
+			case 0:
+				LoadTexture("left0.bmp");
+				break;
+			case 1:
+				LoadTexture("left1.bmp");
+				break;
+			case 2:
+				LoadTexture("left2.bmp");
+				break;
+			}
+
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_QUADS);
+
+			glTexCoord2f(0.0, 0.0); // Need to check
+			glVertex2f(x, y);
+			glTexCoord2f(0.0, 1.0);
+			glVertex2f(x, y + h);
+
+			glTexCoord2f(1.0, 1.0);
+			glVertex2f(x + w, y + h);
+
+
+			glTexCoord2f(1.0, 0.0);
+			glVertex2f(x + w, y);
+			glEnd();
+			break;
+		}
     }
-    glColor3f(0.0, 0.0, 0.0);
     if (weapon != NULL) weapon->display();
 }
 
@@ -202,6 +319,21 @@ bool Player::useItem(void) {
 		return false;
 	}
 }
+
+
+void Player::LoadTexture(const char* filename) {
+	BmpLoader bl(filename);
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, bl.iWidth, bl.iHeight, GL_RGB, GL_UNSIGNED_BYTE, bl.textureData);
+}
+
 
 Player::~Player()
 {

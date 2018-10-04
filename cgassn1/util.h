@@ -55,6 +55,7 @@ typedef struct
 }position;
 
 
+
 void
 utilInit ();
 
@@ -72,6 +73,8 @@ mySpecialUpFunc (int key, int x, int y);
 
 unsigned int
 CheckCollision (position , position );
+
+
 #endif /* util_h */
 
 
