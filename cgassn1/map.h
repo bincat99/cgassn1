@@ -43,6 +43,9 @@ public:
     void cleanWallEnemy ();
     void moveEnemy (position);
     
+    void checkWallWeapon (std::list<Weapon*>);
+  
+    
     void checkEnemyKill (std::list<Weapon*>);
 };
 

@@ -149,7 +149,7 @@ void Player::move(void)
 
 void Player::bang(void)
 {
-    listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/2, pos.y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 30));
+    listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/2, pos.y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150));
 }
 
 

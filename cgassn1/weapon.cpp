@@ -109,7 +109,7 @@ enum Status Weapon::getStatus ()
 
 Weapon::~Weapon()
 {
-    puts ("hi");
+    
 }
 
 position Weapon::getPos()

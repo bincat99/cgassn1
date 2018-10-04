@@ -128,16 +128,38 @@ void Map::moveEnemy (position playerPos)
         (*it)->move(playerPos.x, playerPos.y);
 }
 
-
+void Map::checkWallWeapon(std::list<Weapon*> l)
+{
+    if (l.empty())
+    {
+        return;
+    }
+    
+    for (std::list<Weapon*>::iterator it = l.begin(); it != l.end(); it++)
+    {
+        
+        for (std::list<Wall*>::iterator itWall = listWall.begin(); itWall != listWall.end(); itWall++)
+        {
+            unsigned int colBit = 0;
+            colBit = CheckCollisionWeapon((*it)->getPos(), (*itWall)->getPos());
+            
+            if (colBit != 0)
+            {
+                (*it)->killed();
+            }
+        }
+    }
+}
 void Map::checkEnemyKill (std::list<Weapon*> l)
 {
-    if (l.empty()) {
+    if (l.empty())
+    {
         return;
     }
     //puts ("test");
     for (std::list<Weapon*>::iterator it = l.begin(); it != l.end(); it++)
     {
-      
+        
         for (std::list<Enemy*>::iterator itEnemy = listEnemy.begin(); itEnemy != listEnemy.end(); itEnemy++)
         {
             unsigned int colBit = 0;
@@ -152,21 +174,21 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
     }
     
     /*
-    std::list<Weapon*>::iterator it = l.begin();
-    
-    while (it != l.end ())
-    {
-        if ((*it)->getStatus() == KILLED)
-        {
-            Weapon *tmp = NULL;
-            tmp = *it;
-            l.erase(it);
-            it++;
-            delete tmp;
-        }
-        
-        else it++;
-    }*/
+     std::list<Weapon*>::iterator it = l.begin();
+     
+     while (it != l.end ())
+     {
+     if ((*it)->getStatus() == KILLED)
+     {
+     Weapon *tmp = NULL;
+     tmp = *it;
+     l.erase(it);
+     it++;
+     delete tmp;
+     }
+     
+     else it++;
+     }*/
     
     std::list<Enemy*>::iterator itEnemy = listEnemy.begin();
     

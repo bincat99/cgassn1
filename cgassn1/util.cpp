@@ -103,6 +103,39 @@ CheckCollision (position pos1, position pos2)
     return ret;
 }
 
+unsigned int
+CheckCollisionWeapon (position pos1, position pos2)
+{
+    unsigned int ret = 0;
+    
+    
+    // check right side
+    bool CollisionX = pos1.x + GLOBAL_GRID_LENGTH/5 >= pos2.x && pos2.x >= pos1.x;
+    bool CollisionY = pos1.y + GLOBAL_GRID_LENGTH/5 > pos2.y && pos2.y + GLOBAL_GRID_LENGTH > pos1.y;
+    
+    if (CollisionX && CollisionY) ret |= COL_RIGHT;
+    
+    // check left side
+    CollisionX = pos1.x <= pos2.x + GLOBAL_GRID_LENGTH/5 && pos2.x <= pos1.x;
+    CollisionY = pos1.y + GLOBAL_GRID_LENGTH/5 > pos2.y && pos2.y + GLOBAL_GRID_LENGTH > pos1.y;
+    
+    if (CollisionX && CollisionY) ret |= COL_LEFT;
+    
+    // check up side
+    CollisionX = pos1.x + GLOBAL_GRID_LENGTH/5 > pos2.x  && pos2.x + GLOBAL_GRID_LENGTH > pos1.x;
+    CollisionY = pos1.y + GLOBAL_GRID_LENGTH/5 >= pos2.y && pos2.y >= pos1.y;
+    
+    if (CollisionX && CollisionY) ret |= COL_UP;
+    
+    // check down side
+    CollisionX = pos1.x + GLOBAL_GRID_LENGTH/5 > pos2.x  && pos2.x + GLOBAL_GRID_LENGTH > pos1.x;
+    CollisionY = pos1.y  <= pos2.y + GLOBAL_GRID_LENGTH && pos2.y <= pos1.y;
+    
+    if (CollisionX && CollisionY) ret |= COL_DOWN;
+    
+    return ret;
+}
+
 
 float
 calDistance (float x1, float y1, float x2, float y2)
