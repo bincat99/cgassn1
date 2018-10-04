@@ -13,7 +13,7 @@
 #include "util.h"
 #include "weapon.h"
 #include "object.h"
-
+#include "item.h"
 
 
 class Player : virtual public GameObject{
@@ -28,6 +28,7 @@ private:
     position pos;
 
 	bool isWall[4] = {false, false, false, false,};
+	std::list<Item*> item_list;
 
 public :
 	Player(float, float, enum Direction, float, float, float);
@@ -38,7 +39,6 @@ public :
 	float getX();
 	float getY();
 
-	~Player();
 	
     float getXcord ();
     float getYcord ();
@@ -47,7 +47,15 @@ public :
 
 	void killed(void);
 	void checkWall(bool isWall_[4]);
+
     void cleanWall ();
+
+	void addItem(Item*);
+	bool useItem(void);
+
+
+	~Player();
+
 };
 
 #endif /* player_h */
