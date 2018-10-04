@@ -5,8 +5,6 @@
 #include <list>
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_)
 {
-    x = x_;
-    y = y_;
     pos.x = x_;
     pos.y = y_;
     dir = dir_;
@@ -135,20 +133,25 @@ void Player::move(void)
     }
     
     
+    std::list<Weapon*>::iterator it = listWeapon.begin();
     
-    for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
+    while (it != listWeapon.end ())
     {
-        if((*it) != NULL)
+        (*it)->move();
+        if ((*it)->getStatus() == KILLED)
         {
-            (*it)->move();
-            if ((*it)->getStatus() == KILLED)
-            {
-                (*it)->~Weapon();
-                //weapon = NULL;
-                listWeapon.erase(it);
-            }
+            //weapon = NULL;
+            Weapon * tmp = NULL;
+            tmp =(*it);
+            listWeapon.erase(it);
+            
+            delete tmp;
+            //tmp = NULL;
         }
+        
+        else it++;
     }
+
 }
 
 
@@ -186,12 +189,14 @@ void Player::cleanWall ()
     isWall[DOWN] = false;
 }
 
-void Player::addItem(Item* item_)
+void
+Player::addItem(Item* item_)
 {
 	listItem.push_back(item_);
 }
 
-bool Player::useItem(void)
+bool
+Player::useItem(void)
 {
 	if (listItem.front() != NULL)
     {
@@ -202,6 +207,12 @@ bool Player::useItem(void)
 	else {
 		return false;
 	}
+}
+
+std::list<Weapon*>
+Player::getWeaponList (void)
+{
+    return listWeapon;
 }
 
 Player::~Player()

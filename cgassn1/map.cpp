@@ -9,11 +9,11 @@
 #include "map.h"
 #include <stdio.h>
 #include "util.h"
-
+#include "weapon.h"
 
 Map::Map()
 {
-
+    
 }
 
 
@@ -44,20 +44,21 @@ void Map::mapInit()
         listWall.push_back (new Wall (width, y));
     }
     listWall.push_back (new Wall (width, height));
-
+    
     for (y = - height; y < height; y += gridLength)
     {
-
+        
         for (x = -width ; x < width; x += gridLength)
         {
             listEmpty.push_back (new EmptySpace (x, y));
         }
-
+        
     }
     
     for (int i = 0; i < 1; i++)
     {
-        listEnemy.push_back(new Enemy(300, 300, UP, GLOBAL_GRID_LENGTH, GLOBAL_GRID_LENGTH, 1));
+        listEnemy.push_back(new Enemy(300, 300, (enum Direction)(rand () % 4), GLOBAL_GRID_LENGTH, GLOBAL_GRID_LENGTH, 1));
+        listEnemy.push_back(new Enemy(350, 250, (enum Direction)(rand () % 4), GLOBAL_GRID_LENGTH, GLOBAL_GRID_LENGTH, 1));
     }
 }
 
@@ -104,7 +105,7 @@ void Map::checkWallEnemy ()
         {
             colBit |= CheckCollision((*it)->getPos(), (*itWall)->getPos());
         }
-
+        
         colSide[LEFT] = colBit & COL_LEFT;
         colSide[UP] = colBit & COL_UP;
         colSide[RIGHT] = colBit & COL_RIGHT;
@@ -125,4 +126,54 @@ void Map::moveEnemy (position playerPos)
 {
     for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
         (*it)->move(playerPos.x, playerPos.y);
+}
+
+
+void Map::checkEnemyKill (std::list<Weapon*> l)
+{
+    if (l.empty()) return;
+    
+    for (std::list<Weapon*>::iterator it = l.begin(); it != l.end(); it++)
+    {
+      
+        for (std::list<Enemy*>::iterator itEnemy = listEnemy.begin(); itEnemy != listEnemy.end(); itEnemy++)
+        {
+            unsigned int colBit = 0;
+            colBit = CheckCollision((*it)->getPos(), (*itEnemy)->getPos());
+            
+            if (colBit != 0)
+            {
+                (*itEnemy)->killed();
+                (*it)->killed();
+            }
+        }
+    }
+    
+    std::list<Weapon*>::iterator it = l.begin();
+    
+    while (it != l.end ())
+    {
+        (*it)->move();
+        if ((*it)->getStatus() == KILLED)
+        {
+            //weapon = NULL;
+            (*it)->~Weapon();
+            l.erase(it);
+            
+        }
+        
+        else it++;
+    }
+    
+    std::list<Enemy*>::iterator itEnemy = listEnemy.begin();
+    
+    while (itEnemy != listEnemy.end ())
+    {
+        if ((*itEnemy)->getStatus() == KILLED)
+        {
+            (*itEnemy)->~Enemy();
+            listEnemy.erase(itEnemy);
+        }
+        else it++;
+    }
 }

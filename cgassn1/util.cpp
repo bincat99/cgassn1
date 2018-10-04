@@ -107,6 +107,6 @@ CheckCollision (position pos1, position pos2)
 float
 calDistance (float x1, float y1, float x2, float y2)
 {
-    return (sqrt ((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)));
+    return (sqrt (pow(x2-x1, 2) + pow(y2-y1, 2)));
 }
 

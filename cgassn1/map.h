@@ -14,6 +14,7 @@
 #include "wall.h"
 #include "player.h"
 #include "emptySpace.h"
+#include "weapon.h"
 #include "item.h"
 #include "enemy.h"
 #include <list>
@@ -41,6 +42,8 @@ public:
     void checkWallEnemy ();
     void cleanWallEnemy ();
     void moveEnemy (position);
+    
+    void checkEnemyKill (std::list<Weapon*>);
 };
 
 #endif /* map_h */

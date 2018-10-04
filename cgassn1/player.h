@@ -20,7 +20,6 @@ class Player : virtual public GameObject
 {
 
 private:
-	float x, y;
 	enum Direction dir;
 	float w, h;
 	float speed;
@@ -48,6 +47,7 @@ public :
 	void addItem(Item*);
 	bool useItem(void);
 
+    std::list<Weapon*> getWeaponList ();
 
 	~Player();
 

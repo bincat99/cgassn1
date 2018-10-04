@@ -60,10 +60,13 @@ void Game::moveObjects(void)
     map->checkWallEnemy();
     map->moveEnemy(player->getPos());
     map->cleanWallEnemy ();
-
-
     
     map->checkWall(player);
 	player->move();
     player->cleanWall();
+    
+    // bullet check
+    //map->checkEnemyKill(player->getWeaponList());
+    
+    // player kill check
 }

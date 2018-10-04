@@ -32,6 +32,8 @@ public:
     position getPos ();
 	void move(float x, float y);
     void cleanWall ();
+    
+    enum Status getStatus ();
 
 	void checkWall(bool isWall_[4]);
 	void killed();
