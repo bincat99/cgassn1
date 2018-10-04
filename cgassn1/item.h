@@ -22,6 +22,7 @@ public:
     position getPos();
     void display ();
     Item (float , float , enum ItemType);
+    ~Item ();
 };
 
 #endif /* item_h */

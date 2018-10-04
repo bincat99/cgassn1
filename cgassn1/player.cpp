@@ -7,7 +7,7 @@
 #include <list>
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_)
 {
-
+    
     pos.x = x_;
     pos.y = y_;
     dir = dir_;
@@ -24,153 +24,54 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     lastbang = 0;
     stimpackDuration = 0;
     
+    
+    bl[LEFT * 3 + 0] = new BmpLoader ("left0.bmp");
+    bl[LEFT * 3 + 1] = new BmpLoader ("left1.bmp");
+    bl[LEFT * 3 + 2] = new BmpLoader ("left2.bmp");
+    
+    bl[UP * 3 + 0] = new BmpLoader ("up0.bmp");
+    bl[UP * 3 + 1] = new BmpLoader ("up1.bmp");
+    bl[UP * 3 + 2] = new BmpLoader ("up2.bmp");
+    
+    bl[RIGHT * 3 + 0] = new BmpLoader ("right0.bmp");
+    bl[RIGHT * 3 + 1] = new BmpLoader ("right1.bmp");
+    bl[RIGHT * 3 + 2] = new BmpLoader ("right2.bmp");
+    
+    bl[DOWN * 3 + 0] = new BmpLoader ("down0.bmp");
+    bl[DOWN * 3 + 1] = new BmpLoader ("down1.bmp");
+    bl[DOWN * 3 + 2] = new BmpLoader ("down2.bmp");
 }
 
 void Player::display(void)
 {
     if (status == ALIVE)
     {
-/*<<<<<<< HEAD
-        glColor3f(0.0, 1.0, 0.0);
-        glBegin(GL_POLYGON);
+        sprite = (sprite + 1) % 3;
+        glEnable(GL_TEXTURE_2D);
+        LoadTexture(dir * 3 + sprite);
+        glColor3f(1.0, 1.0, 1.0);
+        glBegin(GL_QUADS);
+        
+        glTexCoord2f(0.0, 0.0); // Need to check
         glVertex2f(pos.x, pos.y);
+        glTexCoord2f(0.0, 1.0);
         glVertex2f(pos.x, pos.y + h);
+        
+        glTexCoord2f(1.0, 1.0);
         glVertex2f(pos.x + w, pos.y + h);
+        
+        
+        glTexCoord2f(1.0, 0.0);
         glVertex2f(pos.x + w, pos.y);
         glEnd();
-    }
-    glColor3f(0.0, 0.0, 0.0);
-    */
-
-		glEnable(GL_TEXTURE_2D);
-		switch (dir) {
-		case DOWN :
-			sprite = (sprite + 1) % 3;
-			switch (sprite) {
-			case 0 :
-				LoadTexture("down0.bmp");
-				break;
-			case 1 :
-				LoadTexture("down1.bmp");
-				break;
-			case 2 :
-				LoadTexture("down2.bmp");
-				break;
-			}
-
-			glColor3f(1.0, 1.0, 1.0);
-			glBegin(GL_QUADS);
-
-			glTexCoord2f(0.0, 0.0); // Need to check
-			glVertex2f(pos.x, pos.y);
-			glTexCoord2f(0.0, 1.0);
-			glVertex2f(pos.x, pos.y + h);
-
-			glTexCoord2f(1.0, 1.0);
-			glVertex2f(pos.x + w, pos.y + h);
-
-
-			glTexCoord2f(1.0, 0.0);
-			glVertex2f(pos.x + w, pos.y);
-			glEnd();
-			break;
-		case UP:
-			sprite = (sprite + 1) % 3;
-			switch (sprite) {
-			case 0:
-				LoadTexture("up0.bmp");
-				break;
-			case 1:
-				LoadTexture("up1.bmp");
-				break;
-			case 2:
-				LoadTexture("up2.bmp");
-				break;
-			}
-
-			glColor3f(1.0, 1.0, 1.0);
-			glBegin(GL_QUADS);
-
-			glTexCoord2f(0.0, 0.0); // Need to check
-			glVertex2f(pos.x, pos.y);
-			glTexCoord2f(0.0, 1.0);
-			glVertex2f(pos.x, pos.y + h);
-
-			glTexCoord2f(1.0, 1.0);
-			glVertex2f(pos.x + w, pos.y + h);
-
-
-			glTexCoord2f(1.0, 0.0);
-			glVertex2f(pos.x + w, pos.y);
-			glEnd();
-			break;
-		case RIGHT :
-			sprite = (sprite + 1) % 3;
-			switch (sprite) {
-			case 0:
-				LoadTexture("right0.bmp");
-				break;
-			case 1:
-				LoadTexture("right1.bmp");
-				break;
-			case 2:
-				LoadTexture("right2.bmp");
-				break;
-			}
-
-			glColor3f(1.0, 1.0, 1.0);
-			glBegin(GL_QUADS);
-
-			glTexCoord2f(0.0, 0.0); // Need to check
-			glVertex2f(pos.x, pos.y);
-			glTexCoord2f(0.0, 1.0);
-			glVertex2f(pos.x, pos.y + h);
-
-			glTexCoord2f(1.0, 1.0);
-			glVertex2f(pos.x + w, pos.y + h);
-
-
-			glTexCoord2f(1.0, 0.0);
-			glVertex2f(pos.x + w, pos.y);
-			glEnd();
-			break;
-		case LEFT :
-			sprite = (sprite + 1) % 3;
-			switch (sprite) {
-			case 0:
-				LoadTexture("left0.bmp");
-				break;
-			case 1:
-				LoadTexture("left1.bmp");
-				break;
-			case 2:
-				LoadTexture("left2.bmp");
-				break;
-			}
-
-			glColor3f(1.0, 1.0, 1.0);
-			glBegin(GL_QUADS);
-
-			glTexCoord2f(0.0, 0.0); // Need to check
-			glVertex2f(pos.x, pos.y);
-			glTexCoord2f(0.0, 1.0);
-			glVertex2f(pos.x, pos.y + h);
-
-			glTexCoord2f(1.0, 1.0);
-			glVertex2f(pos.x + w, pos.y + h);
-
-
-			glTexCoord2f(1.0, 0.0);
-			glVertex2f(pos.x + w, pos.y);
-			glEnd();
-			break;
-		}
+        
     }
     for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
     {
+        glColor3f(.0, .0, 0);
         (*it)->display();
     }
-  
+    
 }
 
 void Player::move(void)
@@ -383,22 +284,23 @@ Player::checkWeapon ()
 
 
 void
-Player::LoadTexture(const char* filename)
+Player::LoadTexture(unsigned int idx)
 {
-	BmpLoader  bl (filename);
-
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, bl.iWidth, bl.iHeight, GL_RGB, GL_UNSIGNED_BYTE, bl.textureData);
+    BmpLoader * tmp = bl[idx];
+    
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
 }
 
 
 Player::~Player()
 {
-
+    for (int i = 0; i < 12; i++)
+        delete bl[i];
 }

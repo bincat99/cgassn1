@@ -24,10 +24,7 @@ BmpLoader::BmpLoader(const char* filename) {
 		std::cout << "Not a valid bitmap" << std::endl;
 	fread(&bih, sizeof(BITMAPINFOHEADER), 1, file);
     
-    std::cout << bih.biWidth << std::endl;
-    std::cout << bih.biHeight << std::endl;
-    std::cout << sizeof (BITMAPFILEHEADER) << std::endl;
-    std::cout << sizeof (BITMAPINFOHEADER) << std::endl;
+   
 	if (bih.biSizeImage == 0)
     {
 		bih.biSizeImage = bih.biHeight*bih.biWidth * 3;
@@ -43,7 +40,7 @@ BmpLoader::BmpLoader(const char* filename) {
 	}
 
 	iWidth = bih.biWidth;
-	std::cout << bih.biWidth << std::endl;
+	
 	iHeight = bih.biHeight;
 	
 	fclose(file);

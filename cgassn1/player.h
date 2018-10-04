@@ -14,6 +14,7 @@
 #include "weapon.h"
 #include "object.h"
 #include "item.h"
+#include "BmpLoader.h"
 
 
 
@@ -40,6 +41,8 @@ private:
 	bool isWall[4] = {false, false, false, false,};
 	std::list<Item*> listItem;
     std::list<Weapon*> listWeapon;
+    
+    BmpLoader * bl[12];
 
 public :
 	Player(float, float, enum Direction, float, float, float);
@@ -63,7 +66,7 @@ public :
 
     std::list<Weapon*> getWeaponList ();
 
-	void LoadTexture(const char* filename);
+	void LoadTexture(unsigned int);
 	~Player();
 
 };

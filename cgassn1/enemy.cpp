@@ -134,6 +134,7 @@ enum Status Enemy::getStatus ()
 }
 Enemy::~Enemy()
 {
+    //printf ("EXP!\n");
 }
 
 void Enemy::cleanWall ()

@@ -35,3 +35,8 @@ void Item::display()
     glVertex2f(pos.x + width, pos.y);
     glEnd();
 }
+
+Item::~Item ()
+{
+    //printf ("used!\n");
+}
