@@ -47,18 +47,12 @@ void Map::mapInit()
 
     for (y = - height; y < height; y += gridLength)
     {
-        
-        
-//        glBegin (GL_QUAD_STRIP);
-//        //glVertex3f(x, y, .0);
-//
+
         for (x = -width ; x < width; x += gridLength)
         {
             listEmpty.push_back (new EmptySpace (x, y));
         }
-//        glVertex2f(width, y);
-//        glVertex2f(width, y+ gridLength);
-//        glEnd();
+
     }
     
     for (int i = 0; i < 1; i++)
@@ -69,28 +63,6 @@ void Map::mapInit()
 
 void Map::display()
 {
-    float x, y;
-
-  
-    
-
-//    for (y = - height; y < height; y += gridLength)
-//    {
-//
-//
-//        glBegin (GL_QUAD_STRIP);
-//        //glVertex3f(x, y, .0);
-//
-//        for (x = -width ; x < width; x += gridLength)
-//        {
-//            glColor3f(0 , 0, 1.0);
-//            glVertex2f(x, y);
-//            glVertex2f(x, y + gridLength);
-//        }
-//        glVertex2f(width, y);
-//        glVertex2f(width, y+ gridLength);
-//        glEnd();
-//    }
     
     for (std::list<EmptySpace*>::iterator it = listEmpty.begin(); it != listEmpty.end(); it++)
         (*it)->display();
@@ -113,7 +85,7 @@ void Map::checkWall (Player * player)
     {
         colBit |= CheckCollision(player->getPos(), (*it)->getPos());
     }
-    if (colBit != 0) printf ("%d\n", colBit);
+    
     colSide[LEFT] = colBit & COL_LEFT;
     colSide[UP] = colBit & COL_UP;
     colSide[RIGHT] = colBit & COL_RIGHT;
@@ -122,6 +94,32 @@ void Map::checkWall (Player * player)
     player->checkWall (colSide);
 }
 
+void Map::checkWallEnemy ()
+{
+    for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+    {
+        unsigned int colBit = 0;
+        bool colSide[4] = {0,};
+        for (std::list<Wall*>::iterator itWall = listWall.begin(); itWall != listWall.end(); itWall++)
+        {
+            colBit |= CheckCollision((*it)->getPos(), (*itWall)->getPos());
+        }
+
+        colSide[LEFT] = colBit & COL_LEFT;
+        colSide[UP] = colBit & COL_UP;
+        colSide[RIGHT] = colBit & COL_RIGHT;
+        colSide[DOWN] = colBit & COL_DOWN;
+        
+        (*it)->checkWall (colSide);
+    }
+    
+}
+
+void Map::cleanWallEnemy ()
+{
+    for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+        (*it)->cleanWall();
+}
 
 void Map::moveEnemy (position playerPos)
 {

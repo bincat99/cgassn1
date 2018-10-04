@@ -48,7 +48,7 @@ void Game::display(void)
 
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    glTranslated(400-player->getXcord(), 400-player->getYcord(), 0);
+    glTranslated(400-player->getPos().x, 400-player->getPos().y, 0);
 
     map->display();
     player->display();
@@ -57,7 +57,12 @@ void Game::display(void)
 
 void Game::moveObjects(void)
 {
+    map->checkWallEnemy();
     map->moveEnemy(player->getPos());
+    map->cleanWallEnemy ();
+
+
+    
     map->checkWall(player);
 	player->move();
     player->cleanWall();

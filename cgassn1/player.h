@@ -37,13 +37,6 @@ public :
 	void display(void);
 	void move(void);
 	void bang(void);
-
-	float getX();
-	float getY();
-
-	
-    float getXcord ();
-    float getYcord ();
     
     position getPos (void);
 

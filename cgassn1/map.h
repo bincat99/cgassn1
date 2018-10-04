@@ -38,6 +38,8 @@ public:
     void mapInit ();
     void display ();
     void checkWall (Player *);
+    void checkWallEnemy ();
+    void cleanWallEnemy ();
     void moveEnemy (position);
 };
 

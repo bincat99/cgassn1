@@ -28,10 +28,10 @@ void Player::display(void)
     {
         glColor3f(0.0, 0.0, 0.0);
         glBegin(GL_LINE_LOOP);
-        glVertex2f(x, y);
-        glVertex2f(x, y + h);
-        glVertex2f(x + w, y + h);
-        glVertex2f(x + w, y);
+        glVertex2f(pos.x, pos.y);
+        glVertex2f(pos.x, pos.y + h);
+        glVertex2f(pos.x + w, pos.y + h);
+        glVertex2f(pos.x + w, pos.y);
         glEnd();
     }
     glColor3f(0.0, 0.0, 0.0);
@@ -56,7 +56,6 @@ void Player::move(void)
             {
 				if (!isWall[0])
                 {
-					x -= speed;
                     pos.x -= speed;
 					dir = LEFT;
 				}
@@ -66,8 +65,7 @@ void Player::move(void)
             {
 				if (!isWall[3])
                 {
-					y -= speed;
-                        pos.y -= speed;
+                    pos.y -= speed;
 					dir = DOWN;
 				}
             }
@@ -77,8 +75,7 @@ void Player::move(void)
             {
 				if (!isWall[2])
                 {
-					x += speed;
-                        pos.x += speed;
+                    pos.x += speed;
 					dir = RIGHT;
 				}
             }
@@ -88,8 +85,7 @@ void Player::move(void)
             {
 				if (!isWall[1])
                 {
-					y += speed;
-                        pos.y += speed;
+                    pos.y += speed;
 					dir = UP;
 				}
             }
@@ -107,7 +103,7 @@ void Player::move(void)
             {
 				if (!isWall[0]) {
 					dir = LEFT;
-					x -= speed;
+					pos.x -= speed;
 				}
 
             }
@@ -115,7 +111,7 @@ void Player::move(void)
             if (i == GLUT_KEY_UP)
             {
 				if (!isWall[1]) {
-					y += speed;
+					pos.y += speed;
 					dir = UP;
 				}
             }
@@ -123,7 +119,7 @@ void Player::move(void)
             if (i == GLUT_KEY_RIGHT)
             {
 				if (!isWall[2]) {
-					x += speed;
+					pos.x += speed;
 					dir = RIGHT;
 				}
             }
@@ -131,7 +127,7 @@ void Player::move(void)
             if (i == GLUT_KEY_DOWN)
             {
 				if (!isWall[3]) {
-					y -= speed;
+					pos.y -= speed;
 					dir = DOWN;
 				}
             }
@@ -155,34 +151,13 @@ void Player::move(void)
     }
 }
 
-float Player::getX()
-{
-    return x;
-}
 
-float Player::getY()
-{
-    return y;
-}
 
 void Player::bang(void)
 {
-//    if (weapon == NULL)
-//    {
-//        weapon = new Weapon(x+GLOBAL_GRID_LENGTH/2, y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150);
-//    }
-    listWeapon.push_back(new Weapon(x+GLOBAL_GRID_LENGTH/2, y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150));
+    listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/2, pos.y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150));
 }
 
-float Player::getXcord ()
-{
-    return x;
-}
-
-float Player::getYcord ()
-{
-    return y;
-}
 
 
 position Player::getPos ()

@@ -28,10 +28,10 @@ void Enemy::display()
 	if (status == ALIVE) {
 		glColor3f(0.0, 0.0, 0.0);
 		glBegin(GL_LINE_LOOP);
-		glVertex2f(x, y);
-		glVertex2f(x, y + h);
-		glVertex2f(x + w, y + h);
-		glVertex2f(x + w, y);
+		glVertex2f(pos.x, pos.y);
+		glVertex2f(pos.x, pos.y + h);
+		glVertex2f(pos.x + w, pos.y + h);
+		glVertex2f(pos.x + w, pos.y);
 		glEnd();
 	}
 }
@@ -40,20 +40,20 @@ void Enemy::move(float player_x, float player_y)
 {
 	if (status == ALIVE)
     {
-		if (calDistance(player_x, player_y, pos.x, pos.y) < 200) // some condition to trace player
+		if (calDistance(player_x, player_y, pos.x, pos.y) < 250) // some condition to trace player
 		{
-			if (player_x >= x)
+			if (player_x >= pos.x)
             {
 				if (!isWall[2])
                 {
-					x += speed;
+					pos.x += speed;
 					dir = RIGHT;
 				}
 			}
 			else {
 				if (!isWall[0])
                 {
-					x -= speed;
+					pos.x -= speed;
 					dir = LEFT;
 				}
 			}
@@ -62,7 +62,7 @@ void Enemy::move(float player_x, float player_y)
             {
 				if (!isWall[1])
                 {
-					y += speed;
+					pos.y += speed;
 					dir = UP;
 				}
 			}
@@ -70,7 +70,7 @@ void Enemy::move(float player_x, float player_y)
             {
 				if (!isWall[3])
                 {
-					y -= speed;
+					pos.y -= speed;
 					dir = DOWN;
 				}
 			}
@@ -88,25 +88,25 @@ void Enemy::move(float player_x, float player_y)
 			case 0: // Left Up Right Down
 				if (!isWall[0])
                 {
-					x -= speed;
+					pos.x -= speed;
 				}
 				break;
 			case 1:
 				if (!isWall[1])
                 {
-					y += speed;
+					pos.y += speed;
 				}
 				break;
 			case 2:
 				if (!isWall[2])
                 {
-					x += speed;
+					pos.x += speed;
 				}
 				break;
 			case 3:
 				if (!isWall[3])
                 {
-					y -= speed;
+					pos.y -= speed;
 				}
 				break;
 			}
