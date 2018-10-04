@@ -11,10 +11,9 @@
 
 #include "util.h"
 
-class GameObject {
-    
+class GameObject
+{
 
-    
 public:
     virtual position getPos () = 0;
     //virtual void move () = 0;

@@ -14,11 +14,14 @@
 #include "wall.h"
 #include "player.h"
 #include "emptySpace.h"
+#include "item.h"
+#include "enemy.h"
 #include <list>
 
 
 
-class Map{
+class Map
+{
     float width;
     float height;
     float gridLength;
@@ -26,6 +29,7 @@ class Map{
     std::list<GameObject*> listObject;
     std::list<Wall*> listWall;
     std::list<EmptySpace*> listEmpty;
+    std::list<Enemy*> listEnemy;
     //public Map () = 0;
    
 public:
@@ -34,6 +38,7 @@ public:
     void mapInit ();
     void display ();
     void checkWall (Player *);
+    void moveEnemy (position);
 };
 
 #endif /* map_h */

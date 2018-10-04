@@ -2,7 +2,8 @@
 #include "player.h"
 #include "util.h"
 #include <stdio.h>
-Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_) {
+Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_)
+{
     x = x_;
     y = y_;
     pos.x = x_;
@@ -20,7 +21,8 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 
 }
 
-void Player::display(void) {
+void Player::display(void)
+{
     if (status == ALIVE)
     {
         glColor3f(0.0, 0.0, 0.0);
@@ -35,7 +37,8 @@ void Player::display(void) {
     if (weapon != NULL) weapon->display();
 }
 
-void Player::move(void) {
+void Player::move(void)
+{
     int i = 0;
     
     
@@ -45,7 +48,8 @@ void Player::move(void) {
         {
             if (i == 'a')
             {
-				if (!isWall[0]) {
+				if (!isWall[0])
+                {
 					x -= speed;
                     pos.x -= speed;
 					dir = LEFT;
@@ -54,7 +58,8 @@ void Player::move(void) {
             
             if (i == 's')
             {
-				if (!isWall[3]) {
+				if (!isWall[3])
+                {
 					y -= speed;
                         pos.y -= speed;
 					dir = DOWN;
@@ -64,7 +69,8 @@ void Player::move(void) {
             
             if (i == 'd')
             {
-				if (!isWall[2]) {
+				if (!isWall[2])
+                {
 					x += speed;
                         pos.x += speed;
 					dir = RIGHT;
@@ -74,7 +80,8 @@ void Player::move(void) {
             
             if (i == 'w')
             {
-				if (!isWall[1]) {
+				if (!isWall[1])
+                {
 					y += speed;
                         pos.y += speed;
 					dir = UP;
@@ -83,11 +90,7 @@ void Player::move(void) {
             
             if (i == 'k')
             {
-                
-                if (weapon == NULL){
-
-                    weapon = new Weapon(x, y, dir, w / 5, h / 5, speed * 2, speed * 500);
-                }
+                bang();
             }
             
         }
@@ -129,7 +132,8 @@ void Player::move(void) {
         }
     }
     
-    if(weapon != NULL) {
+    if(weapon != NULL)
+    {
         weapon->move();
         if (weapon->getStatus() == KILLED)
         {
@@ -139,17 +143,22 @@ void Player::move(void) {
     }
 }
 
-float Player::getX() {
+float Player::getX()
+{
     return x;
 }
 
-float Player::getY() {
+float Player::getY()
+{
     return y;
 }
 
-void Player::bang(void) {
-
-
+void Player::bang(void)
+{
+    if (weapon == NULL)
+    {
+        weapon = new Weapon(x+GLOBAL_GRID_LENGTH/2, y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150);
+    }
 }
 
 float Player::getXcord ()
@@ -167,16 +176,17 @@ position Player::getPos ()
 {
     return pos;
 }
-void Player::killed(void) {
+void Player::killed(void)
+{
 	status = KILLED;
 }
 
-void Player::checkWall(bool isWall_[4]) {
+void Player::checkWall(bool isWall_[4])
+{
 	isWall[LEFT] = isWall_[0];
 	isWall[UP] = isWall_[1];
 	isWall[RIGHT] = isWall_[2];
 	isWall[DOWN] = isWall_[3];
-
 }
 
 
@@ -188,12 +198,15 @@ void Player::cleanWall ()
     isWall[DOWN] = false;
 }
 
-void Player::addItem(Item* item_) {
+void Player::addItem(Item* item_)
+{
 	item_list.push_back(item_);
 }
 
-bool Player::useItem(void) {
-	if (item_list.front() != NULL) {
+bool Player::useItem(void)
+{
+	if (item_list.front() != NULL)
+    {
 		// Do something with Item.
 		item_list.pop_front();
 		return true;

@@ -25,7 +25,6 @@ Map::Map (float w, float h, float g)
     width = w;
     height = h;
     gridLength = g;
-
 }
 
 
@@ -61,6 +60,11 @@ void Map::mapInit()
 //        glVertex2f(width, y+ gridLength);
 //        glEnd();
     }
+    
+    for (int i = 0; i < 1; i++)
+    {
+        listEnemy.push_back(new Enemy(300, 300, UP, GLOBAL_GRID_LENGTH, GLOBAL_GRID_LENGTH, 1));
+    }
 }
 
 void Map::display()
@@ -95,11 +99,14 @@ void Map::display()
         (*it)->display();
     
     
+    for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+        (*it)->display();
     
 }
 
 
-void Map::checkWall (Player * player){
+void Map::checkWall (Player * player)
+{    
     unsigned int colBit = 0;
     bool colSide[4] = {0,};
     for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
@@ -113,4 +120,11 @@ void Map::checkWall (Player * player){
     colSide[DOWN] = colBit & COL_DOWN;
     
     player->checkWall (colSide);
+}
+
+
+void Map::moveEnemy (position playerPos)
+{
+    for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+        (*it)->move(playerPos.x, playerPos.y);
 }

@@ -16,7 +16,8 @@
 #include "item.h"
 
 
-class Player : virtual public GameObject{
+class Player : virtual public GameObject
+{
 
 private:
 	float x, y;

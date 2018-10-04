@@ -17,6 +17,7 @@
 
 class Game
 {
+    
 private:
     Map *map;
     Player *player;
@@ -34,13 +35,7 @@ public:
 	void moveObjects();
 
 	Player* getPlayer();
-    //private:
- /*   Game ()
-    {
-        map = new Map ();
-        player = new Player ();
-        enemy = new Enemy ();
-    }*/
+
     
 };
 

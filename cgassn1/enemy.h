@@ -18,6 +18,7 @@ class Enemy : virtual public GameObject
     float y;
     position pos;
 	enum Direction dir;
+    unsigned int moveCount;
 	float w, h;
 	float speed;
 	enum Status status;
@@ -30,6 +31,7 @@ public:
     void display ();
     position getPos ();
 	void move(float x, float y);
+    void cleanWall ();
 
 	void checkWall(bool isWall_[4]);
 	void killed();

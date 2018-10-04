@@ -77,7 +77,6 @@ moveObjects()
 int
 main (int argc, char * argv[])
 {
-    
     utilInit ();
     
     glutInit (& argc, argv);
@@ -88,9 +87,7 @@ main (int argc, char * argv[])
     //    glutDisplayFunc(renderScene);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
-
 	game = new Game();
-
     
     init ();
     glutDisplayFunc(display);
@@ -101,6 +98,5 @@ main (int argc, char * argv[])
     glutSpecialFunc(mySpecialFunc);
     glutSpecialUpFunc(mySpecialUpFunc);
     glutMainLoop();
-
 }
 

@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <cmath>
+
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -47,7 +49,6 @@ void
 myKeyboardFunc (unsigned char key, int x, int y)
 {
     keyboardBuffer[key] = true;
-    
 }
 
 void
@@ -70,7 +71,8 @@ mySpecialUpFunc (int key, int x, int y)
 }
 
 unsigned int
-CheckCollision (position pos1, position pos2){
+CheckCollision (position pos1, position pos2)
+{
     unsigned int ret = 0;
     
     
@@ -100,3 +102,11 @@ CheckCollision (position pos1, position pos2){
     
     return ret;
 }
+
+
+float
+calDistance (float x1, float y1, float x2, float y2)
+{
+    return (sqrt ((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)));
+}
+

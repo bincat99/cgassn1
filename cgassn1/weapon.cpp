@@ -1,7 +1,8 @@
 #include "weapon.h"
 #include "util.h"
 #include <stdio.h>
-Weapon::Weapon(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_, float range_) {
+Weapon::Weapon(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_, float range_)
+{
 	x = x_;
 	y = y_;
 	dir = dir_;
@@ -12,7 +13,8 @@ Weapon::Weapon(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 	status = ALIVE;
 }
 
-void Weapon::display(void) {
+void Weapon::display(void)
+{
 	if (status == ALIVE)
 	{
 		glBegin(GL_LINE_LOOP);
@@ -24,59 +26,74 @@ void Weapon::display(void) {
 	}
 }
 
-void Weapon::move(void) {
-	if (status == ALIVE) {
-		if (range > 0) {
-			switch ((enum Direction) dir) {
+void Weapon::move(void)
+{
+	if (status == ALIVE)
+    {
+		if (range > 0)
+        {
+			switch ((enum Direction) dir)
+            {
 			case UP:
-				if (!isWall[1]) {
+				if (!isWall[1])
+                {
 					y += speed;
 					range -= speed;
 				}
-				else {
+				else
+                {
 					status = KILLED;
 				}
 				break;
 			case DOWN:
-				if (!isWall[3]) {
+				if (!isWall[3])
+                {
 					y -= speed;
 					range -= speed;
 				}
-				else {
+				else
+                {
 					status = KILLED;
 				}
 				break;
 			case LEFT:
-				if (!isWall[0]) {
+				if (!isWall[0])
+                {
 					x -= speed;
 					range -= speed;
 				}
-				else {
+				else
+                {
 					status = KILLED;
 				}
 				break;
 			case RIGHT:
-				if (!isWall[2]) {
+				if (!isWall[2])
+                {
 					x += speed;
 					range -= speed;
 				}
-				else {
+				else
+                {
 					status = KILLED;
 				}
 				break;
 			}
 		}
-        else {
+        else
+        {
             status = KILLED;
         }
 	}
 }
 
-void Weapon::killed() {
+void Weapon::killed()
+{
 	status = KILLED;
 }
 
-void Weapon::checkWall(bool isWall_[4]) {
+void Weapon::checkWall(bool isWall_[4])
+{
 	isWall[0] = isWall_[0];
 	isWall[1] = isWall_[1];
 	isWall[2] = isWall_[2];
@@ -89,7 +106,8 @@ enum Status Weapon::getStatus ()
 }
 
 
-Weapon::~Weapon() {
+Weapon::~Weapon()
+{
 
 }
 
