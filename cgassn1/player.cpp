@@ -44,6 +44,11 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 
 void Player::display(void)
 {
+    for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
+    {
+        glColor3f(.0, .0, 0);
+        (*it)->display();
+    }
     if (status == ALIVE)
     {
         sprite = (sprite + 1) % 3;
@@ -66,11 +71,7 @@ void Player::display(void)
         glEnd();
         
     }
-    for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
-    {
-        glColor3f(.0, .0, 0);
-        (*it)->display();
-    }
+
     
 }
 
@@ -189,7 +190,11 @@ void Player::move(void)
 
 void Player::bang(void)
 {
-    listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/2, pos.y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150));
+    if (dir == LEFT || dir == RIGHT)
+        listWeapon.push_back(new Weapon(pos.x, pos.y+GLOBAL_GRID_LENGTH/4, dir, w, h / 2, speed * 2, speed * 150));
+    
+    else
+        listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/4, pos.y, dir, w/2, h, speed * 2, speed * 150));
     lastbang = clock ();
 }
 
