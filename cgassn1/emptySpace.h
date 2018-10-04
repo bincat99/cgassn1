@@ -15,7 +15,10 @@
 class EmptySpace : virtual public GameObject
 {
     position pos;
+    float width;
+    float height;
 public:
+    EmptySpace (float x, float y);
     position getPos();
     void display ();
 };

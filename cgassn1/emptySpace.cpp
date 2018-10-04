@@ -11,6 +11,14 @@
 
 
 
+EmptySpace::EmptySpace (float x, float y)
+{
+    pos.x = x;
+    pos.y = y;
+    width = GLOBAL_GRID_LENGTH;
+    height = GLOBAL_GRID_LENGTH;
+}
+
 
 position EmptySpace::getPos()
 {
@@ -19,5 +27,11 @@ position EmptySpace::getPos()
 
 void EmptySpace::display()
 {
-    
+    glColor3f (.6, .6, .6);
+    glBegin(GL_POLYGON);
+    glVertex2f(pos.x, pos.y);
+    glVertex2f(pos.x, pos.y + height);
+    glVertex2f(pos.x + width, pos.y + height);
+    glVertex2f(pos.x + width, pos.y);
+    glEnd();
 }
