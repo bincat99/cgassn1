@@ -33,6 +33,10 @@ private:
     clock_t stimpackDuration;
     
 
+	int sprite = 0;
+
+	unsigned int textureID;
+
 	bool isWall[4] = {false, false, false, false,};
 	std::list<Item*> listItem;
     std::list<Weapon*> listWeapon;
@@ -42,6 +46,7 @@ public :
 	void display(void);
 	void move(void);
 	void bang(void);
+
     
     position getPos (void);
 
@@ -58,6 +63,7 @@ public :
 
     std::list<Weapon*> getWeaponList ();
 
+	void LoadTexture(const char* filename);
 	~Player();
 
 };

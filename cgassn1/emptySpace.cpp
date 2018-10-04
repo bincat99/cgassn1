@@ -27,7 +27,7 @@ position EmptySpace::getPos()
 
 void EmptySpace::display()
 {
-    glColor3f (.6, .6, .6);
+    glColor3f (1.0, 1.0, 1.);
     glBegin(GL_POLYGON);
     glVertex2f(pos.x, pos.y);
     glVertex2f(pos.x, pos.y + height);

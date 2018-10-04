@@ -10,7 +10,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+
 #include <cmath>
+
 
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
@@ -24,6 +26,7 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #endif
+
 
 bool
 keyboardBuffer [KEYBOARD_BUFFER_SIZE];
@@ -142,4 +145,5 @@ calDistance (float x1, float y1, float x2, float y2)
 {
     return (sqrt (pow(x2-x1, 2) + pow(y2-y1, 2)));
 }
+
 

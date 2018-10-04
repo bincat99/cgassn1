@@ -56,6 +56,7 @@ typedef struct
 }position;
 
 
+
 void
 utilInit ();
 
@@ -79,6 +80,7 @@ CheckCollisionWeapon (position , position );
 
 float
 calDistance (float x1, float y1, float x2, float y2);
+
 
 #endif /* util_h */
 

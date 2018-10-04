@@ -1,10 +1,13 @@
 
 #include "player.h"
 #include "util.h"
+#include "BmpLoader.h"
 #include <stdio.h>
+
 #include <list>
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_)
 {
+
     pos.x = x_;
     pos.y = y_;
     dir = dir_;
@@ -13,11 +16,11 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 #ifdef __APPLE__
     speed = speed_ * 10;
 #else
-    speed = speed_;
+    speed = speed_ * 10;
 #endif
     status = ALIVE;
     weapon = NULL;
-    bangDelay = 10000;
+    bangDelay = 20000;
     lastbang = 0;
     stimpackDuration = 0;
     
@@ -27,6 +30,7 @@ void Player::display(void)
 {
     if (status == ALIVE)
     {
+/*<<<<<<< HEAD
         glColor3f(0.0, 1.0, 0.0);
         glBegin(GL_POLYGON);
         glVertex2f(pos.x, pos.y);
@@ -36,11 +40,137 @@ void Player::display(void)
         glEnd();
     }
     glColor3f(0.0, 0.0, 0.0);
-    
+    */
+
+		glEnable(GL_TEXTURE_2D);
+		switch (dir) {
+		case DOWN :
+			sprite = (sprite + 1) % 3;
+			switch (sprite) {
+			case 0 :
+				LoadTexture("down0.bmp");
+				break;
+			case 1 :
+				LoadTexture("down1.bmp");
+				break;
+			case 2 :
+				LoadTexture("down2.bmp");
+				break;
+			}
+
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_QUADS);
+
+			glTexCoord2f(0.0, 0.0); // Need to check
+			glVertex2f(pos.x, pos.y);
+			glTexCoord2f(0.0, 1.0);
+			glVertex2f(pos.x, pos.y + h);
+
+			glTexCoord2f(1.0, 1.0);
+			glVertex2f(pos.x + w, pos.y + h);
+
+
+			glTexCoord2f(1.0, 0.0);
+			glVertex2f(pos.x + w, pos.y);
+			glEnd();
+			break;
+		case UP:
+			sprite = (sprite + 1) % 3;
+			switch (sprite) {
+			case 0:
+				LoadTexture("up0.bmp");
+				break;
+			case 1:
+				LoadTexture("up1.bmp");
+				break;
+			case 2:
+				LoadTexture("up2.bmp");
+				break;
+			}
+
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_QUADS);
+
+			glTexCoord2f(0.0, 0.0); // Need to check
+			glVertex2f(pos.x, pos.y);
+			glTexCoord2f(0.0, 1.0);
+			glVertex2f(pos.x, pos.y + h);
+
+			glTexCoord2f(1.0, 1.0);
+			glVertex2f(pos.x + w, pos.y + h);
+
+
+			glTexCoord2f(1.0, 0.0);
+			glVertex2f(pos.x + w, pos.y);
+			glEnd();
+			break;
+		case RIGHT :
+			sprite = (sprite + 1) % 3;
+			switch (sprite) {
+			case 0:
+				LoadTexture("right0.bmp");
+				break;
+			case 1:
+				LoadTexture("right1.bmp");
+				break;
+			case 2:
+				LoadTexture("right2.bmp");
+				break;
+			}
+
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_QUADS);
+
+			glTexCoord2f(0.0, 0.0); // Need to check
+			glVertex2f(pos.x, pos.y);
+			glTexCoord2f(0.0, 1.0);
+			glVertex2f(pos.x, pos.y + h);
+
+			glTexCoord2f(1.0, 1.0);
+			glVertex2f(pos.x + w, pos.y + h);
+
+
+			glTexCoord2f(1.0, 0.0);
+			glVertex2f(pos.x + w, pos.y);
+			glEnd();
+			break;
+		case LEFT :
+			sprite = (sprite + 1) % 3;
+			switch (sprite) {
+			case 0:
+				LoadTexture("left0.bmp");
+				break;
+			case 1:
+				LoadTexture("left1.bmp");
+				break;
+			case 2:
+				LoadTexture("left2.bmp");
+				break;
+			}
+
+			glColor3f(1.0, 1.0, 1.0);
+			glBegin(GL_QUADS);
+
+			glTexCoord2f(0.0, 0.0); // Need to check
+			glVertex2f(pos.x, pos.y);
+			glTexCoord2f(0.0, 1.0);
+			glVertex2f(pos.x, pos.y + h);
+
+			glTexCoord2f(1.0, 1.0);
+			glVertex2f(pos.x + w, pos.y + h);
+
+
+			glTexCoord2f(1.0, 0.0);
+			glVertex2f(pos.x + w, pos.y);
+			glEnd();
+			break;
+		}
+    }
     for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
     {
         (*it)->display();
     }
+  
 }
 
 void Player::move(void)
@@ -204,7 +334,7 @@ Player::checkItemDuration ()
         if (clock() > stimpackDuration)
         {
             stimpackDuration = 0;
-            bangDelay = 10000;
+            bangDelay = 20000;
         }
     }
 }
@@ -215,8 +345,8 @@ Player::useItem(void)
     if (listItem.front() != NULL)
     {
         // Do something with Item.
-        stimpackDuration = 100000 + clock();
-        bangDelay  = 5000;
+        stimpackDuration = 1000000 + clock();
+        bangDelay  = 10000;
         listItem.pop_front();
         return true;
     }
@@ -251,6 +381,24 @@ Player::checkWeapon ()
     }
 }
 
+
+void
+Player::LoadTexture(const char* filename)
+{
+	BmpLoader  bl (filename);
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, bl.iWidth, bl.iHeight, GL_RGB, GL_UNSIGNED_BYTE, bl.textureData);
+}
+
+
 Player::~Player()
 {
+
 }

@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13823CBF21667AF600858023 /* BmpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13823CBD21667AF600858023 /* BmpLoader.cpp */; };
+		13823CE821667FAD00858023 /* down1.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CDC21667FAC00858023 /* down1.bmp */; };
+		13823CE921667FAD00858023 /* left0.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CDD21667FAC00858023 /* left0.bmp */; };
+		13823CEA21667FAD00858023 /* left1.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CDE21667FAC00858023 /* left1.bmp */; };
+		13823CEB21667FAD00858023 /* down0.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CDF21667FAC00858023 /* down0.bmp */; };
+		13823CEC21667FAD00858023 /* right0.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CE021667FAD00858023 /* right0.bmp */; };
+		13823CED21667FAD00858023 /* up0.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CE121667FAD00858023 /* up0.bmp */; };
+		13823CEE21667FAD00858023 /* down2.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CE221667FAD00858023 /* down2.bmp */; };
+		13823CEF21667FAD00858023 /* right1.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CE321667FAD00858023 /* right1.bmp */; };
+		13823CF021667FAD00858023 /* left2.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CE421667FAD00858023 /* left2.bmp */; };
+		13823CF121667FAD00858023 /* up1.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CE521667FAD00858023 /* up1.bmp */; };
+		13823CF221667FAD00858023 /* right2.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CE621667FAD00858023 /* right2.bmp */; };
+		13823CF321667FAD00858023 /* up2.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823CE721667FAD00858023 /* up2.bmp */; };
 		13877C102164DE08009E5AFE /* weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C0F2164DE08009E5AFE /* weapon.cpp */; };
 		13877C1221651210009E5AFE /* emptySpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C1121651210009E5AFE /* emptySpace.cpp */; };
 		13877C1421651526009E5AFE /* item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C1321651526009E5AFE /* item.cpp */; };
@@ -23,6 +36,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		13823CC021667EF200858023 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				13823CE821667FAD00858023 /* down1.bmp in CopyFiles */,
+				13823CE921667FAD00858023 /* left0.bmp in CopyFiles */,
+				13823CEA21667FAD00858023 /* left1.bmp in CopyFiles */,
+				13823CEB21667FAD00858023 /* down0.bmp in CopyFiles */,
+				13823CEC21667FAD00858023 /* right0.bmp in CopyFiles */,
+				13823CED21667FAD00858023 /* up0.bmp in CopyFiles */,
+				13823CEE21667FAD00858023 /* down2.bmp in CopyFiles */,
+				13823CEF21667FAD00858023 /* right1.bmp in CopyFiles */,
+				13823CF021667FAD00858023 /* left2.bmp in CopyFiles */,
+				13823CF121667FAD00858023 /* up1.bmp in CopyFiles */,
+				13823CF221667FAD00858023 /* right2.bmp in CopyFiles */,
+				13823CF321667FAD00858023 /* up2.bmp in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1389CFB92161D42400321F96 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -35,6 +69,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		13823CBD21667AF600858023 /* BmpLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BmpLoader.cpp; sourceTree = "<group>"; };
+		13823CBE21667AF600858023 /* BmpLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BmpLoader.h; sourceTree = "<group>"; };
+		13823CDC21667FAC00858023 /* down1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = down1.bmp; path = cgassn1/down1.bmp; sourceTree = "<group>"; };
+		13823CDD21667FAC00858023 /* left0.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = left0.bmp; path = cgassn1/left0.bmp; sourceTree = "<group>"; };
+		13823CDE21667FAC00858023 /* left1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = left1.bmp; path = cgassn1/left1.bmp; sourceTree = "<group>"; };
+		13823CDF21667FAC00858023 /* down0.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = down0.bmp; path = cgassn1/down0.bmp; sourceTree = "<group>"; };
+		13823CE021667FAD00858023 /* right0.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = right0.bmp; path = cgassn1/right0.bmp; sourceTree = "<group>"; };
+		13823CE121667FAD00858023 /* up0.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = up0.bmp; path = cgassn1/up0.bmp; sourceTree = "<group>"; };
+		13823CE221667FAD00858023 /* down2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = down2.bmp; path = cgassn1/down2.bmp; sourceTree = "<group>"; };
+		13823CE321667FAD00858023 /* right1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = right1.bmp; path = cgassn1/right1.bmp; sourceTree = "<group>"; };
+		13823CE421667FAD00858023 /* left2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = left2.bmp; path = cgassn1/left2.bmp; sourceTree = "<group>"; };
+		13823CE521667FAD00858023 /* up1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = up1.bmp; path = cgassn1/up1.bmp; sourceTree = "<group>"; };
+		13823CE621667FAD00858023 /* right2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = right2.bmp; path = cgassn1/right2.bmp; sourceTree = "<group>"; };
+		13823CE721667FAD00858023 /* up2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = up2.bmp; path = cgassn1/up2.bmp; sourceTree = "<group>"; };
 		13877C0F2164DE08009E5AFE /* weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = weapon.cpp; sourceTree = "<group>"; };
 		13877C1121651210009E5AFE /* emptySpace.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = emptySpace.cpp; sourceTree = "<group>"; };
 		13877C1321651526009E5AFE /* item.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = item.cpp; sourceTree = "<group>"; };
@@ -79,6 +127,18 @@
 		1389CFB22161D42400321F96 = {
 			isa = PBXGroup;
 			children = (
+				13823CDF21667FAC00858023 /* down0.bmp */,
+				13823CDC21667FAC00858023 /* down1.bmp */,
+				13823CE221667FAD00858023 /* down2.bmp */,
+				13823CDD21667FAC00858023 /* left0.bmp */,
+				13823CDE21667FAC00858023 /* left1.bmp */,
+				13823CE421667FAD00858023 /* left2.bmp */,
+				13823CE021667FAD00858023 /* right0.bmp */,
+				13823CE321667FAD00858023 /* right1.bmp */,
+				13823CE621667FAD00858023 /* right2.bmp */,
+				13823CE121667FAD00858023 /* up0.bmp */,
+				13823CE521667FAD00858023 /* up1.bmp */,
+				13823CE721667FAD00858023 /* up2.bmp */,
 				1389CFBD2161D42400321F96 /* cgassn1 */,
 				1389CFBC2161D42400321F96 /* Products */,
 				1389CFC52161D44B00321F96 /* Frameworks */,
@@ -96,6 +156,8 @@
 		1389CFBD2161D42400321F96 /* cgassn1 */ = {
 			isa = PBXGroup;
 			children = (
+				13823CBD21667AF600858023 /* BmpLoader.cpp */,
+				13823CBE21667AF600858023 /* BmpLoader.h */,
 				13877C1121651210009E5AFE /* emptySpace.cpp */,
 				13A076882162159500057B52 /* emptySpace.h */,
 				13A0769D2162678000057B52 /* enemy.cpp */,
@@ -141,6 +203,7 @@
 				1389CFB72161D42400321F96 /* Sources */,
 				1389CFB82161D42400321F96 /* Frameworks */,
 				1389CFB92161D42400321F96 /* CopyFiles */,
+				13823CC021667EF200858023 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -193,6 +256,7 @@
 				13A0768D21621E1700057B52 /* game.cpp in Sources */,
 				13877C1221651210009E5AFE /* emptySpace.cpp in Sources */,
 				13A0769A2162673B00057B52 /* map.cpp in Sources */,
+				13823CBF21667AF600858023 /* BmpLoader.cpp in Sources */,
 				13877C102164DE08009E5AFE /* weapon.cpp in Sources */,
 				13A0769021621E2B00057B52 /* wall.cpp in Sources */,
 				13877C1421651526009E5AFE /* item.cpp in Sources */,
