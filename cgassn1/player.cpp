@@ -2,6 +2,7 @@
 #include "player.h"
 #include "util.h"
 #include <stdio.h>
+#include <list>
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_)
 {
     x = x_;
@@ -34,7 +35,12 @@ void Player::display(void)
         glEnd();
     }
     glColor3f(0.0, 0.0, 0.0);
-    if (weapon != NULL) weapon->display();
+    
+    //if (weapon != NULL) weapon->display();
+    for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
+    {
+        (*it)->display();
+    }
 }
 
 void Player::move(void)
@@ -132,13 +138,19 @@ void Player::move(void)
         }
     }
     
-    if(weapon != NULL)
+    
+    
+    for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
     {
-        weapon->move();
-        if (weapon->getStatus() == KILLED)
+        if((*it) != NULL)
         {
-            weapon->~Weapon();
-            weapon = NULL;
+            (*it)->move();
+            if ((*it)->getStatus() == KILLED)
+            {
+                (*it)->~Weapon();
+                //weapon = NULL;
+                listWeapon.erase(it);
+            }
         }
     }
 }
@@ -155,10 +167,11 @@ float Player::getY()
 
 void Player::bang(void)
 {
-    if (weapon == NULL)
-    {
-        weapon = new Weapon(x+GLOBAL_GRID_LENGTH/2, y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150);
-    }
+//    if (weapon == NULL)
+//    {
+//        weapon = new Weapon(x+GLOBAL_GRID_LENGTH/2, y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150);
+//    }
+    listWeapon.push_back(new Weapon(x+GLOBAL_GRID_LENGTH/2, y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150));
 }
 
 float Player::getXcord ()
@@ -200,15 +213,15 @@ void Player::cleanWall ()
 
 void Player::addItem(Item* item_)
 {
-	item_list.push_back(item_);
+	listItem.push_back(item_);
 }
 
 bool Player::useItem(void)
 {
-	if (item_list.front() != NULL)
+	if (listItem.front() != NULL)
     {
 		// Do something with Item.
-		item_list.pop_front();
+		listItem.pop_front();
 		return true;
 	}
 	else {

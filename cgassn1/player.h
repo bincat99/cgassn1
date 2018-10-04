@@ -29,7 +29,8 @@ private:
     position pos;
 
 	bool isWall[4] = {false, false, false, false,};
-	std::list<Item*> item_list;
+	std::list<Item*> listItem;
+    std::list<Weapon*> listWeapon;
 
 public :
 	Player(float, float, enum Direction, float, float, float);
