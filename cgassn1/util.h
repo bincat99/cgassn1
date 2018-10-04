@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <list>
 
 
 #define KEYBOARD_BUFFER_SIZE 256
