@@ -17,7 +17,7 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 #endif
     status = ALIVE;
     weapon = NULL;
-
+    
 }
 
 void Player::display(void)
@@ -34,7 +34,6 @@ void Player::display(void)
     }
     glColor3f(0.0, 0.0, 0.0);
     
-    //if (weapon != NULL) weapon->display();
     for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
     {
         (*it)->display();
@@ -52,40 +51,40 @@ void Player::move(void)
         {
             if (i == 'a')
             {
-				if (!isWall[0])
+                if (!isWall[0])
                 {
                     pos.x -= speed;
-					dir = LEFT;
-				}
+                    dir = LEFT;
+                }
             }
             
             if (i == 's')
             {
-				if (!isWall[3])
+                if (!isWall[3])
                 {
                     pos.y -= speed;
-					dir = DOWN;
-				}
+                    dir = DOWN;
+                }
             }
             
             
             if (i == 'd')
             {
-				if (!isWall[2])
+                if (!isWall[2])
                 {
                     pos.x += speed;
-					dir = RIGHT;
-				}
+                    dir = RIGHT;
+                }
             }
             
             
             if (i == 'w')
             {
-				if (!isWall[1])
+                if (!isWall[1])
                 {
                     pos.y += speed;
-					dir = UP;
-				}
+                    dir = UP;
+                }
             }
             
             if (i == 'k')
@@ -99,35 +98,35 @@ void Player::move(void)
         {
             if (i == GLUT_KEY_LEFT)
             {
-				if (!isWall[0]) {
-					dir = LEFT;
-					pos.x -= speed;
-				}
-
+                if (!isWall[0]) {
+                    dir = LEFT;
+                    pos.x -= speed;
+                }
+                
             }
             
             if (i == GLUT_KEY_UP)
             {
-				if (!isWall[1]) {
-					pos.y += speed;
-					dir = UP;
-				}
+                if (!isWall[1]) {
+                    pos.y += speed;
+                    dir = UP;
+                }
             }
             
             if (i == GLUT_KEY_RIGHT)
             {
-				if (!isWall[2]) {
-					pos.x += speed;
-					dir = RIGHT;
-				}
+                if (!isWall[2]) {
+                    pos.x += speed;
+                    dir = RIGHT;
+                }
             }
             
             if (i == GLUT_KEY_DOWN)
             {
-				if (!isWall[3]) {
-					pos.y -= speed;
-					dir = DOWN;
-				}
+                if (!isWall[3]) {
+                    pos.y -= speed;
+                    dir = DOWN;
+                }
             }
         }
     }
@@ -137,28 +136,20 @@ void Player::move(void)
     
     while (it != listWeapon.end ())
     {
-        (*it)->move();
-        if ((*it)->getStatus() == KILLED)
-        {
-            //weapon = NULL;
-            Weapon * tmp = NULL;
-            tmp =(*it);
-            listWeapon.erase(it);
-            
-            delete tmp;
-            //tmp = NULL;
-        }
         
-        else it++;
+        if ((*it)->getStatus() == ALIVE)
+            (*it)->move();
+        it++;
+        
     }
-
+    
 }
 
 
 
 void Player::bang(void)
 {
-    listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/2, pos.y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 150));
+    listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/2, pos.y+GLOBAL_GRID_LENGTH/2, dir, w / 5, h / 5, speed * 2, speed * 30));
 }
 
 
@@ -169,15 +160,15 @@ position Player::getPos ()
 }
 void Player::killed(void)
 {
-	status = KILLED;
+    status = KILLED;
 }
 
 void Player::checkWall(bool isWall_[4])
 {
-	isWall[LEFT] = isWall_[0];
-	isWall[UP] = isWall_[1];
-	isWall[RIGHT] = isWall_[2];
-	isWall[DOWN] = isWall_[3];
+    isWall[LEFT] = isWall_[0];
+    isWall[UP] = isWall_[1];
+    isWall[RIGHT] = isWall_[2];
+    isWall[DOWN] = isWall_[3];
 }
 
 
@@ -192,27 +183,47 @@ void Player::cleanWall ()
 void
 Player::addItem(Item* item_)
 {
-	listItem.push_back(item_);
+    listItem.push_back(item_);
 }
 
 bool
 Player::useItem(void)
 {
-	if (listItem.front() != NULL)
+    if (listItem.front() != NULL)
     {
-		// Do something with Item.
-		listItem.pop_front();
-		return true;
-	}
-	else {
-		return false;
-	}
+        // Do something with Item.
+        listItem.pop_front();
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 std::list<Weapon*>
 Player::getWeaponList (void)
 {
     return listWeapon;
+}
+
+void
+Player::checkWeapon ()
+{
+    std::list<Weapon*>::iterator it = listWeapon.begin();
+    
+    while (it != listWeapon.end ())
+    {
+        
+        if ((*it)->getStatus() == KILLED)
+        {
+            Weapon * tmp = NULL;
+            tmp = *it;
+            listWeapon.erase(it);
+            it ++;
+            delete tmp;
+        }
+        else it++;
+    }
 }
 
 Player::~Player()

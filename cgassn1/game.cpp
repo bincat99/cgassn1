@@ -66,7 +66,8 @@ void Game::moveObjects(void)
     player->cleanWall();
     
     // bullet check
-    //map->checkEnemyKill(player->getWeaponList());
+    map->checkEnemyKill(player->getWeaponList());
+    player->checkWeapon();
     
     // player kill check
 }

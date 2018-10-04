@@ -41,6 +41,7 @@ public :
 
 	void killed(void);
 	void checkWall(bool isWall_[4]);
+    void checkWeapon ();
 
     void cleanWall ();
 

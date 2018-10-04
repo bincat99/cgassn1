@@ -131,8 +131,10 @@ void Map::moveEnemy (position playerPos)
 
 void Map::checkEnemyKill (std::list<Weapon*> l)
 {
-    if (l.empty()) return;
-    
+    if (l.empty()) {
+        return;
+    }
+    //puts ("test");
     for (std::list<Weapon*>::iterator it = l.begin(); it != l.end(); it++)
     {
       
@@ -149,21 +151,22 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
         }
     }
     
+    /*
     std::list<Weapon*>::iterator it = l.begin();
     
     while (it != l.end ())
     {
-        (*it)->move();
         if ((*it)->getStatus() == KILLED)
         {
-            //weapon = NULL;
-            (*it)->~Weapon();
+            Weapon *tmp = NULL;
+            tmp = *it;
             l.erase(it);
-            
+            it++;
+            delete tmp;
         }
         
         else it++;
-    }
+    }*/
     
     std::list<Enemy*>::iterator itEnemy = listEnemy.begin();
     
@@ -171,9 +174,12 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
     {
         if ((*itEnemy)->getStatus() == KILLED)
         {
-            (*itEnemy)->~Enemy();
+            Enemy *tmp = NULL;
+            tmp = *itEnemy;
             listEnemy.erase(itEnemy);
+            itEnemy++;
+            delete tmp;
         }
-        else it++;
+        else itEnemy++;
     }
 }

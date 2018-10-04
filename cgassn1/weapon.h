@@ -16,7 +16,7 @@
 class Weapon : virtual public GameObject
 {
 private :
-	float x, y;
+
     position pos;
 	enum Direction dir;
 	float w, h;
@@ -34,6 +34,7 @@ public:
 	void killed();
     
 	void checkWall(bool isWall_[4]);
+
 
     enum Status getStatus (void);
     
