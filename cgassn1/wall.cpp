@@ -66,3 +66,8 @@ Wall::LoadTexture(unsigned int idx)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
 }
+
+Wall::~Wall()
+{
+}
+

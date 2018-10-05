@@ -64,7 +64,7 @@ void Map::mapInit()
     }
     
     /* create items */
-    listItem.push_back(new Item(-100, 300, ONE));
+    listItem.push_back(new Item(-100, 300, TWO));
     
     
 }

@@ -25,6 +25,7 @@ private:
 	enum Direction dir;
 	float w, h;
 	float speed;
+    float speedDefault;
 	Weapon* weapon;
 	enum Status status;
     position pos;
@@ -33,8 +34,9 @@ private:
     clock_t bangDelay;
     clock_t stimpackDuration;
     
+    clock_t accelDuration;
 
-	int sprite = 0;
+	int sprite;
 
 	unsigned int textureID;
 

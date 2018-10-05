@@ -32,6 +32,7 @@ public:
     position getPos();
     void display ();
 	void LoadTexture(unsigned int);
+	~Wall();
 };
 
 

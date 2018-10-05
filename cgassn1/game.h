@@ -11,6 +11,7 @@
 
 #include "map.h"
 #include "player.h"
+#include "msg.h"
 
 #include "enemy.h"
 
@@ -22,7 +23,7 @@ private:
     Map *map;
     Player *player;
     Enemy *enemy;
-    
+    Message *msg;
     
 public:
     Game ();

@@ -16,16 +16,20 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     h = h_;
 #ifdef __APPLE__
     speed = speed_ * 10;
-	bangDelay = 50000;
+    bangDelay = 50000;
 #else
     speed = speed_ * 10;
-	bangDelay = 200;
+    bangDelay = 200;
 #endif
+    speedDefault = speed;
     status = ALIVE;
     weapon = NULL;
-
+    
     lastbang = 0;
     stimpackDuration = 0;
+    accelDuration = 0;
+    
+    sprite = 0;
     
     
     bl[LEFT * 3 + 0] = new BmpLoader ("left0.bmp");
@@ -51,7 +55,7 @@ void Player::display(void)
     {
         glColor3f(1.0, .0, .0);
         (*it)->display();
-		
+        
     }
     if (status == ALIVE)
     {
@@ -78,18 +82,34 @@ void Player::display(void)
         
         /* item box */
         float itemX, itemY;
-        itemX = pos.x + 300.0;
-        itemY = pos.y - 300.0;
-        glColor3f (1.0, 0.0, 0.);
-        glBegin(GL_POLYGON);
-        glVertex2f(itemX, itemY);
-        glVertex2f(itemX, itemY + h);
-        glVertex2f(itemX + w, itemY+ h);
-        glVertex2f(itemX + w, itemY);
-        glEnd();
+        itemX = pos.x + 250.0;
+        itemY = pos.y - 400.0;
+
+        
+        std::list<Item*>::iterator it = listItem.begin();
+        int idx = 0;
+        while (it != listItem.end ())
+        {
+            (*it)->displayBox(itemX,itemY, idx);
+            it++;
+            idx++;
+        }
+        
+        for (; idx < 6; idx++)
+        {
+            float ItemX = itemX + (idx % 3) * w;
+            float ItemY = itemY + (idx / 3) * h;
+            glColor3f ((float)0xc0/0xff, 1.0, (float)0xee/0xff);
+            glBegin(GL_POLYGON);
+            glVertex2f(ItemX, ItemY);
+            glVertex2f(ItemX, ItemY + h);
+            glVertex2f(ItemX + w, ItemY + h);
+            glVertex2f(ItemX + w, ItemY);
+            glEnd();
+        }
         
     }
-
+    
     
 }
 
@@ -142,13 +162,13 @@ void Player::move(void)
             
             if (i == 'k')
             {
-			
-				if (clock() - lastbang > bangDelay) 
-				{
-			
-					bang();
-				}
-                   
+                
+                if (clock() - lastbang > bangDelay)
+                {
+                    
+                    bang();
+                }
+                
             }
             
             if (i == 't')
@@ -156,7 +176,7 @@ void Player::move(void)
                 useItem ();
             }
             
-
+            
         }
         
         if (specialKeyBuffer[i])
@@ -214,16 +234,16 @@ void Player::move(void)
 
 void Player::bang(void)
 {
-	if (dir == LEFT || dir == RIGHT)
-	{
-		listWeapon.push_back(new Weapon(pos.x, pos.y + GLOBAL_GRID_LENGTH / 4, dir, w, h / 2, speed * 2, speed * 150));
-	}
+    if (dir == LEFT || dir == RIGHT)
+    {
+        listWeapon.push_back(new Weapon(pos.x, pos.y + GLOBAL_GRID_LENGTH / 4, dir, w, h / 2, speed * 2, speed * 150));
+    }
     
-	else
-	{
-		listWeapon.push_back(new Weapon(pos.x + GLOBAL_GRID_LENGTH / 4, pos.y, dir, w / 2, h, speed * 2, speed * 150));
-	}
-
+    else
+    {
+        listWeapon.push_back(new Weapon(pos.x + GLOBAL_GRID_LENGTH / 4, pos.y, dir, w / 2, h, speed * 2, speed * 150));
+    }
+    
     lastbang = clock ();
 }
 
@@ -270,10 +290,19 @@ Player::checkItemDuration ()
         {
             stimpackDuration = 0;
 #ifdef __APPLE__
-			bangDelay = 2000;
+            bangDelay = 2000;
 #else
-			bangDelay = 200;
+            bangDelay = 200;
 #endif
+        }
+    }
+    
+    if (accelDuration != 0)
+    {
+        if (clock() > accelDuration)
+        {
+            accelDuration = 0;
+            speed = speedDefault;
         }
     }
 }
@@ -284,14 +313,28 @@ Player::useItem(void)
     if (listItem.empty() == false)
     {
         // Do something with Item.
-       
+        
+        switch ((listItem.front())->getType()) {
+            case ONE:
 #ifdef __APPLE__
-		bangDelay = 10000;
-		stimpackDuration = 1000000 + clock();
+                bangDelay = 10000;
+                stimpackDuration = 1000000 + clock();
 #else
-		bangDelay = 100;
-		stimpackDuration = 1000 + clock();
+                bangDelay = 100;
+                stimpackDuration = 1000 + clock();
 #endif
+                break;
+                
+            case TWO:
+                speed = speed * 3;
+#ifdef __APPLE__
+                accelDuration = 1000000 + clock();
+#else
+                accelDuration = 1000 + clock();
+#endif
+                break;
+        }
+        
         listItem.pop_front();
         return true;
     }

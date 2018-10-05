@@ -173,6 +173,8 @@ enum Status Enemy::getStatus ()
 }
 Enemy::~Enemy()
 {
+	for (int i = 0; i < 16; i++)
+		delete bl[i];
     //printf ("EXP!\n");
 }
 

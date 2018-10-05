@@ -12,6 +12,7 @@
 
 #include "game.h"
 #include "util.h"
+#include "msg.h"
 #include <stdio.h>
 #include <list>
 
@@ -31,10 +32,11 @@ Game::Game()
 void
 Game::init (void)
 {
-    map = new Map(800, 800, 50);
+    map = new Map(1600, 1600, 50);
     player = new Player(50,50,UP, 50,50,1);
     
     map->mapInit();
+    msg = new Message ();
 }
 
 Player* Game::getPlayer(void)
@@ -51,8 +53,15 @@ void Game::display(void)
     glLoadIdentity();
     glTranslated(400-player->getPos().x, 400-player->getPos().y, 0);
     //gluLookAt(player->getPos().x , player->getPos().y, 0, player->getPos().x, player->getPos().y ,  -1, 0, 1, 0);
+    
+    
+    
     map->display();
     player->display();
+    
+    if (player->getStatus() == KILLED || gameClear)
+        msg->display(gameClear, player->getPos());
+    
 }
 
 
@@ -86,10 +95,11 @@ void Game::moveObjects(void)
     
     // player kill check
     
-    else 
+    else
     {
         if (keyboardBuffer['q'])
         {
+            
             glutDestroyWindow ( windowId );
             exit (0);
         }

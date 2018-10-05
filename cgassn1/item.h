@@ -22,11 +22,13 @@ class Item : virtual public GameObject
 
 	unsigned int textureID;
 
-	BmpLoader*bl[1];
+	BmpLoader* bl[2];
 
 public:
     position getPos();
+    enum ItemType getType ();
     void display ();
+    void displayBox (float, float, int);
 	void LoadTexture(unsigned int);
     Item (float , float , enum ItemType);
     ~Item ();

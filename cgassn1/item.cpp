@@ -10,14 +10,18 @@
 #include "item.h"
 
 
-Item::Item (float x, float y, enum ItemType type)
+Item::Item (float x, float y, enum ItemType type_)
 {
     pos.x = x;
     pos.y = y;
     width = GLOBAL_GRID_LENGTH;
     height = GLOBAL_GRID_LENGTH;
-    type = type;
-    
+    type = type_;
+
+
+	bl[0] = new BmpLoader("item0.bmp");
+	bl[1] = new BmpLoader("item1.bmp");
+
 }
 
 position Item::getPos ()
@@ -27,13 +31,54 @@ position Item::getPos ()
 
 void Item::display()
 {
-    glColor3f(0.0, 0.0, 1.0);
-    glBegin(GL_POLYGON);
-    glVertex2f(pos.x, pos.y);
-    glVertex2f(pos.x, pos.y + height);
-    glVertex2f(pos.x + width, pos.y + height);
-    glVertex2f(pos.x + width, pos.y);
+
+	glEnable(GL_TEXTURE_2D);
+	LoadTexture(type);
+	glColor3f(1.0, 1.0, 1.0);
+	glBegin(GL_QUADS);
+
+	glTexCoord2f(0.0, 0.0); // Need to check
+	glVertex2f(pos.x, pos.y);
+	glTexCoord2f(0.0, 1.0);
+	glVertex2f(pos.x, pos.y + height);
+
+	glTexCoord2f(1.0, 1.0);
+	glVertex2f(pos.x + width, pos.y + height);
+
+
+	glTexCoord2f(1.0, 0.0);
+	glVertex2f(pos.x + width, pos.y);
+	glEnd();
+    glDisable(GL_TEXTURE_2D);
+}
+
+void Item::displayBox(float x, float y, int idx)
+{
+    
+    float ItemX;
+    float ItemY;
+    
+    ItemX = x + (idx % 3) * width;
+    ItemY = y + (idx / 3) * height;
+    glEnable(GL_TEXTURE_2D);
+    LoadTexture(type);
+    glColor3f(1.0, 1.0, 1.0);
+    
+    glBegin(GL_QUADS);
+    
+    glTexCoord2f(0.0, 0.0); // Need to check
+    glVertex2f(ItemX, ItemY);
+    glTexCoord2f(0.0, 1.0);
+    glVertex2f(ItemX, ItemY + height);
+    
+    glTexCoord2f(1.0, 1.0);
+    glVertex2f(ItemX + width, ItemY + height);
+    
+    
+    glTexCoord2f(1.0, 0.0);
+    glVertex2f(ItemX + width, ItemY);
     glEnd();
+    glDisable(GL_TEXTURE_2D);
 }
 
 void Item::LoadTexture(unsigned int idx)
@@ -50,7 +95,14 @@ void Item::LoadTexture(unsigned int idx)
 	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
 }
 
+enum ItemType Item::getType ()
+{
+    return type;
+}
+
 Item::~Item ()
 {
+	for (int i = 0; i < 2; i++)
+		delete bl[i];
     //printf ("used!\n");
 }
