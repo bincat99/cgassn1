@@ -128,7 +128,8 @@ enum Status Weapon::getStatus ()
 
 Weapon::~Weapon()
 {
-    
+	for (int i = 0; i < 4; i++)
+		delete bl[i];
 }
 
 position Weapon::getPos()

@@ -67,5 +67,7 @@ void Item::LoadTexture(unsigned int idx)
 
 Item::~Item ()
 {
+	for (int i = 0; i < 2; i++)
+		delete bl[i];
     //printf ("used!\n");
 }
