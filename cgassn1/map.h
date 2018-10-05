@@ -33,6 +33,8 @@ class Map
     std::list<Enemy*> listEnemy;
     std::list<Item*> listItem;
     //public Map () = 0;
+
+	int map[32][32] = { 0, };
    
 public:
     Map ();

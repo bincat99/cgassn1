@@ -14,6 +14,7 @@
 #include "util.h"
 #include <stdio.h>
 #include <list>
+#include "msg.h"
 
 
 void renderScene(void) {
@@ -32,8 +33,8 @@ void
 Game::init (void)
 {
     map = new Map(800, 800, 50);
-	player = new Player(50,50,UP, 50,50,1);
-    
+	player = new Player(400,400,UP, 50,50,1);
+	msg = new Message(true);
     map->mapInit();
 }
 
@@ -50,6 +51,7 @@ void Game::display(void)
     glLoadIdentity();
     glTranslated(400-player->getPos().x, 400-player->getPos().y, 0);
 
+	msg->display();
     map->display();
     player->display();
 }

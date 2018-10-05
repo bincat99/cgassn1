@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include "util.h"
 #include "weapon.h"
-
-
+#include "BmpLoader.h"
+#include <iostream>
 Map::Map()
 {
     
@@ -38,13 +38,296 @@ void Map::mapInit()
     {
         listWall.push_back (new Wall (x, -height));
         listWall.push_back (new Wall (x, height));
+		int idx = (int)(x+width)/gridLength;
+		map[0][idx] = 1;
+		map[31][idx] = 1;
     }
     for (y = - height; y < height; y += gridLength)
     {
         listWall.push_back (new Wall (-width, y));
         listWall.push_back (new Wall (width, y));
+		int idx = (int)(y + height) / gridLength;
+		map[idx][0] = 1;
+		map[idx][31] = 1;
     }
     listWall.push_back (new Wall (width, height));
+
+	listWall.push_back(new Wall(5 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(17 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 3 * gridLength));
+	listWall.push_back(new Wall(21 * gridLength - width, height - 3 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 4 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 4 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 4 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 4 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 4 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 4 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 5 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 5 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 5 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 5 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 5 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 5 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 5 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 5 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 6 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 6 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 6 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 6 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 6 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 6 * gridLength));
+
+
+	listWall.push_back(new Wall(5 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(17 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 7 * gridLength));
+	listWall.push_back(new Wall(21 * gridLength - width, height - 7 * gridLength));
+
+
+	listWall.push_back(new Wall(6 * gridLength - width, height - 9 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 9 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 9 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 9 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 9 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 9 * gridLength));
+
+	listWall.push_back(new Wall(5 * gridLength - width, height - 10 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 10 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 10 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 10 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 10 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 11 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 11 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 11 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 11 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 11 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 11 * gridLength));
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 12 * gridLength));
+	listWall.push_back(new Wall(5 * gridLength - width, height - 12 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 12 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 12 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 12 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 12 * gridLength));
+
+	listWall.push_back(new Wall(6 * gridLength - width, height - 13 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 13 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 13 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 13 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 13 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 13 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 13 * gridLength));
+
+
+	listWall.push_back(new Wall(5 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(17 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 15 * gridLength));
+	listWall.push_back(new Wall(25 * gridLength - width, height - 15 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 16 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 16 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 16 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 16 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 16 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 16 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 16 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 16 * gridLength));
+	listWall.push_back(new Wall(25 * gridLength - width, height - 16 * gridLength));
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(5 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(21 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 17 * gridLength));
+	listWall.push_back(new Wall(25 * gridLength - width, height - 17 * gridLength));
+
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 18 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 18 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 18 * gridLength));
+	listWall.push_back(new Wall(17 * gridLength - width, height - 18 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 18 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 18 * gridLength));
+	listWall.push_back(new Wall(25 * gridLength - width, height - 18 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(25 * gridLength - width, height - 19 * gridLength));
+	listWall.push_back(new Wall(26 * gridLength - width, height - 19 * gridLength));
+
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(5 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(8 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(13 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(17 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 21 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 21 * gridLength));
+
+
+	listWall.push_back(new Wall(6 * gridLength - width, height - 22 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 22 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 22 * gridLength));
+	listWall.push_back(new Wall(18 * gridLength - width, height - 22 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 22 * gridLength));
+	listWall.push_back(new Wall(21 * gridLength - width, height - 22 * gridLength));
+	listWall.push_back(new Wall(23 * gridLength - width, height - 22 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 22 * gridLength));
+
+
+	listWall.push_back(new Wall(6 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(17 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(18 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 23 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 23 * gridLength));
+
+
+	listWall.push_back(new Wall(6 * gridLength - width, height - 24 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 24 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 24 * gridLength));
+	listWall.push_back(new Wall(18 * gridLength - width, height - 24 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 24 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 24 * gridLength));
+
+
+	listWall.push_back(new Wall(6 * gridLength - width, height - 25 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 25 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 25 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 25 * gridLength));
+	listWall.push_back(new Wall(13 * gridLength - width, height - 25 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 25 * gridLength));
+	listWall.push_back(new Wall(18 * gridLength - width, height - 25 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 25 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 25 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(5 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(18 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(19 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(21 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(22 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(25 * gridLength - width, height - 27 * gridLength));
+	listWall.push_back(new Wall(26 * gridLength - width, height - 27 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 28 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 28 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 28 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 28 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 28 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 28 * gridLength));
+	listWall.push_back(new Wall(27 * gridLength - width, height - 28 * gridLength));
+
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 29 * gridLength));
+	listWall.push_back(new Wall(5 * gridLength - width, height - 29 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 29 * gridLength));
+	listWall.push_back(new Wall(10 * gridLength - width, height - 29 * gridLength));
+	listWall.push_back(new Wall(11 * gridLength - width, height - 29 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 29 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 29 * gridLength));
+	listWall.push_back(new Wall(25 * gridLength - width, height - 29 * gridLength));
+	listWall.push_back(new Wall(26 * gridLength - width, height - 29 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 30 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 30 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 30 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 30 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 30 * gridLength));
+	listWall.push_back(new Wall(24 * gridLength - width, height - 30 * gridLength));
+	listWall.push_back(new Wall(27 * gridLength - width, height - 30 * gridLength));
+
+
+	listWall.push_back(new Wall(4 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(5 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(6 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(7 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(9 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(12 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(14 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(15 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(16 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(20 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(25 * gridLength - width, height - 31 * gridLength));
+	listWall.push_back(new Wall(26 * gridLength - width, height - 31 * gridLength));
+
+
+
+
+
     
     for (y = - height; y < height; y += gridLength)
     {
@@ -55,6 +338,7 @@ void Map::mapInit()
         }
         
     }
+
     
     /* create enemies */
     for (int i = 0; i < 1; i++)
