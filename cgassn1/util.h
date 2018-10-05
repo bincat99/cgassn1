@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <list>
+#include "BmpLoader.h"
 
 
 #define KEYBOARD_BUFFER_SIZE 256
