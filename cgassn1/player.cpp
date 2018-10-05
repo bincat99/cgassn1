@@ -77,13 +77,16 @@ void Player::display(void)
         
         
         /* item box */
-//        glColor3f (1.0, 1.0, 1.);
-//        glBegin(GL_POLYGON);
-//        glVertex2f(pos.x, pos.y);
-//        glVertex2f(pos.x, pos.y + h);
-//        glVertex2f(pos.x + w, pos.y + h);
-//        glVertex2f(pos.x + w, pos.y);
-//        glEnd();
+        float itemX, itemY;
+        itemX = pos.x + 300.0;
+        itemY = pos.y - 300.0;
+        glColor3f (1.0, 0.0, 0.);
+        glBegin(GL_POLYGON);
+        glVertex2f(itemX, itemY);
+        glVertex2f(itemX, itemY + h);
+        glVertex2f(itemX + w, itemY+ h);
+        glVertex2f(itemX + w, itemY);
+        glEnd();
         
     }
 
