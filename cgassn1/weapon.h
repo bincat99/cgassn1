@@ -12,6 +12,7 @@
 
 #include "util.h"
 #include "object.h"
+#include "BmpLoader.h"
 
 class Weapon : virtual public GameObject
 {
@@ -25,6 +26,12 @@ private :
 	enum Status status;
 
 	bool isWall[4] = { false, false, false, false, };
+
+	int sprite = 0;
+	unsigned int textureID;
+
+	BmpLoader *bl[4];
+
 public:
 	Weapon(float, float, enum Direction, float, float, float, float );
 	void display(void);
@@ -39,6 +46,8 @@ public:
     enum Status getStatus (void);
     
     position getPos();
+
+	void LoadTexture(unsigned int);
 };
 
 #endif /* weapon_h */

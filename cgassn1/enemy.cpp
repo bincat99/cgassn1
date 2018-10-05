@@ -21,18 +21,49 @@ Enemy::Enemy (float x_, float y_, enum Direction dir_, float w_, float h_, float
     speed = speed_;
     status = ALIVE;
     moveCount = 0;
+
+	bl[LEFT * 4 + 0] = new BmpLoader("enemy_l0.bmp");
+	bl[LEFT * 4 + 1] = new BmpLoader("enemy_l1.bmp");
+	bl[LEFT * 4 + 2] = new BmpLoader("enemy_l2.bmp");
+	bl[LEFT * 4 + 3] = new BmpLoader("enemy_l3.bmp");
+
+	bl[UP * 4 + 0] = new BmpLoader("enemy_u0.bmp");
+	bl[UP * 4 + 1] = new BmpLoader("enemy_u1.bmp");
+	bl[UP * 4 + 2] = new BmpLoader("enemy_u2.bmp");
+	bl[UP * 4 + 3] = new BmpLoader("enemy_u3.bmp");
+
+	bl[RIGHT * 4 + 0] = new BmpLoader("enemy_r0.bmp");
+	bl[RIGHT * 4 + 1] = new BmpLoader("enemy_r1.bmp");
+	bl[RIGHT * 4 + 2] = new BmpLoader("enemy_r2.bmp");
+	bl[RIGHT * 4 + 3] = new BmpLoader("enemy_r3.bmp");
+
+	bl[DOWN * 4 + 0] = new BmpLoader("enemy_d0.bmp");
+	bl[DOWN * 4 + 1] = new BmpLoader("enemy_d1.bmp");
+	bl[DOWN * 4 + 2] = new BmpLoader("enemy_d2.bmp");
+	bl[DOWN * 4 + 3] = new BmpLoader("enemy_d3.bmp");
 }
 
 void Enemy::display()
 {
     if (status == ALIVE) {
-        glColor3f(1.0, 0.0, 0.0);
-        glBegin(GL_POLYGON);
-        glVertex2f(pos.x, pos.y);
-        glVertex2f(pos.x, pos.y + h);
-        glVertex2f(pos.x + w, pos.y + h);
-        glVertex2f(pos.x + w, pos.y);
-        glEnd();
+		sprite = (sprite + 1) % 4;
+		glEnable(GL_TEXTURE_2D);
+		LoadTexture(dir * 4 + sprite);
+		glColor3f(1.0, 1.0, 1.0);
+		glBegin(GL_QUADS);
+
+		glTexCoord2f(0.0, 0.0); // Need to check
+		glVertex2f(pos.x, pos.y);
+		glTexCoord2f(0.0, 1.0);
+		glVertex2f(pos.x, pos.y + h);
+
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(pos.x + w, pos.y + h);
+
+
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(pos.x + w, pos.y);
+		glEnd();
     }
 }
 
@@ -47,14 +78,14 @@ void Enemy::move(float player_x, float player_y)
                 if (!isWall[2])
                 {
                     pos.x += speed;
-                    //dir = RIGHT;
+                    dir = RIGHT;
                 }
             }
             else {
                 if (!isWall[0])
                 {
                     pos.x -= speed;
-                    //dir = LEFT;
+                    dir = LEFT;
                 }
             }
             
@@ -63,7 +94,7 @@ void Enemy::move(float player_x, float player_y)
                 if (!isWall[UP])
                 {
                     pos.y += speed;
-                    //dir = UP;
+                    dir = UP;
                 }
             }
             else
@@ -71,7 +102,7 @@ void Enemy::move(float player_x, float player_y)
                 if (!isWall[DOWN])
                 {
                     pos.y -= speed;
-                    //dir = DOWN;
+                    dir = DOWN;
                 }
             }
         }
@@ -150,3 +181,16 @@ position Enemy::getPos()
     return pos;
 }
 
+void
+Enemy::LoadTexture(unsigned int idx) {
+	BmpLoader * tmp = bl[idx];
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
+}

@@ -115,7 +115,7 @@ void Map::checkItem(Player * player)
         {
             Item *tmp = NULL;
             tmp = *it;
-            listItem.erase(it);
+            //listItem.erase(it);
             it++;
             player->addItem (tmp);
         }
