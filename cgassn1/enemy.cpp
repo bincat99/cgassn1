@@ -9,6 +9,8 @@
 #include "enemy.h"
 #include "util.h"
 
+#define abs(x) ((x) < 0 ? (-(x)): (x))
+
 Enemy::Enemy (float x_, float y_, enum Direction dir_, float w_, float h_, float speed_)
 {
     x = x_;
@@ -77,14 +79,14 @@ void Enemy::move(float player_x, float player_y)
             {
                 if (!isWall[2])
                 {
-                    pos.x += speed;
+                    pos.x += speed*2;
                     dir = RIGHT;
                 }
             }
             else {
                 if (!isWall[0])
                 {
-                    pos.x -= speed;
+                    pos.x -= speed*2;
                     dir = LEFT;
                 }
             }
@@ -93,16 +95,22 @@ void Enemy::move(float player_x, float player_y)
             {
                 if (!isWall[UP])
                 {
-                    pos.y += speed;
-                    dir = UP;
+                    pos.y += speed*2;
+					if (abs(player_x - pos.x) < abs(player_y - pos.y)) {
+						dir = UP;
+
+					}
                 }
             }
             else
             {
                 if (!isWall[DOWN])
                 {
-                    pos.y -= speed;
-                    dir = DOWN;
+                    pos.y -= speed*2;
+					if (abs(player_x - pos.x) < abs(player_y - pos.y)) {
+						dir = DOWN;
+
+					}
                 }
             }
         }
