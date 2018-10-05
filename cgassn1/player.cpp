@@ -328,6 +328,8 @@ Player::useItem(void)
         
         switch ((listItem.front())->getType()) {
             case ONE:
+                if (stimpackDuration != 0)
+                    return false;
 #ifdef __APPLE__
                 bangDelay = 10000;
                 stimpackDuration = 1000000 + clock();
@@ -338,6 +340,8 @@ Player::useItem(void)
                 break;
                 
             case TWO:
+                if (accelDuration != 0)
+                    return false;
                 speed = speed * 3;
 #ifdef __APPLE__
                 accelDuration = 1000000 + clock();

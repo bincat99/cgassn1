@@ -22,7 +22,6 @@ class Game
 private:
     Map *map;
     Player *player;
-    Enemy *enemy;
     Message *msg;
     
 public:
