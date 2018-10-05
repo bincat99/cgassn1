@@ -6,6 +6,7 @@ Message::Message() {
 
 	bl[0] = new BmpLoader("win.bmp");
 	bl[1] = new BmpLoader("lose.bmp");
+    bl[2] = new BmpLoader("exit.bmp");
 }
 
 void
@@ -31,6 +32,27 @@ Message::display(bool is_win, position pos) {
 	glTexCoord2f(1.0, 0.0);
 	glVertex2f(pos.x + 250, pos.y - 50);
 	glEnd();
+    
+    
+    glEnable(GL_TEXTURE_2D);
+
+    idx = 2; // for exit.bmp
+    LoadTexture(idx);
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+    
+    glTexCoord2f(0.0, 0.0); // Need to check
+    glVertex2f(pos.x - 250, pos.y - 150);
+    glTexCoord2f(0.0, 1.0);
+    glVertex2f(pos.x - 250, pos.y -  50);
+    
+    glTexCoord2f(1.0, 1.0);
+    glVertex2f(pos.x + 250, pos.y - 50);
+    
+    
+    glTexCoord2f(1.0, 0.0);
+    glVertex2f(pos.x + 250, pos.y - 150);
+    glEnd();
 }
 
 void

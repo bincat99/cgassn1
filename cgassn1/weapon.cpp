@@ -43,6 +43,8 @@ void Weapon::display(void)
 		glTexCoord2f(1.0, 0.0);
 		glVertex2f(pos.x + w, pos.y);
 		glEnd();
+        glDisable(GL_TEXTURE_2D);
+
     }
 }
 

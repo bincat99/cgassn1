@@ -40,11 +40,12 @@
 		13823D322166A5BE00858023 /* left2.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823D122166A59A00858023 /* left2.bmp */; };
 		13823D332166A5BE00858023 /* left0.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823D132166A59A00858023 /* left0.bmp */; };
 		13823D342166A5BE00858023 /* left1.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823D142166A59A00858023 /* left1.bmp */; };
-		138379B82167765D008AAC01 /* win.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 138379B42167765D008AAC01 /* win.bmp */; };
 		138379B92167765D008AAC01 /* item0.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 138379B52167765D008AAC01 /* item0.bmp */; };
 		138379BA2167765D008AAC01 /* item1.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 138379B62167765D008AAC01 /* item1.bmp */; };
 		138379BB2167765D008AAC01 /* lose.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 138379B72167765D008AAC01 /* lose.bmp */; };
 		138379BE21677692008AAC01 /* msg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 138379BC21677692008AAC01 /* msg.cpp */; };
+		138379C1216785D1008AAC01 /* exit.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 138379BF216785D1008AAC01 /* exit.bmp */; };
+		138379C321678768008AAC01 /* win.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 138379C221678767008AAC01 /* win.bmp */; };
 		13877C102164DE08009E5AFE /* weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C0F2164DE08009E5AFE /* weapon.cpp */; };
 		13877C1221651210009E5AFE /* emptySpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C1121651210009E5AFE /* emptySpace.cpp */; };
 		13877C1421651526009E5AFE /* item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C1321651526009E5AFE /* item.cpp */; };
@@ -67,7 +68,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				138379B82167765D008AAC01 /* win.bmp in CopyFiles */,
+				138379C321678768008AAC01 /* win.bmp in CopyFiles */,
+				138379C1216785D1008AAC01 /* exit.bmp in CopyFiles */,
 				138379B92167765D008AAC01 /* item0.bmp in CopyFiles */,
 				138379BA2167765D008AAC01 /* item1.bmp in CopyFiles */,
 				138379BB2167765D008AAC01 /* lose.bmp in CopyFiles */,
@@ -152,12 +154,13 @@
 		13823D122166A59A00858023 /* left2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = left2.bmp; sourceTree = "<group>"; };
 		13823D132166A59A00858023 /* left0.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = left0.bmp; sourceTree = "<group>"; };
 		13823D142166A59A00858023 /* left1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = left1.bmp; sourceTree = "<group>"; };
-		138379B42167765D008AAC01 /* win.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = win.bmp; sourceTree = "<group>"; };
 		138379B52167765D008AAC01 /* item0.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = item0.bmp; sourceTree = "<group>"; };
 		138379B62167765D008AAC01 /* item1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = item1.bmp; sourceTree = "<group>"; };
 		138379B72167765D008AAC01 /* lose.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = lose.bmp; sourceTree = "<group>"; };
 		138379BC21677692008AAC01 /* msg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = msg.cpp; sourceTree = "<group>"; };
 		138379BD21677692008AAC01 /* msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg.h; sourceTree = "<group>"; };
+		138379BF216785D1008AAC01 /* exit.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = exit.bmp; sourceTree = "<group>"; };
+		138379C221678767008AAC01 /* win.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = win.bmp; sourceTree = "<group>"; };
 		13877C0F2164DE08009E5AFE /* weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = weapon.cpp; sourceTree = "<group>"; };
 		13877C1121651210009E5AFE /* emptySpace.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = emptySpace.cpp; sourceTree = "<group>"; };
 		13877C1321651526009E5AFE /* item.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = item.cpp; sourceTree = "<group>"; };
@@ -202,11 +205,12 @@
 		13823CF42166A59A00858023 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				138379BF216785D1008AAC01 /* exit.bmp */,
+				138379C221678767008AAC01 /* win.bmp */,
 				13823CF52166A59A00858023 /* right2.bmp */,
 				138379B52167765D008AAC01 /* item0.bmp */,
 				138379B62167765D008AAC01 /* item1.bmp */,
 				138379B72167765D008AAC01 /* lose.bmp */,
-				138379B42167765D008AAC01 /* win.bmp */,
 				13823CF62166A59A00858023 /* right1.bmp */,
 				13823CF72166A59A00858023 /* right0.bmp */,
 				13823CF82166A59A00858023 /* enemy_r3.bmp */,

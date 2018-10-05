@@ -32,7 +32,7 @@ Game::Game()
 void
 Game::init (void)
 {
-    map = new Map(1600, 1600, 50);
+    map = new Map(800, 800, 50);
     player = new Player(50,50,UP, 50,50,1);
     
     map->mapInit();

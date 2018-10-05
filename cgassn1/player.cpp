@@ -57,6 +57,7 @@ void Player::display(void)
         (*it)->display();
         
     }
+    
     if (status == ALIVE)
     {
         sprite = (sprite + 1) % 3;
@@ -77,6 +78,8 @@ void Player::display(void)
         glTexCoord2f(1.0, 0.0);
         glVertex2f(pos.x + w, pos.y);
         glEnd();
+        glDisable(GL_TEXTURE_2D);
+
         
         
         

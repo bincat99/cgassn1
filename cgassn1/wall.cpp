@@ -43,6 +43,7 @@ void Wall::display()
 //    glTexCoord2f(1.0, 0.0);
 //    glVertex2f(pos.x + width, pos.y);
 //    glEnd();
+    
     glColor3f (0.0, 0.0, 0.0);
     glBegin(GL_POLYGON);
     glVertex2f(pos.x, pos.y);

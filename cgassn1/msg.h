@@ -8,7 +8,7 @@ class Message{
 private:
 
 	unsigned int textureID;
-	BmpLoader* bl[2];
+	BmpLoader* bl[3];
 public:
 	Message(void);
 	void display(bool, position);
