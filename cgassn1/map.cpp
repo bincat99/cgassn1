@@ -106,7 +106,7 @@ void Map::checkWall (Player * player)
 
 void Map::checkItem(Player * player)
 {
-
+    
     std::list<Item*>::iterator it = listItem.begin();
     
     while (it != listItem.end ())
@@ -116,11 +116,17 @@ void Map::checkItem(Player * player)
             Item *tmp = NULL;
             tmp = *it;
             listItem.erase(it);
-            it++;
+            it--;
             player->addItem (tmp);
         }
-        else it++;
+        else
+        it++;
     }
+}
+
+void Map::checkPlayerKill(Player * player)
+{
+    
 }
 
 void Map::checkWallEnemy ()
@@ -227,9 +233,10 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
             Enemy *tmp = NULL;
             tmp = *itEnemy;
             listEnemy.erase(itEnemy);
-            itEnemy++;
+            itEnemy--;
             delete tmp;
         }
-        else itEnemy++;
+        //else
+        itEnemy++;
     }
 }

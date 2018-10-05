@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cgassn1/player.cpp"
-            timestampString = "560375435.6947941"
+            timestampString = "560423163.4835629"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
             landmarkName = "Player::LoadTexture(unsigned int idx)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,23 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cgassn1/player.cpp"
-            timestampString = "560375435.695174"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
-            landmarkName = "Player::LoadTexture(unsigned int idx)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cgassn1/player.cpp"
-            timestampString = "560375435.6954581"
+            timestampString = "560423163.483642"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "294"
@@ -170,12 +154,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cgassn1/player.cpp"
-            timestampString = "560375435.695732"
+            timestampString = "560423163.4836839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "295"
             endingLineNumber = "295"
             landmarkName = "Player::LoadTexture(unsigned int idx)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cgassn1/player.cpp"
+            timestampString = "560423163.483752"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "Player::LoadTexture(unsigned int idx)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cgassn1/map.cpp"
+            timestampString = "560423163.483834"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "Map::checkItem(Player * player)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

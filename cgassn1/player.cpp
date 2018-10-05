@@ -3,6 +3,7 @@
 #include "util.h"
 #include "BmpLoader.h"
 #include <stdio.h>
+#include <time.h>
 
 #include <list>
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_)

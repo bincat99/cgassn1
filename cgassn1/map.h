@@ -41,6 +41,7 @@ public:
     void display ();
     void checkWall (Player *);
     void checkItem (Player *);
+    void checkPlayerKill (Player *);
     void checkWallEnemy ();
     void cleanWallEnemy ();
     void moveEnemy (position);
