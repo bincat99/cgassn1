@@ -6,7 +6,7 @@
 BmpLoader::BmpLoader(const char* filename) {
 	FILE *file = 0;
 	
-	char fullpath[256] = "C:/Users/PLUS/Desktop/dahun_cg/cgassn1/Debug/resources/";
+	char fullpath[256] = "./cgassn1/resources/";
 		strcat(fullpath, filename);
 
 #ifdef __APPLE__

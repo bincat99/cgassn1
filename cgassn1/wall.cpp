@@ -16,7 +16,7 @@ Wall::Wall (float x, float y)
     width = GLOBAL_GRID_LENGTH;
     height = GLOBAL_GRID_LENGTH;
 
-	bl[0] = new BmpLoader("brick.bmp");
+	//bl[0] = new BmpLoader("brick.bmp");
 }
 
 position Wall::getPos()

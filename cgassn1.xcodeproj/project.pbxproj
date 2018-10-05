@@ -40,7 +40,6 @@
 		13823D322166A5BE00858023 /* left2.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823D122166A59A00858023 /* left2.bmp */; };
 		13823D332166A5BE00858023 /* left0.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823D132166A59A00858023 /* left0.bmp */; };
 		13823D342166A5BE00858023 /* left1.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 13823D142166A59A00858023 /* left1.bmp */; };
-		138379B3216762F5008AAC01 /* brick.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 138379B2216762F5008AAC01 /* brick.bmp */; };
 		13877C102164DE08009E5AFE /* weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C0F2164DE08009E5AFE /* weapon.cpp */; };
 		13877C1221651210009E5AFE /* emptySpace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C1121651210009E5AFE /* emptySpace.cpp */; };
 		13877C1421651526009E5AFE /* item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13877C1321651526009E5AFE /* item.cpp */; };
@@ -63,7 +62,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				138379B3216762F5008AAC01 /* brick.bmp in CopyFiles */,
 				13823D152166A5BD00858023 /* right2.bmp in CopyFiles */,
 				13823D162166A5BD00858023 /* right1.bmp in CopyFiles */,
 				13823D172166A5BD00858023 /* right0.bmp in CopyFiles */,
@@ -145,7 +143,6 @@
 		13823D122166A59A00858023 /* left2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = left2.bmp; sourceTree = "<group>"; };
 		13823D132166A59A00858023 /* left0.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = left0.bmp; sourceTree = "<group>"; };
 		13823D142166A59A00858023 /* left1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = left1.bmp; sourceTree = "<group>"; };
-		138379B2216762F5008AAC01 /* brick.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = brick.bmp; sourceTree = "<group>"; };
 		13877C0F2164DE08009E5AFE /* weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = weapon.cpp; sourceTree = "<group>"; };
 		13877C1121651210009E5AFE /* emptySpace.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = emptySpace.cpp; sourceTree = "<group>"; };
 		13877C1321651526009E5AFE /* item.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = item.cpp; sourceTree = "<group>"; };
@@ -192,7 +189,6 @@
 			children = (
 				13823CF52166A59A00858023 /* right2.bmp */,
 				13823CF62166A59A00858023 /* right1.bmp */,
-				138379B2216762F5008AAC01 /* brick.bmp */,
 				13823CF72166A59A00858023 /* right0.bmp */,
 				13823CF82166A59A00858023 /* enemy_r3.bmp */,
 				13823CF92166A59A00858023 /* enemy_r2.bmp */,
