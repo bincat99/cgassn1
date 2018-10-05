@@ -9,12 +9,24 @@
 #ifndef object_h
 #define object_h
 
-class Object {
-    
-    
-    
-    virtual void Test () = 0;
-    virtual void drawThing () = 0;
+#include "util.h"
+
+enum ObjectType
+{
+    EMPTY,
+    WALL,
+    ITEM,
+    ENEMY,
+    SAFE
+};
+
+class GameObject
+{
+
+public:
+    virtual position getPos () = 0;
+    //virtual void move () = 0;
+    virtual void display () = 0;
 };
 
 #endif /* object_h */

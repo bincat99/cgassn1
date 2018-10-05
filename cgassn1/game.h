@@ -11,17 +11,18 @@
 
 #include "map.h"
 #include "player.h"
+#include "msg.h"
 
 #include "enemy.h"
 
 
 class Game
 {
+    
 private:
     Map *map;
     Player *player;
-    Enemy *enemy;
-    
+    Message *msg;
     
 public:
     Game ();
@@ -34,13 +35,7 @@ public:
 	void moveObjects();
 
 	Player* getPlayer();
-    //private:
- /*   Game ()
-    {
-        map = new Map ();
-        player = new Player ();
-        enemy = new Enemy ();
-    }*/
+
     
 };
 
