@@ -16,12 +16,14 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     h = h_;
 #ifdef __APPLE__
     speed = speed_ * 10;
+	bangDelay = 50000;
 #else
     speed = speed_ * 10;
+	bangDelay = 200;
 #endif
     status = ALIVE;
     weapon = NULL;
-    bangDelay = 20000;
+
     lastbang = 0;
     stimpackDuration = 0;
     
@@ -47,8 +49,9 @@ void Player::display(void)
 {
     for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
     {
-        glColor3f(.0, .0, 0);
+        glColor3f(1.0, .0, .0);
         (*it)->display();
+		
     }
     if (status == ALIVE)
     {
@@ -70,6 +73,17 @@ void Player::display(void)
         glTexCoord2f(1.0, 0.0);
         glVertex2f(pos.x + w, pos.y);
         glEnd();
+        
+        
+        
+        /* item box */
+//        glColor3f (1.0, 1.0, 1.);
+//        glBegin(GL_POLYGON);
+//        glVertex2f(pos.x, pos.y);
+//        glVertex2f(pos.x, pos.y + h);
+//        glVertex2f(pos.x + w, pos.y + h);
+//        glVertex2f(pos.x + w, pos.y);
+//        glEnd();
         
     }
 
@@ -125,8 +139,13 @@ void Player::move(void)
             
             if (i == 'k')
             {
-                if (clock() - lastbang > bangDelay)
-                    bang();
+			
+				if (clock() - lastbang > bangDelay) 
+				{
+			
+					bang();
+				}
+                   
             }
             
             if (i == 't')
@@ -134,6 +153,7 @@ void Player::move(void)
                 useItem ();
             }
             
+
         }
         
         if (specialKeyBuffer[i])
@@ -191,11 +211,16 @@ void Player::move(void)
 
 void Player::bang(void)
 {
-    if (dir == LEFT || dir == RIGHT)
-        listWeapon.push_back(new Weapon(pos.x, pos.y+GLOBAL_GRID_LENGTH/4, dir, w, h / 2, speed * 2, speed * 150));
+	if (dir == LEFT || dir == RIGHT)
+	{
+		listWeapon.push_back(new Weapon(pos.x, pos.y + GLOBAL_GRID_LENGTH / 4, dir, w, h / 2, speed * 2, speed * 150));
+	}
     
-    else
-        listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/4, pos.y, dir, w/2, h, speed * 2, speed * 150));
+	else
+	{
+		listWeapon.push_back(new Weapon(pos.x + GLOBAL_GRID_LENGTH / 4, pos.y, dir, w / 2, h, speed * 2, speed * 150));
+	}
+
     lastbang = clock ();
 }
 
@@ -241,7 +266,11 @@ Player::checkItemDuration ()
         if (clock() > stimpackDuration)
         {
             stimpackDuration = 0;
-            bangDelay = 20000;
+#ifdef __APPLE__
+			bangDelay = 2000;
+#else
+			bangDelay = 200;
+#endif
         }
     }
 }
@@ -249,11 +278,17 @@ Player::checkItemDuration ()
 bool
 Player::useItem(void)
 {
-    if (listItem.front() != NULL)
+    if (listItem.empty() == false)
     {
         // Do something with Item.
-        stimpackDuration = 1000000 + clock();
-        bangDelay  = 10000;
+       
+#ifdef __APPLE__
+		bangDelay = 10000;
+		stimpackDuration = 1000000 + clock();
+#else
+		bangDelay = 100;
+		stimpackDuration = 1000 + clock();
+#endif
         listItem.pop_front();
         return true;
     }
@@ -280,8 +315,8 @@ Player::checkWeapon ()
         {
             Weapon * tmp = NULL;
             tmp = *it;
-            listWeapon.erase(it);
-            it ++;
+            it = listWeapon.erase(it);
+            
             delete tmp;
         }
         else it++;
@@ -304,6 +339,11 @@ Player::LoadTexture(unsigned int idx)
     gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
 }
 
+enum Status
+Player::getStatus ()
+{
+    return status;
+}
 
 Player::~Player()
 {

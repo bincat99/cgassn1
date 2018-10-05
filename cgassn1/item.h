@@ -11,6 +11,7 @@
 
 #include "object.h"
 #include "util.h"
+#include "BmpLoader.h"
 
 class Item : virtual public GameObject
 {
@@ -18,9 +19,15 @@ class Item : virtual public GameObject
     position pos;
     float width;
     float height;
+
+	unsigned int textureID;
+
+	BmpLoader*bl[1];
+
 public:
     position getPos();
     void display ();
+	void LoadTexture(unsigned int);
     Item (float , float , enum ItemType);
     ~Item ();
 };

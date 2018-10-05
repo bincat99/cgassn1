@@ -23,6 +23,7 @@
 #endif
 
 #include "game.h"
+#include "util.h"
 
 
 using namespace std;
@@ -84,7 +85,7 @@ main (int argc, char * argv[])
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(200, 150);
     glutInitWindowSize(800, 800);
-    glutCreateWindow("Hello OpenGL");
+    windowId = glutCreateWindow("Hello OpenGL");
     //    glutDisplayFunc(renderScene);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 

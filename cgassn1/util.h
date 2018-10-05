@@ -55,7 +55,11 @@ typedef struct
     float y;
 }position;
 
+extern unsigned int
+windowId;
 
+extern bool
+gameClear;
 
 void
 utilInit ();

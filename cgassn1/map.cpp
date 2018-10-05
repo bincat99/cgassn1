@@ -115,18 +115,29 @@ void Map::checkItem(Player * player)
         {
             Item *tmp = NULL;
             tmp = *it;
-            listItem.erase(it);
-            it--;
+            
+            
+            it = listItem.erase(it);
+            
             player->addItem (tmp);
         }
         else
-        it++;
+            it++;
     }
 }
 
 void Map::checkPlayerKill(Player * player)
 {
+    std::list<Enemy*>::iterator it = listEnemy.begin();
     
+    while (it != listEnemy.end ())
+    {
+        if (CheckCollision(player->getPos(), (*it)->getPos()) != 0)
+        {
+            player->killed();
+        }
+        it++;
+    }
 }
 
 void Map::checkWallEnemy ()
@@ -207,23 +218,6 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
         }
     }
     
-    /*
-     std::list<Weapon*>::iterator it = l.begin();
-     
-     while (it != l.end ())
-     {
-     if ((*it)->getStatus() == KILLED)
-     {
-     Weapon *tmp = NULL;
-     tmp = *it;
-     l.erase(it);
-     it++;
-     delete tmp;
-     }
-     
-     else it++;
-     }*/
-    
     std::list<Enemy*>::iterator itEnemy = listEnemy.begin();
     
     while (itEnemy != listEnemy.end ())
@@ -232,11 +226,17 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
         {
             Enemy *tmp = NULL;
             tmp = *itEnemy;
-            listEnemy.erase(itEnemy);
-            itEnemy--;
+            
+            itEnemy = listEnemy.erase(itEnemy);
+            
             delete tmp;
         }
         //else
         itEnemy++;
+    }
+    
+    if (listEnemy.empty())
+    {
+        gameClear = true;
     }
 }

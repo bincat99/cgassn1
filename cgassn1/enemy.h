@@ -10,6 +10,7 @@
 #define enemy_h
 #include "object.h"
 #include "util.h"
+#include "BmpLoader.h"
 
 
 class Enemy : virtual public GameObject
@@ -24,6 +25,12 @@ class Enemy : virtual public GameObject
 	enum Status status;
 
 	bool isWall[4] = {false, false, false, false,};
+
+	int sprite = 0;
+
+	unsigned int textureID;
+
+	BmpLoader * bl[16];
     
 
 public:
@@ -37,6 +44,7 @@ public:
 
 	void checkWall(bool isWall_[4]);
 	void killed();
+	void LoadTexture(unsigned int);
 	~Enemy();
 };
 

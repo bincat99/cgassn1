@@ -50,6 +50,7 @@ public :
 	void move(void);
 	void bang(void);
 
+    enum Status getStatus ();
     
     position getPos (void);
 

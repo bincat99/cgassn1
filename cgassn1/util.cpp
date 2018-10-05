@@ -27,6 +27,11 @@
 #include <GL/freeglut.h>
 #endif
 
+unsigned int
+windowId;
+
+bool
+gameClear;
 
 bool
 keyboardBuffer [KEYBOARD_BUFFER_SIZE];
@@ -46,6 +51,7 @@ utilInit ()
         keyboardBuffer[i] = false;
         specialKeyBuffer[i] = false;
     }
+    gameClear = false;
 }
 //
 void
