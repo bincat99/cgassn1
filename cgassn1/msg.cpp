@@ -32,6 +32,7 @@ Message::display(bool is_win, position pos) {
 	glTexCoord2f(1.0, 0.0);
 	glVertex2f(pos.x + 250, pos.y - 50);
 	glEnd();
+    glDisable(GL_TEXTURE_2D);
     
     
     glEnable(GL_TEXTURE_2D);
@@ -53,6 +54,8 @@ Message::display(bool is_win, position pos) {
     glTexCoord2f(1.0, 0.0);
     glVertex2f(pos.x + 250, pos.y - 150);
     glEnd();
+    glDisable(GL_TEXTURE_2D);
+
 }
 
 void
@@ -60,6 +63,7 @@ Message::LoadTexture(unsigned int idx) {
 
 	BmpLoader * tmp = bl[idx];
 
+    glDeleteTextures(1, &textureID);
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

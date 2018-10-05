@@ -16,11 +16,15 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     h = h_;
 #ifdef __APPLE__
     speed = speed_ * 10;
-    bangDelay = 50000;
+    bangDelay = 100000;
+    itemDelay = 100000;
 #else
     speed = speed_ * 10;
     bangDelay = 200;
+    itemDelay = 1000;
 #endif
+    
+    lastItemUse = 0;
     speedDefault = speed;
     status = ALIVE;
     weapon = NULL;
@@ -174,9 +178,13 @@ void Player::move(void)
                 
             }
             
-            if (i == 't')
+            if (i == 'j')
             {
-                useItem ();
+                if (clock() - lastItemUse > itemDelay)
+                {
+                    
+                    useItem();
+                }
             }
             
             
@@ -315,6 +323,7 @@ Player::useItem(void)
 {
     if (listItem.empty() == false)
     {
+        lastItemUse = clock ();
         // Do something with Item.
         
         switch ((listItem.front())->getType()) {
@@ -344,6 +353,11 @@ Player::useItem(void)
     else {
         return false;
     }
+}
+unsigned long
+Player::getItemNum ()
+{
+    return listItem.size();
 }
 
 std::list<Weapon*>
@@ -378,6 +392,8 @@ Player::LoadTexture(unsigned int idx)
 {
     BmpLoader * tmp = bl[idx];
     
+    glDeleteTextures(1, &textureID);
+
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

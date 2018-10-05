@@ -34,6 +34,9 @@ private:
     clock_t bangDelay;
     clock_t stimpackDuration;
     
+    clock_t lastItemUse;
+    clock_t itemDelay;
+    
     clock_t accelDuration;
 
 	int sprite;
@@ -66,6 +69,8 @@ public :
 	void addItem(Item*);
 	bool useItem(void);
     void checkItemDuration ();
+    
+    unsigned long getItemNum ();
 
     std::list<Weapon*> getWeaponList ();
 

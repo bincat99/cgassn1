@@ -26,6 +26,8 @@ class Map
     float width;
     float height;
     float gridLength;
+    
+    enum ObjectType objMap[32][32];
 
     std::list<GameObject*> listObject;
     std::list<Wall*> listWall;

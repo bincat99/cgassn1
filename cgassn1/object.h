@@ -11,6 +11,15 @@
 
 #include "util.h"
 
+enum ObjectType
+{
+    EMPTY,
+    WALL,
+    ITEM,
+    ENEMY,
+    SAFE
+};
+
 class GameObject
 {
 

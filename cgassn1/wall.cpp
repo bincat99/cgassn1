@@ -26,24 +26,7 @@ position Wall::getPos()
 
 void Wall::display()
 {
-//    glEnable(GL_TEXTURE_2D);
-//    LoadTexture(0);
-//    glColor3f(1.0, 1.0, 1.0);
-//    glBegin(GL_QUADS);
-//
-//    glTexCoord2f(0.0, 0.0); // Need to check
-//    glVertex2f(pos.x, pos.y);
-//    glTexCoord2f(0.0, 1.0);
-//    glVertex2f(pos.x, pos.y + height);
-//
-//    glTexCoord2f(1.0, 1.0);
-//    glVertex2f(pos.x + width, pos.y + height);
-//
-//
-//    glTexCoord2f(1.0, 0.0);
-//    glVertex2f(pos.x + width, pos.y);
-//    glEnd();
-    
+
     glColor3f (0.0, 0.0, 0.0);
     glBegin(GL_POLYGON);
     glVertex2f(pos.x, pos.y);
@@ -57,6 +40,8 @@ void
 Wall::LoadTexture(unsigned int idx)
 {
 	BmpLoader * tmp = bl[idx];
+
+    glDeleteTextures(1, &textureID);
 
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);

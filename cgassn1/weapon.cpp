@@ -145,6 +145,8 @@ Weapon::LoadTexture(unsigned int idx)
 {
 	BmpLoader * tmp = bl[idx];
 
+    glDeleteTextures(1, &textureID);
+
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
