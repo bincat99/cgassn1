@@ -48,6 +48,9 @@
     <ClCompile Include="cgassn1\weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cgassn1\msg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cgassn1\BmpLoader.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cgassn1\weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cgassn1\msg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

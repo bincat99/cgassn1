@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{6A04D1F0-A05E-4B42-BA1E-53C36E8692A1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -71,6 +71,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\pos\Downloads\install_library\glew-2.1.0\include;C:\Users\pos\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\Users\pos\Downloads\install_library\freeglut\lib\x64;C:\Users\pos\Downloads\install_library\glew-2.1.0\lib\Release\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -101,6 +105,11 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalDependencies>glew32.lib;freeglut.lib;Opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cgassn1\BmpLoader.cpp" />
     <ClCompile Include="cgassn1\emptySpace.cpp" />
@@ -109,6 +118,7 @@
     <ClCompile Include="cgassn1\item.cpp" />
     <ClCompile Include="cgassn1\main.cpp" />
     <ClCompile Include="cgassn1\map.cpp" />
+    <ClCompile Include="cgassn1\msg.cpp" />
     <ClCompile Include="cgassn1\player.cpp" />
     <ClCompile Include="cgassn1\util.cpp" />
     <ClCompile Include="cgassn1\wall.cpp" />
@@ -121,6 +131,7 @@
     <ClInclude Include="cgassn1\game.h" />
     <ClInclude Include="cgassn1\item.h" />
     <ClInclude Include="cgassn1\map.h" />
+    <ClInclude Include="cgassn1\msg.h" />
     <ClInclude Include="cgassn1\object.h" />
     <ClInclude Include="cgassn1\player.h" />
     <ClInclude Include="cgassn1\util.h" />

@@ -231,8 +231,8 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
             
             delete tmp;
         }
-        //else
-        itEnemy++;
+        else
+			itEnemy++;
     }
     
     if (listEnemy.empty())
