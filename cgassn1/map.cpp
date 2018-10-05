@@ -115,8 +115,10 @@ void Map::checkItem(Player * player)
         {
             Item *tmp = NULL;
             tmp = *it;
+
             it = listItem.erase(it);
          
+
             player->addItem (tmp);
         }
         else it++;
@@ -204,10 +206,10 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
     /*
      std::list<Weapon*>::iterator it = l.begin();
      
-     while (it != l.end ())
+     while (it != l.end ())0
      {
      if ((*it)->getStatus() == KILLED)
-     {
+     {00000
      Weapon *tmp = NULL;
      tmp = *it;
      l.erase(it);

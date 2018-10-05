@@ -22,7 +22,7 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 #endif
     status = ALIVE;
     weapon = NULL;
-   
+
     lastbang = 0;
     stimpackDuration = 0;
     
@@ -198,11 +198,15 @@ void Player::move(void)
 
 void Player::bang(void)
 {
-    if (dir == LEFT || dir == RIGHT)
-        listWeapon.push_back(new Weapon(pos.x, pos.y+GLOBAL_GRID_LENGTH/4, dir, w, h / 2, speed * 2, speed * 150));
+	if (dir == LEFT || dir == RIGHT)
+	{
+		listWeapon.push_back(new Weapon(pos.x, pos.y + GLOBAL_GRID_LENGTH / 4, dir, w, h / 2, speed * 2, speed * 150));
+	}
     
-    else
-        listWeapon.push_back(new Weapon(pos.x+GLOBAL_GRID_LENGTH/4, pos.y, dir, w/2, h, speed * 2, speed * 150));
+	else
+	{
+		listWeapon.push_back(new Weapon(pos.x + GLOBAL_GRID_LENGTH / 4, pos.y, dir, w / 2, h, speed * 2, speed * 150));
+	}
 
     lastbang = clock ();
 }

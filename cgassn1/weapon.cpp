@@ -12,18 +12,37 @@ Weapon::Weapon(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     speed = speed_;
     range = range_;
     status = ALIVE;
+
+	bl[LEFT] = new BmpLoader("featherl.bmp");
+
+	bl[UP] = new BmpLoader("featheru.bmp");
+
+	bl[RIGHT] = new BmpLoader("featherr.bmp");
+
+	bl[DOWN] = new BmpLoader("featherd.bmp");
 }
 
 void Weapon::display(void)
 {
     if (status == ALIVE)
     {
-        glBegin(GL_POLYGON);
-        glVertex2f(pos.x, pos.y);
-        glVertex2f(pos.x, pos.y + h);
-        glVertex2f(pos.x + w, pos.y + h);
-        glVertex2f(pos.x + w, pos.y);
-        glEnd();
+		glEnable(GL_TEXTURE_2D);
+		LoadTexture(dir + sprite);
+		glColor3f(1.0, 1.0, 1.0);
+		glBegin(GL_QUADS);
+
+		glTexCoord2f(0.0, 0.0); // Need to check
+		glVertex2f(pos.x, pos.y);
+		glTexCoord2f(0.0, 1.0);
+		glVertex2f(pos.x, pos.y + h);
+
+		glTexCoord2f(1.0, 1.0);
+		glVertex2f(pos.x + w, pos.y + h);
+
+
+		glTexCoord2f(1.0, 0.0);
+		glVertex2f(pos.x + w, pos.y);
+		glEnd();
     }
 }
 
@@ -117,3 +136,18 @@ position Weapon::getPos()
     return pos;
 }
 
+
+void
+Weapon::LoadTexture(unsigned int idx)
+{
+	BmpLoader * tmp = bl[idx];
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
+}
