@@ -22,7 +22,7 @@ class Item : virtual public GameObject
 
 	unsigned int textureID;
 
-	BmpLoader*bl[1];
+	BmpLoader* bl[2];
 
 public:
     position getPos();
