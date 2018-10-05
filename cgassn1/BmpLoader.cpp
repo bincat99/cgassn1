@@ -6,6 +6,8 @@
 BmpLoader::BmpLoader(const char* filename) {
 	FILE *file = 0;
 	
+	char fullpath[256] = "C:/Users/PLUS/Desktop/dahun_cg/cgassn1/Debug/resources/";
+		strcat(fullpath, filename);
 
 #ifdef __APPLE__
     file = fopen (filename, "rb");
@@ -14,7 +16,7 @@ BmpLoader::BmpLoader(const char* filename) {
     
 #else
     errno_t err;
-	err = fopen_s(&file, filename, "rb");
+	err = fopen_s(&file, fullpath, "rb");
 	if (err != 0) {
 		std::cout << "File not found" << std::endl;
 	}

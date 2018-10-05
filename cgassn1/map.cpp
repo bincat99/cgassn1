@@ -115,8 +115,8 @@ void Map::checkItem(Player * player)
         {
             Item *tmp = NULL;
             tmp = *it;
-            listItem.erase(it);
-            it++;
+            it = listItem.erase(it);
+         
             player->addItem (tmp);
         }
         else it++;
@@ -226,8 +226,8 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
         {
             Enemy *tmp = NULL;
             tmp = *itEnemy;
-            listEnemy.erase(itEnemy);
-            itEnemy++;
+            itEnemy = listEnemy.erase(itEnemy);
+            
             delete tmp;
         }
         else itEnemy++;
