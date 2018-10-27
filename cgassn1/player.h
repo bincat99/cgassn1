@@ -40,7 +40,10 @@ private:
     clock_t accelDuration;
 
 	int sprite;
-
+    
+    unsigned int hitPoint;
+    clock_t nohitState;
+    clock_t nohitDuration;
 	unsigned int textureID;
 
 	bool isWall[4] = {false, false, false, false,};
@@ -56,6 +59,7 @@ public :
 	void bang(void);
 
     enum Status getStatus ();
+    void setStatus (enum Status);
     
     position getPos (void);
 
@@ -69,6 +73,7 @@ public :
 	void addItem(Item*);
 	bool useItem(void);
     void checkItemDuration ();
+    void checkNohit();
     
     unsigned long getItemNum ();
 

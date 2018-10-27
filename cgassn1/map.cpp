@@ -29,6 +29,7 @@ Map::Map (float w, float h, float g)
 }
 
 
+
 void Map::mapInit()
 {
     float x, y;
@@ -425,6 +426,7 @@ void Map::checkPlayerKill(Player * player)
     {
         if (CheckCollision(player->getPos(), (*it)->getPos()) != 0)
         {
+            
             player->killed();
         }
         it++;
@@ -529,4 +531,9 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
     {
         gameClear = true;
     }
+}
+
+Map::~Map()
+{
+    
 }

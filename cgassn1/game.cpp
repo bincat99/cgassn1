@@ -37,6 +37,9 @@ Game::init (void)
     
     map->mapInit();
     msg = new Message ();
+    
+    remainingTime = CLOCKS_PER_SEC * 10;
+    startTime = clock();
 }
 
 Player* Game::getPlayer(void)
@@ -64,6 +67,21 @@ void Game::display(void)
     
 }
 
+void Game::checkTimeout()
+{
+    
+    if (clock() > startTime + remainingTime)
+        player->setStatus(KILLED);
+}
+
+void Game::restart ()
+{
+    delete this->player;
+    delete this->map;
+    delete this->msg;
+
+    init();
+}
 
 void Game::moveObjects(void)
 {
@@ -90,7 +108,9 @@ void Game::moveObjects(void)
         
         player->checkItemDuration();
         
+        player->checkNohit();
         map->checkPlayerKill(player);
+        checkTimeout();
     }
     
     // player kill check
@@ -104,6 +124,12 @@ void Game::moveObjects(void)
             exit (0);
         }
         
+        if (keyboardBuffer['r'])
+        {
+            
+            restart();
+            
+        }
     }
     
 }

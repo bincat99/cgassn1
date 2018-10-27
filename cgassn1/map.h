@@ -39,6 +39,8 @@ class Map
 public:
     Map ();
     Map (float, float , float);
+    ~Map ();
+    
     void mapInit ();
     void display ();
     void checkWall (Player *);

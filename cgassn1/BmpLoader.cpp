@@ -1,14 +1,14 @@
 #include "BmpLoader.h"
 #include <stdio.h>
 #include <iostream>
-
+#include <stdlib.h>
 
 BmpLoader::BmpLoader(const char* filename) {
 	FILE *file = 0;
 	
 	char fullpath[256] = "./cgassn1/resources/";
 		strcat(fullpath, filename);
-
+    system("pwd");
 #ifdef __APPLE__
     file = fopen (filename, "rb");
     if (file == NULL)

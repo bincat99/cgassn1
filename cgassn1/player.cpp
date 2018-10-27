@@ -16,12 +16,12 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     h = h_;
 #ifdef __APPLE__
     speed = speed_ * 10;
-    bangDelay = 100000;
-    itemDelay = 100000;
+    bangDelay = CLOCKS_PER_SEC / 2;
+    itemDelay = CLOCKS_PER_SEC * 5;
 #else
     speed = speed_ * 10;
-    bangDelay = 200;
-    itemDelay = 1000;
+    bangDelay = CLOCKS_PER_SEC / 2;
+    itemDelay = CLOCKS_PER_SEC * 5;
 #endif
     
     lastItemUse = 0;
@@ -34,6 +34,9 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     accelDuration = 0;
     
     sprite = 0;
+    hitPoint = 4;
+    nohitState = 0;
+    nohitDuration = 0;
     
     
     bl[LEFT * 3 + 0] = new BmpLoader ("left0.bmp");
@@ -115,6 +118,19 @@ void Player::display(void)
             glEnd();
         }
         
+        
+        for (int i=0; i < hitPoint; i++)
+        {
+            float lifeX = pos.x - 400+ i * GLOBAL_GRID_LENGTH;
+            float lifeY = pos.y - 400;
+            glColor3f (1.0, 0.0, 0.0);
+            glBegin(GL_POLYGON);
+            glVertex2f(lifeX, lifeY);
+            glVertex2f(lifeX, lifeY + GLOBAL_GRID_LENGTH);
+            glVertex2f(lifeX + GLOBAL_GRID_LENGTH, lifeY + GLOBAL_GRID_LENGTH);
+            glVertex2f(lifeX + GLOBAL_GRID_LENGTH, lifeY);
+            glEnd();
+        }
     }
     
     
@@ -266,7 +282,16 @@ position Player::getPos ()
 }
 void Player::killed(void)
 {
-    status = KILLED;
+    if (nohitState == 0)
+    {
+        nohitState = clock();
+        nohitDuration = CLOCKS_PER_SEC;
+        
+        hitPoint--;
+    }
+    
+    if (hitPoint == 0)
+        status = KILLED;
 }
 
 void Player::checkWall(bool isWall_[4])
@@ -293,6 +318,19 @@ Player::addItem(Item* item_)
 }
 
 void
+Player::checkNohit()
+{
+    if (nohitState != 0)
+    {
+        if (clock() > nohitState + nohitDuration)
+        {
+            nohitState = 0;
+            nohitDuration = 0;
+        }
+    }
+}
+
+void
 Player::checkItemDuration ()
 {
     if (stimpackDuration != 0)
@@ -301,9 +339,9 @@ Player::checkItemDuration ()
         {
             stimpackDuration = 0;
 #ifdef __APPLE__
-            bangDelay = 2000;
+            bangDelay = CLOCKS_PER_SEC / 2;
 #else
-            bangDelay = 200;
+            bangDelay = CLOCKS_PER_SEC / 2;;
 #endif
         }
     }
@@ -324,6 +362,7 @@ Player::useItem(void)
     if (listItem.empty() == false)
     {
         lastItemUse = clock ();
+        clock_t secondRef = CLOCKS_PER_SEC ;
         // Do something with Item.
         
         switch ((listItem.front())->getType()) {
@@ -331,11 +370,11 @@ Player::useItem(void)
                 if (stimpackDuration != 0)
                     return false;
 #ifdef __APPLE__
-                bangDelay = 10000;
-                stimpackDuration = 1000000 + clock();
+                bangDelay = secondRef / 4;
+                stimpackDuration = secondRef * 7 + clock();
 #else
-                bangDelay = 100;
-                stimpackDuration = 1000 + clock();
+                bangDelay = secondRef / 4;
+                stimpackDuration = secondRef * 7 + clock();
 #endif
                 break;
                 
@@ -344,9 +383,9 @@ Player::useItem(void)
                     return false;
                 speed = speed * 3;
 #ifdef __APPLE__
-                accelDuration = 1000000 + clock();
+                accelDuration = secondRef * 8 + clock();
 #else
-                accelDuration = 1000 + clock();
+                accelDuration = secondRef * 8 + clock();
 #endif
                 break;
         }
@@ -408,6 +447,11 @@ Player::LoadTexture(unsigned int idx)
     gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
 }
 
+void
+Player::setStatus(enum Status s)
+{
+    status = s;
+}
 enum Status
 Player::getStatus ()
 {
