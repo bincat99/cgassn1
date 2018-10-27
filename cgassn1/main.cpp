@@ -85,7 +85,7 @@ main (int argc, char * argv[])
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(200, 150);
     glutInitWindowSize(800, 800);
-    windowId = glutCreateWindow("Hello OpenGL");
+    windowId = glutCreateWindow("assn2");
     //    glutDisplayFunc(renderScene);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
