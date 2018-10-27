@@ -48,19 +48,23 @@ Player* Game::getPlayer(void)
 void Game::display(void)
 {
     
-    glClear(GL_COLOR_BUFFER_BIT);
+	ctm = glm::scale(glm::mat4(1.0f), glm::vec3((float)1 / 800));
+	ctm = glm::transpose(glm::translate(ctm, glm::vec3(0 - player->getPos().x, 0 - player->getPos().y, 0)));
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+
+	/*
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity();
     glTranslated(400-player->getPos().x, 400-player->getPos().y, 0);
     //gluLookAt(player->getPos().x , player->getPos().y, 0, player->getPos().x, player->getPos().y ,  -1, 0, 1, 0);
-    
+    */
     
     
     map->display();
     player->display();
     
-    if (player->getStatus() == KILLED || gameClear)
-        msg->display(gameClear, player->getPos());
+   // if (player->getStatus() == KILLED || gameClear)
+  //      msg->display(gameClear, player->getPos());
     
 }
 

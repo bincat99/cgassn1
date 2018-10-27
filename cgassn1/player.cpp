@@ -43,11 +43,47 @@ void Player::display(void)
         (*it)->display();
         
     }
-    
     if (status == ALIVE)
     {
         sprite = (sprite + 1) % 3;
 
+
+		float colors[4] = { 0.0, 0.0, 0.0, 1.0 };
+		float points[8] = {
+			pos.x, pos.y,
+			pos.x, pos.y + h,
+			pos.x + w, pos.y + h,
+			pos.x + w, pos.y
+		};
+
+		// Create a buffer
+		glGenBuffers(1, &buffer);
+
+		// Bind the buffer to vertx attributes
+		glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+		// Init buffer
+		glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), NULL, GL_STATIC_DRAW);
+		glBufferSubData(GL_ARRAY_BUFFER, 0,
+			sizeof(points), points);
+		glBufferSubData(GL_ARRAY_BUFFER, sizeof(points),
+			sizeof(colors), colors);
+
+		glGenVertexArrays(1, &VAO);
+		glBindVertexArray(VAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, buffer);
+		unsigned int loc = glGetAttribLocation(shaderUtil.getProgram(), "position");
+		glEnableVertexAttribArray(loc);
+		glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+		unsigned int loc2 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
+		glEnableVertexAttribArray(loc2);
+		glVertexAttribPointer(loc2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
+
+
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_QUADS, 0, 4);
+		/*
         glColor3f(0.0, 0.0, 0.0);
         glBegin(GL_QUADS);
         
@@ -59,14 +95,13 @@ void Player::display(void)
         
         glVertex2f(pos.x + w, pos.y);
         glEnd();
-
-        
+		*/
         
         
         /* item box */
         float itemX, itemY;
-        itemX = pos.x + 250.0;
-        itemY = pos.y - 400.0;
+        itemX = pos.x + 700.0 -w;
+        itemY = pos.y - 800.0 ;
 
         
         std::list<Item*>::iterator it = listItem.begin();
@@ -82,6 +117,46 @@ void Player::display(void)
         {
             float ItemX = itemX + (idx % 3) * w;
             float ItemY = itemY + (idx / 3) * h;
+
+
+			float colors[4] = { (float)0xc0 / 0xff, 1.0, (float)0xee / 0xff, 1.0 };
+			float points[8] = {
+				ItemX, ItemY,
+				ItemX, ItemY + h,
+				ItemX + w , ItemY + h,
+				ItemX + w, ItemY
+			};
+
+			// Create a buffer
+			glGenBuffers(1, &buffer);
+
+			// Bind the buffer to vertx attributes
+			glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+			// Init buffer
+			glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), NULL, GL_STATIC_DRAW);
+			glBufferSubData(GL_ARRAY_BUFFER, 0,
+				sizeof(points), points);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(points),
+				sizeof(colors), colors);
+
+			glGenVertexArrays(1, &VAO);
+			glBindVertexArray(VAO);
+
+			glBindBuffer(GL_ARRAY_BUFFER, buffer);
+			unsigned int loc = glGetAttribLocation(shaderUtil.getProgram(), "position");
+			glEnableVertexAttribArray(loc);
+			glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+			unsigned int loc2 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
+			glEnableVertexAttribArray(loc2);
+			glVertexAttribPointer(loc2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
+
+
+			glBindVertexArray(VAO);
+			glDrawArrays(GL_QUADS, 0, 4);
+
+
+			/*
             glColor3f ((float)0xc0/0xff, 1.0, (float)0xee/0xff);
             glBegin(GL_POLYGON);
             glVertex2f(ItemX, ItemY);
@@ -89,6 +164,8 @@ void Player::display(void)
             glVertex2f(ItemX + w, ItemY + h);
             glVertex2f(ItemX + w, ItemY);
             glEnd();
+			*/
+			
         }
         
     }

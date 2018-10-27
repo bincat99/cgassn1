@@ -16,19 +16,21 @@
 #include <GLUT/GLUT.h>
 #else
 #include <windows.h>
+#include <GL/glew.h>
 #include <GL/GL.h>
 #include <GL/GLU.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #endif
-#include <stdio.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <list>
-#include "BmpLoader.h"
-
+#include "ShaderUtil.h"
 
 #define KEYBOARD_BUFFER_SIZE 256
 #define GLOBAL_GRID_LENGTH 50
@@ -38,6 +40,8 @@
 #define COL_UP (1<<1)
 #define COL_RIGHT (1<<2)
 #define COL_DOWN (1<<3)
+
+#define BUFFER_OFFSET( offset ) ((GLvoid*)(offset))
 
 enum Direction { LEFT, UP, RIGHT, DOWN };
 enum Status { ALIVE, KILLED };
@@ -50,11 +54,19 @@ keyboardBuffer [KEYBOARD_BUFFER_SIZE];
 extern bool
 specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 
+
+
 typedef struct
 {
     float x;
     float y;
 }position;
+
+extern ShaderUtil shaderUtil;
+extern unsigned int buffer;
+extern unsigned int VAO;
+extern unsigned int matrix_loc;
+extern glm::mat4 ctm;
 
 extern unsigned int
 windowId;

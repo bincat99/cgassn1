@@ -12,38 +12,59 @@ Weapon::Weapon(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     speed = speed_;
     range = range_;
     status = ALIVE;
-
-	bl[LEFT] = new BmpLoader("featherl.bmp");
-
-	bl[UP] = new BmpLoader("featheru.bmp");
-
-	bl[RIGHT] = new BmpLoader("featherr.bmp");
-
-	bl[DOWN] = new BmpLoader("featherd.bmp");
 }
 
 void Weapon::display(void)
 {
     if (status == ALIVE)
     {
-		glEnable(GL_TEXTURE_2D);
-		LoadTexture(dir + sprite);
+
+		float colors[4] = { 0.0, 0.0, 0.0, 1.0 };
+		float points[8] = {
+			pos.x, pos.y,
+			pos.x, pos.y + h,
+			pos.x + w, pos.y + h,
+			pos.x + w, pos.y
+		};
+
+		// Create a buffer
+		glGenBuffers(1, &buffer);
+
+		// Bind the buffer to vertx attributes
+		glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+		// Init buffer
+		glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), NULL, GL_STATIC_DRAW);
+		glBufferSubData(GL_ARRAY_BUFFER, 0,
+			sizeof(points), points);
+		glBufferSubData(GL_ARRAY_BUFFER, sizeof(points),
+			sizeof(colors), colors);
+
+		glGenVertexArrays(1, &VAO);
+		glBindVertexArray(VAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, buffer);
+		unsigned int loc = glGetAttribLocation(shaderUtil.getProgram(), "position");
+		glEnableVertexAttribArray(loc);
+		glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+		unsigned int loc2 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
+		glEnableVertexAttribArray(loc2);
+		glVertexAttribPointer(loc2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
+
+
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_QUADS, 0, 4);
+		/*
 		glColor3f(1.0, 1.0, 1.0);
 		glBegin(GL_QUADS);
 
-		glTexCoord2f(0.0, 0.0); // Need to check
 		glVertex2f(pos.x, pos.y);
-		glTexCoord2f(0.0, 1.0);
 		glVertex2f(pos.x, pos.y + h);
 
-		glTexCoord2f(1.0, 1.0);
 		glVertex2f(pos.x + w, pos.y + h);
-
-
-		glTexCoord2f(1.0, 0.0);
 		glVertex2f(pos.x + w, pos.y);
 		glEnd();
-        glDisable(GL_TEXTURE_2D);
+		*/
 
     }
 }
@@ -130,29 +151,9 @@ enum Status Weapon::getStatus ()
 
 Weapon::~Weapon()
 {
-	for (int i = 0; i < 4; i++)
-		delete bl[i];
 }
 
 position Weapon::getPos()
 {
     return pos;
-}
-
-
-void
-Weapon::LoadTexture(unsigned int idx)
-{
-	BmpLoader * tmp = bl[idx];
-
-    glDeleteTextures(1, &textureID);
-
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
 }

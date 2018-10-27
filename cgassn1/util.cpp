@@ -27,6 +27,13 @@
 #include <GL/freeglut.h>
 #endif
 
+
+ShaderUtil shaderUtil;
+unsigned int buffer;
+unsigned int VAO;
+unsigned int matrix_loc;
+glm::mat4 ctm;
+
 unsigned int
 windowId;
 

@@ -16,6 +16,7 @@
 #include <GLUT/GLUT.h>
 #else
 #include <windows.h>
+#include <GL/glew.h>
 #include <GL/GL.h>
 #include <GL/GLU.h>
 #include <GL/glut.h>
@@ -50,8 +51,16 @@ void
 display (void)
 {
 
+	shaderUtil.Load("cgassn1/shaders/vs.shader", "cgassn1/shaders/fs.shader");
+
+	matrix_loc = glGetUniformLocation(shaderUtil.getProgram(), "transform");
+
+
+	shaderUtil.Use();
+	glClear(GL_COLOR_BUFFER_BIT);
 	game->display();
-    glutSwapBuffers();
+	glutSwapBuffers();
+	shaderUtil.Delete();
     
 }
 
@@ -59,13 +68,14 @@ void
 reshape(int w, int h)
 {
     glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	/*
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity ();
 
     //gluOrtho2D(0, 1000, 0, 1000);
     gluOrtho2D(0, 800, 0, 800);
     glMatrixMode (GL_MODELVIEW);
-    glLoadIdentity();
+    glLoadIdentity();*/
 
 }
 void
@@ -92,6 +102,7 @@ main (int argc, char * argv[])
 	game = new Game();
     
     init ();
+	glewInit();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutIdleFunc(moveObjects);
@@ -101,4 +112,3 @@ main (int argc, char * argv[])
     glutSpecialUpFunc(mySpecialUpFunc);
     glutMainLoop();
 }
-

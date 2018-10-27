@@ -30,6 +30,43 @@ void Enemy::display()
     if (status == ALIVE) {
 		sprite = (sprite + 1) % 4;
 
+		float colors[4] = { 0.0, 0.0, 0.0, 1.0 };
+		float points[8] = {
+			pos.x, pos.y,
+			pos.x, pos.y + h,
+			pos.x + w, pos.y + h,
+			pos.x + w, pos.y
+		};
+
+		// Create a buffer
+		glGenBuffers(1, &buffer);
+
+		// Bind the buffer to vertx attributes
+		glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+		// Init buffer
+		glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), NULL, GL_STATIC_DRAW);
+		glBufferSubData(GL_ARRAY_BUFFER, 0,
+			sizeof(points), points);
+		glBufferSubData(GL_ARRAY_BUFFER, sizeof(points),
+			sizeof(colors), colors);
+
+		glGenVertexArrays(1, &VAO);
+		glBindVertexArray(VAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, buffer);
+		unsigned int loc = glGetAttribLocation(shaderUtil.getProgram(), "position");
+		glEnableVertexAttribArray(loc);
+		glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+		unsigned int loc2 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
+		glEnableVertexAttribArray(loc2);
+		glVertexAttribPointer(loc2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
+
+
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_QUADS, 0, 4);
+
+		/*/
 		glColor3f(0.0, 0.0, 0.0);
 		glBegin(GL_QUADS);
 
@@ -40,7 +77,7 @@ void Enemy::display()
 		glVertex2f(pos.x + w, pos.y + h);
 
 		glVertex2f(pos.x + w, pos.y);
-		glEnd();
+		glEnd();*/
 
     }
 }
