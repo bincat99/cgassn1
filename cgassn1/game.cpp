@@ -52,35 +52,37 @@ Player* Game::getPlayer(void)
 
 void Game::display(void)
 {
-    
-	ctm = glm::scale(glm::mat4(1.0f), glm::vec3((float)1 / 800));
-	ctm = glm::transpose(glm::translate(ctm, glm::vec3(0 - player->getPos().x, 0 - player->getPos().y, 0)));
-	temp = ctm;
-	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+	if (player->getStatus() != KILLED && !gameClear)
+	{
 
-	/*
-    glMatrixMode (GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslated(400-player->getPos().x, 400-player->getPos().y, 0);
-    //gluLookAt(player->getPos().x , player->getPos().y, 0, player->getPos().x, player->getPos().y ,  -1, 0, 1, 0);
-    */
-    
-    
-    map->display();
-    player->display();
-	displayTime();
-    
-   // if (player->getStatus() == KILLED || gameClear)
-  //      msg->display(gameClear, player->getPos());
+		ctm = glm::scale(glm::mat4(1.0f), glm::vec3((float)1 / 800));
+		ctm = glm::transpose(glm::translate(ctm, glm::vec3(0 - player->getPos().x, 0 - player->getPos().y, 0)));
+		temp = ctm;
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+
+		/*
+		glMatrixMode (GL_MODELVIEW);
+		glLoadIdentity();
+		glTranslated(400-player->getPos().x, 400-player->getPos().y, 0);
+		//gluLookAt(player->getPos().x , player->getPos().y, 0, player->getPos().x, player->getPos().y ,  -1, 0, 1, 0);
+		*/
+
+
+		map->display();
+		player->display();
+		displayTime();
+
+	}
+	else
+        msg->display(gameClear, player->getPos());
     
 }
 
 void Game::displayTime(void) {
-	glColor3f(0.f, 0.f, 0.f);
 	char buf[100] = { 0 };
 	std::string str = "Remain Time : " + std::to_string((int)((remainingTime -clock()) / 1000));
 	sprintf_s(buf, str.c_str());
-	renderbitmap(500, 1550, GLUT_BITMAP_TIMES_ROMAN_24, buf);
+	renderbitmap(500, 1550, GLUT_BITMAP_HELVETICA_18, buf);
 }
 
 
