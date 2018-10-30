@@ -22,12 +22,23 @@ void renderScene(void) {
     glFlush();
 }
 
-
+extern Game *game;
 Game::Game()
 {
     
 }
 
+void
+timerFunc (int n)
+{
+    game->gameEnd = true;
+}
+
+void
+gameTimerInit ()
+{
+    glutTimerFunc (100 * 1000, timerFunc, 1);
+}
 
 void
 Game::init (void)
@@ -40,6 +51,9 @@ Game::init (void)
     
     remainingTime = CLOCKS_PER_SEC * 10;
     startTime = clock();
+    gameEnd = false;
+    gameClear = false;
+    gameTimerInit ();
 }
 
 Player* Game::getPlayer(void)
@@ -62,7 +76,7 @@ void Game::display(void)
     map->display();
     player->display();
     
-    if (player->getStatus() == KILLED || gameClear)
+    if (player->getStatus() == KILLED || gameClear || gameEnd)
         msg->display(gameClear, player->getPos());
     
 }
@@ -70,8 +84,8 @@ void Game::display(void)
 void Game::checkTimeout()
 {
     
-    if (clock() > startTime + remainingTime)
-        player->setStatus(KILLED);
+//    if (clock() > startTime + remainingTime)
+//        player->setStatus(KILLED);
 }
 
 void Game::restart ()
@@ -85,7 +99,7 @@ void Game::restart ()
 
 void Game::moveObjects(void)
 {
-    if (player->getStatus() == ALIVE && !gameClear)
+    if (player->getStatus() == ALIVE && !gameClear && !gameEnd)
     {
         
         
@@ -110,7 +124,8 @@ void Game::moveObjects(void)
         
         player->checkNohit();
         map->checkPlayerKill(player);
-        checkTimeout();
+        //checkTimeout();
+        printf ("%d\n",glutGet(GLUT_ELAPSED_TIME));
     }
     
     // player kill check

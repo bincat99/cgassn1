@@ -99,6 +99,7 @@ main (int argc, char * argv[])
     glutKeyboardUpFunc (myKeyboardUpFunc);
     glutSpecialFunc(mySpecialFunc);
     glutSpecialUpFunc(mySpecialUpFunc);
+    
     glutMainLoop();
 }
 
