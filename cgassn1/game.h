@@ -24,15 +24,21 @@ private:
     Player *player;
     Message *msg;
     
+	clock_t remainingTime;
+	clock_t startTime;
+
 public:
     Game ();
 
     void init (void);
 
+	void restart();
     void play ();
 	void display(void);
+	void displayTime(void);
 	void reshape(int w, int h);
 	void moveObjects();
+	void checkTimeout();
 
 	Player* getPlayer();
 

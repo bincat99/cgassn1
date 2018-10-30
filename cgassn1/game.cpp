@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <list>
 #include <iostream>
+#include <string>
 
 
 void renderScene(void) {
@@ -38,6 +39,9 @@ Game::init (void)
     
     map->mapInit();
     msg = new Message ();
+
+	remainingTime = CLOCKS_PER_SEC * 100;
+	startTime = clock();
 }
 
 Player* Game::getPlayer(void)
@@ -64,12 +68,35 @@ void Game::display(void)
     
     map->display();
     player->display();
+	displayTime();
     
    // if (player->getStatus() == KILLED || gameClear)
   //      msg->display(gameClear, player->getPos());
     
 }
 
+void Game::displayTime(void) {
+	glColor3f(0.f, 0.f, 0.f);
+	char buf[100] = { 0 };
+	std::string str = "Remain Time : " + std::to_string((int)((remainingTime -clock()) / 1000));
+	sprintf_s(buf, str.c_str());
+	renderbitmap(500, 1550, GLUT_BITMAP_TIMES_ROMAN_24, buf);
+}
+
+
+void Game::checkTimeout()
+{
+
+	if (clock() > startTime + remainingTime)
+		player->setStatus(KILLED);
+}
+void Game::restart()
+{
+	delete this->player;
+	delete this->map;
+	delete this->msg;
+	init();
+}
 
 void Game::moveObjects(void)
 {
@@ -95,8 +122,10 @@ void Game::moveObjects(void)
         map->checkItem (player);
         
         player->checkItemDuration();
-        
-        map->checkPlayerKill(player);
+
+		player->checkNohit();
+		map->checkPlayerKill(player);
+		checkTimeout();
     }
     
     // player kill check
@@ -109,6 +138,13 @@ void Game::moveObjects(void)
             glutDestroyWindow ( windowId );
             exit (0);
         }
+
+		if (keyboardBuffer['r'])
+		{
+
+			restart();
+
+		}
         
     }
     

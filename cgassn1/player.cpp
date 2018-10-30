@@ -16,12 +16,12 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     h = h_;
 #ifdef __APPLE__
     speed = speed_ * 10;
-    bangDelay = 100000;
-    itemDelay = 100000;
+	bangDelay = CLOCKS_PER_SEC / 2;
+	itemDelay = CLOCKS_PER_SEC * 5;
 #else
     speed = speed_ * 10;
-    bangDelay = 200;
-    itemDelay = 1000;
+	bangDelay = CLOCKS_PER_SEC / 2;
+	itemDelay = CLOCKS_PER_SEC * 5;
 #endif
     
     lastItemUse = 0;
@@ -35,6 +35,9 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     
     sprite = 0;
 
+	hitPoint = 4;
+	nohitState = 0;
+	nohitDuration = 0;
 
 	float colors[16] = { 0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0 };
 	float points[8] = {
@@ -101,6 +104,39 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 	glEnableVertexAttribArray(loc4);
 	glVertexAttribPointer(loc4, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(ipoints)));
 	glBindVertexArray(0);
+
+
+	float lcolors[16] = { 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0,1.0, 0.0, 0.0, 1.0,1.0, 0.0, 0.0, 1.0 };
+	float lpoints[8] = {
+	   0, 0,
+	   0, 0 + GLOBAL_GRID_LENGTH,
+	   0 + GLOBAL_GRID_LENGTH , 0 + GLOBAL_GRID_LENGTH,
+	   0 + GLOBAL_GRID_LENGTH, 0
+	};
+
+	glGenVertexArrays(1, &VAO_life);
+	glBindVertexArray(VAO_life);
+	// Create a buffer
+	glGenBuffers(1, &buffer);
+
+	// Bind the buffer to vertx attributes
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+	// Init buffer
+	glBufferData(GL_ARRAY_BUFFER, sizeof(lpoints) + sizeof(lcolors), NULL, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0,
+		sizeof(lpoints), lpoints);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(lpoints),
+		sizeof(lcolors), lcolors);
+
+
+	unsigned int loc5 = glGetAttribLocation(shaderUtil.getProgram(), "position");
+	glEnableVertexAttribArray(loc5);
+	glVertexAttribPointer(loc5, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	unsigned int loc6 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
+	glEnableVertexAttribArray(loc6);
+	glVertexAttribPointer(loc6, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(lpoints)));
+	glBindVertexArray(0);
 }
 
 void Player::display(void)
@@ -160,7 +196,7 @@ void Player::display(void)
 
 
 			ctm = temp;
-			ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3((int)ItemX, (int)ItemY, 0)));
+			ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(ItemX, ItemY, 0)));
 			glBindVertexArray(VAO_inven);
 			glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
 			glDrawArrays(GL_QUADS, 0, 4);
@@ -178,6 +214,20 @@ void Player::display(void)
 			*/
 			
         }
+
+		for (int i = 0; i < hitPoint; i++)
+		{
+			float lifeX = pos.x - 800 + i * GLOBAL_GRID_LENGTH;
+			float lifeY = pos.y - 800;
+
+
+			ctm = temp;
+			ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(lifeX, lifeY, 0)));
+			glBindVertexArray(VAO_life);
+			glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+			glDrawArrays(GL_QUADS, 0, 4);
+			glBindVertexArray(0);
+		}
         
     }
     
@@ -330,7 +380,16 @@ position Player::getPos ()
 }
 void Player::killed(void)
 {
-    status = KILLED;
+	if (nohitState == 0)
+	{
+		nohitState = clock();
+		nohitDuration = CLOCKS_PER_SEC;
+
+		hitPoint--;
+	}
+
+	if (hitPoint == 0)
+		status = KILLED;
 }
 
 void Player::checkWall(bool isWall_[4])
@@ -357,6 +416,19 @@ Player::addItem(Item* item_)
 }
 
 void
+Player::checkNohit()
+{
+	if (nohitState != 0)
+	{
+		if (clock() > nohitState + nohitDuration)
+		{
+			nohitState = 0;
+			nohitDuration = 0;
+		}
+	}
+}
+
+void
 Player::checkItemDuration ()
 {
     if (stimpackDuration != 0)
@@ -365,9 +437,9 @@ Player::checkItemDuration ()
         {
             stimpackDuration = 0;
 #ifdef __APPLE__
-            bangDelay = 2000;
+			bangDelay = CLOCKS_PER_SEC / 2;
 #else
-            bangDelay = 200;
+			bangDelay = CLOCKS_PER_SEC / 2;
 #endif
         }
     }
@@ -388,6 +460,7 @@ Player::useItem(void)
     if (listItem.empty() == false)
     {
         lastItemUse = clock ();
+		clock_t secondRef = CLOCKS_PER_SEC;
         // Do something with Item.
         
         switch ((listItem.front())->getType()) {
@@ -395,11 +468,11 @@ Player::useItem(void)
                 if (stimpackDuration != 0)
                     return false;
 #ifdef __APPLE__
-                bangDelay = 10000;
-                stimpackDuration = 1000000 + clock();
+				bangDelay = secondRef / 4;
+				stimpackDuration = secondRef * 7 + clock();
 #else
-                bangDelay = 100;
-                stimpackDuration = 1000 + clock();
+				bangDelay = secondRef / 4;
+				stimpackDuration = secondRef * 7 + clock();
 #endif
                 break;
                 
@@ -408,9 +481,9 @@ Player::useItem(void)
                     return false;
                 speed = speed * 3;
 #ifdef __APPLE__
-                accelDuration = 1000000 + clock();
+				accelDuration = secondRef * 8 + clock();
 #else
-                accelDuration = 1000 + clock();
+				accelDuration = secondRef * 8 + clock();
 #endif
                 break;
         }
@@ -422,6 +495,7 @@ Player::useItem(void)
         return false;
     }
 }
+
 unsigned long
 Player::getItemNum ()
 {
@@ -455,6 +529,11 @@ Player::checkWeapon ()
 }
 
 
+void
+Player::setStatus(enum Status s)
+{
+	status = s;
+}
 
 enum Status
 Player::getStatus ()

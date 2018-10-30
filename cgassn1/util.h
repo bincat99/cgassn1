@@ -66,14 +66,6 @@ extern ShaderUtil shaderUtil;
 
 extern GLuint buffer;
 
-extern unsigned int buf_enemy;
-extern unsigned int buf_player;
-extern unsigned int buf_wall;
-extern unsigned int buf_empty;
-extern unsigned int buf_item;
-extern unsigned int buf_weapon;
-extern unsigned int buf_inven;
-
 extern unsigned int VAO_enemy;
 extern unsigned int VAO_player;
 extern unsigned int VAO_wall;
@@ -81,6 +73,7 @@ extern unsigned int VAO_empty;
 extern unsigned int VAO_item;
 extern unsigned int VAO_weapon;
 extern unsigned int VAO_inven;
+extern unsigned int VAO_life;
 
 extern unsigned int matrix_loc;
 extern glm::mat4 ctm;
@@ -116,6 +109,8 @@ CheckCollisionWeapon (position , position );
 float
 calDistance (float x1, float y1, float x2, float y2);
 
+void
+renderbitmap(float x, float y, void*font, char* string);
 
 #endif /* util_h */
 

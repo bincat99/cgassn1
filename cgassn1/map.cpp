@@ -530,3 +530,8 @@ void Map::checkEnemyKill (std::list<Weapon*> l)
         gameClear = true;
     }
 }
+
+Map::~Map()
+{
+
+}

@@ -38,6 +38,7 @@ class Map
    
 public:
     Map ();
+	~Map();
     Map (float, float , float);
     void mapInit ();
     void display ();

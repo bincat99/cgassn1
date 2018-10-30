@@ -32,14 +32,6 @@ ShaderUtil shaderUtil;
 
 GLuint buffer;
 
- unsigned int buf_enemy;
- unsigned int buf_player;
- unsigned int buf_wall;
- unsigned int buf_empty;
- unsigned int buf_item;
- unsigned int buf_weapon;
- unsigned int buf_inven;
-
  unsigned int VAO_enemy;
  unsigned int VAO_player;
  unsigned int VAO_wall;
@@ -47,6 +39,7 @@ GLuint buffer;
  unsigned int VAO_item;
  unsigned int VAO_weapon;
  unsigned int VAO_inven;
+ unsigned int VAO_life;
  unsigned int matrix_loc;
 
 glm::mat4 ctm;
@@ -175,4 +168,13 @@ float
 calDistance (float x1, float y1, float x2, float y2)
 {
     return (sqrt (pow(x2-x1, 2) + pow(y2-y1, 2)));
+}
+
+void
+renderbitmap(float x, float y, void*font, char* string) {
+	char *c;
+	glRasterPos2f(x, y);
+	for (c = string; *c != '\0'; c++) {
+		glutBitmapCharacter(font, *c);
+	}
 }

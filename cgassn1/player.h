@@ -40,6 +40,9 @@ private:
 
 	int sprite;
 
+	unsigned int hitPoint;
+	clock_t nohitState;
+	clock_t nohitDuration;
 
 	bool isWall[4] = {false, false, false, false,};
 	std::list<Item*> listItem;
@@ -53,6 +56,7 @@ public :
 	void bang(void);
 
     enum Status getStatus ();
+	void setStatus(enum Status);
     
     position getPos (void);
 
@@ -66,6 +70,8 @@ public :
 	void addItem(Item*);
 	bool useItem(void);
     void checkItemDuration ();
+	void checkNohit();
+
     
     unsigned long getItemNum ();
 
