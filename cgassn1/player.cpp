@@ -5,6 +5,7 @@
 #include <time.h>
 
 #include <list>
+#include <iostream>
 Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, float speed_)
 {
     
@@ -33,6 +34,73 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     accelDuration = 0;
     
     sprite = 0;
+
+
+	float colors[16] = { 0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0 };
+	float points[8] = {
+		0, 0,
+		0, h,
+		w, h,
+		w, 0
+	};
+
+	glGenVertexArrays(1, &VAO_player);
+	glBindVertexArray(VAO_player);
+
+	// Create a buffer
+	glGenBuffers(1, &buffer);
+
+	// Bind the buffer to vertx attributes
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+	// Init buffer
+	glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), NULL, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0,
+		sizeof(points), points);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points),
+		sizeof(colors), colors);
+
+
+	unsigned int loc = glGetAttribLocation(shaderUtil.getProgram(), "position");
+	glEnableVertexAttribArray(loc);
+	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	unsigned int loc2 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
+	glEnableVertexAttribArray(loc2);
+	glVertexAttribPointer(loc2, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
+	glBindVertexArray(0);
+
+
+	 float icolors[16] = { (float)0xc0 / 0xff, 1.0, (float)0xee / 0xff, 1.0,(float)0xc0 / 0xff, 1.0, (float)0xee / 0xff, 1.0,(float)0xc0 / 0xff, 1.0, (float)0xee / 0xff, 1.0,(float)0xc0 / 0xff, 1.0, (float)0xee / 0xff, 1.0 };
+	 float ipoints[8] = {
+		0, 0,
+		0, 0 + h,
+		0 + w , 0 + h,
+		0 + w, 0
+	};
+
+	 glGenVertexArrays(1, &VAO_inven);
+	 glBindVertexArray(VAO_inven);
+	// Create a buffer
+	 glGenBuffers(1, &buffer);
+
+	// Bind the buffer to vertx attributes
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+	// Init buffer
+	glBufferData(GL_ARRAY_BUFFER, sizeof(ipoints) + sizeof(icolors), NULL, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0,
+		sizeof(ipoints), ipoints);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(ipoints),
+		sizeof(icolors), icolors);
+
+
+	unsigned int loc3 = glGetAttribLocation(shaderUtil.getProgram(), "position");
+	glEnableVertexAttribArray(loc3);
+	glVertexAttribPointer(loc3, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	unsigned int loc4 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
+	glEnableVertexAttribArray(loc4);
+	glVertexAttribPointer(loc4, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(ipoints)));
+	glBindVertexArray(0);
 }
 
 void Player::display(void)
@@ -48,41 +116,13 @@ void Player::display(void)
         sprite = (sprite + 1) % 3;
 
 
-		float colors[4] = { 0.0, 0.0, 0.0, 1.0 };
-		float points[8] = {
-			pos.x, pos.y,
-			pos.x, pos.y + h,
-			pos.x + w, pos.y + h,
-			pos.x + w, pos.y
-		};
 
-		// Create a buffer
-		glGenBuffers(1, &buffer);
-
-		// Bind the buffer to vertx attributes
-		glBindBuffer(GL_ARRAY_BUFFER, buffer);
-
-		// Init buffer
-		glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), NULL, GL_STATIC_DRAW);
-		glBufferSubData(GL_ARRAY_BUFFER, 0,
-			sizeof(points), points);
-		glBufferSubData(GL_ARRAY_BUFFER, sizeof(points),
-			sizeof(colors), colors);
-
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, buffer);
-		unsigned int loc = glGetAttribLocation(shaderUtil.getProgram(), "position");
-		glEnableVertexAttribArray(loc);
-		glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-		unsigned int loc2 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
-		glEnableVertexAttribArray(loc2);
-		glVertexAttribPointer(loc2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
-
-
-		glBindVertexArray(VAO);
+		ctm = temp;
+		ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(pos.x, pos.y, 0)));
+		glBindVertexArray(VAO_player);
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
 		glDrawArrays(GL_QUADS, 0, 4);
+		glBindVertexArray(0);
 		/*
         glColor3f(0.0, 0.0, 0.0);
         glBegin(GL_QUADS);
@@ -119,41 +159,12 @@ void Player::display(void)
             float ItemY = itemY + (idx / 3) * h;
 
 
-			float colors[4] = { (float)0xc0 / 0xff, 1.0, (float)0xee / 0xff, 1.0 };
-			float points[8] = {
-				ItemX, ItemY,
-				ItemX, ItemY + h,
-				ItemX + w , ItemY + h,
-				ItemX + w, ItemY
-			};
-
-			// Create a buffer
-			glGenBuffers(1, &buffer);
-
-			// Bind the buffer to vertx attributes
-			glBindBuffer(GL_ARRAY_BUFFER, buffer);
-
-			// Init buffer
-			glBufferData(GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), NULL, GL_STATIC_DRAW);
-			glBufferSubData(GL_ARRAY_BUFFER, 0,
-				sizeof(points), points);
-			glBufferSubData(GL_ARRAY_BUFFER, sizeof(points),
-				sizeof(colors), colors);
-
-			glGenVertexArrays(1, &VAO);
-			glBindVertexArray(VAO);
-
-			glBindBuffer(GL_ARRAY_BUFFER, buffer);
-			unsigned int loc = glGetAttribLocation(shaderUtil.getProgram(), "position");
-			glEnableVertexAttribArray(loc);
-			glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-			unsigned int loc2 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
-			glEnableVertexAttribArray(loc2);
-			glVertexAttribPointer(loc2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
-
-
-			glBindVertexArray(VAO);
+			ctm = temp;
+			ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3((int)ItemX, (int)ItemY, 0)));
+			glBindVertexArray(VAO_inven);
+			glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
 			glDrawArrays(GL_QUADS, 0, 4);
+			glBindVertexArray(0);
 
 
 			/*

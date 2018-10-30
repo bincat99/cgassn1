@@ -10,7 +10,6 @@
 #define wall_h
 
 #include "object.h"
-#include "BmpLoader.h"
 
 
 class Wall : virtual public GameObject
@@ -20,9 +19,6 @@ class Wall : virtual public GameObject
     float height;
     
 	int sprite = 0;
-	unsigned int textureID;
-
-	BmpLoader* bl[1];
 
 	bool is_loaded = false;
     
@@ -31,7 +27,6 @@ public:
     Wall (float x, float y);
     position getPos();
     void display ();
-	void LoadTexture(unsigned int);
 	~Wall();
 };
 

@@ -15,6 +15,7 @@
 #include "msg.h"
 #include <stdio.h>
 #include <list>
+#include <iostream>
 
 
 void renderScene(void) {
@@ -50,6 +51,7 @@ void Game::display(void)
     
 	ctm = glm::scale(glm::mat4(1.0f), glm::vec3((float)1 / 800));
 	ctm = glm::transpose(glm::translate(ctm, glm::vec3(0 - player->getPos().x, 0 - player->getPos().y, 0)));
+	temp = ctm;
 	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
 
 	/*

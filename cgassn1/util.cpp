@@ -29,10 +29,28 @@
 
 
 ShaderUtil shaderUtil;
-unsigned int buffer;
-unsigned int VAO;
-unsigned int matrix_loc;
+
+GLuint buffer;
+
+ unsigned int buf_enemy;
+ unsigned int buf_player;
+ unsigned int buf_wall;
+ unsigned int buf_empty;
+ unsigned int buf_item;
+ unsigned int buf_weapon;
+ unsigned int buf_inven;
+
+ unsigned int VAO_enemy;
+ unsigned int VAO_player;
+ unsigned int VAO_wall;
+ unsigned int VAO_empty;
+ unsigned int VAO_item;
+ unsigned int VAO_weapon;
+ unsigned int VAO_inven;
+ unsigned int matrix_loc;
+
 glm::mat4 ctm;
+glm::mat4 temp;
 
 unsigned int
 windowId;

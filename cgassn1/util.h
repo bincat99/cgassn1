@@ -63,10 +63,28 @@ typedef struct
 }position;
 
 extern ShaderUtil shaderUtil;
-extern unsigned int buffer;
-extern unsigned int VAO;
+
+extern GLuint buffer;
+
+extern unsigned int buf_enemy;
+extern unsigned int buf_player;
+extern unsigned int buf_wall;
+extern unsigned int buf_empty;
+extern unsigned int buf_item;
+extern unsigned int buf_weapon;
+extern unsigned int buf_inven;
+
+extern unsigned int VAO_enemy;
+extern unsigned int VAO_player;
+extern unsigned int VAO_wall;
+extern unsigned int VAO_empty;
+extern unsigned int VAO_item;
+extern unsigned int VAO_weapon;
+extern unsigned int VAO_inven;
+
 extern unsigned int matrix_loc;
 extern glm::mat4 ctm;
+extern glm::mat4 temp;
 
 extern unsigned int
 windowId;

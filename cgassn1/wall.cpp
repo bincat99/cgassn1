@@ -17,22 +17,17 @@ Wall::Wall (float x, float y)
     height = GLOBAL_GRID_LENGTH;
 
 	//bl[0] = new BmpLoader("brick.bmp");
-}
 
-position Wall::getPos()
-{
-    return pos;
-}
-
-void Wall::display()
-{
-	float colors[4] = { 0.0, 0.0, 0.0, 1.0 };
+	float colors[16] = { 0.0, 0.0, 0.0, 1.0 , 0.0, 0.0, 0.0, 1.0 , 0.0, 0.0, 0.0, 1.0 , 0.0, 0.0, 0.0, 1.0 };
 	float points[8] = {
-		pos.x, pos.y,
-		pos.x, pos.y + height,
-		pos.x + width, pos.y + height,
-		pos.x + width, pos.y
+		0, 0,
+		0, 0 + height,
+		0 + width, 0 + height,
+		0 + width, 0
 	};
+
+	glGenVertexArrays(1, &VAO_wall);
+	glBindVertexArray(VAO_wall);
 
 	// Create a buffer
 	glGenBuffers(1, &buffer);
@@ -47,20 +42,30 @@ void Wall::display()
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points),
 		sizeof(colors), colors);
 
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	unsigned int loc = glGetAttribLocation(shaderUtil.getProgram(), "position");
 	glEnableVertexAttribArray(loc);
 	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 	unsigned int loc2 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
 	glEnableVertexAttribArray(loc2);
-	glVertexAttribPointer(loc2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
+	glVertexAttribPointer(loc2, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
+	glBindVertexArray(0);
+}
 
+position Wall::getPos()
+{
+    return pos;
+}
 
-	glBindVertexArray(VAO);
+void Wall::display()
+{
+
+	ctm = temp;
+	ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(pos.x, pos.y, 0)));
+	glBindVertexArray(VAO_wall);
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
 	glDrawArrays(GL_QUADS, 0, 4);
+	glBindVertexArray(0);
 
 
 	/*
@@ -72,23 +77,6 @@ void Wall::display()
     glVertex2f(pos.x + width, pos.y);
     glEnd();
 	*/
-}
-
-void
-Wall::LoadTexture(unsigned int idx)
-{
-	BmpLoader * tmp = bl[idx];
-
-    glDeleteTextures(1, &textureID);
-
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, tmp->iWidth, tmp->iHeight, GL_RGB, GL_UNSIGNED_BYTE, tmp->textureData);
 }
 
 Wall::~Wall()

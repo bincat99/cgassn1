@@ -43,6 +43,7 @@ init (void)
 {
     glClearColor (1.0, 1.0, 1.0, 0.0);
     glShadeModel (GL_FLAT);
+	shaderUtil.Load("cgassn1/shaders/vs.shader", "cgassn1/shaders/fs.shader");
     
     game->init ();
 }
@@ -51,7 +52,6 @@ void
 display (void)
 {
 
-	shaderUtil.Load("cgassn1/shaders/vs.shader", "cgassn1/shaders/fs.shader");
 
 	matrix_loc = glGetUniformLocation(shaderUtil.getProgram(), "transform");
 
@@ -100,9 +100,9 @@ main (int argc, char * argv[])
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
 	game = new Game();
-    
-    init ();
+
 	glewInit();
+    init ();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutIdleFunc(moveObjects);
