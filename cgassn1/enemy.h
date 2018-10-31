@@ -26,7 +26,7 @@ class Enemy : virtual public GameObject
 	bool isWall[4] = {false, false, false, false,};
 
 	int sprite = 0;
-
+	int frame = 60;
     
 
 public:
@@ -37,6 +37,7 @@ public:
     void cleanWall ();
     
     enum Status getStatus ();
+	void drawSymetricParts(bool, bool, int, enum Direction);
 
 	void checkWall(bool isWall_[4]);
 	void killed();

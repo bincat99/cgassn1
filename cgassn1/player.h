@@ -38,6 +38,7 @@ private:
     
     clock_t accelDuration;
 
+	int frame=60;
 	int sprite;
 
 	unsigned int hitPoint;
@@ -71,6 +72,7 @@ public :
 	bool useItem(void);
     void checkItemDuration ();
 	void checkNohit();
+	void drawSymetricParts(bool , bool, int, enum Direction);
 
     
     unsigned long getItemNum ();

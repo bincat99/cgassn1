@@ -24,6 +24,8 @@ Enemy::Enemy (float x_, float y_, enum Direction dir_, float w_, float h_, float
     status = ALIVE;
     moveCount = 0;
 
+	sprite = rand() % 3;
+
 	float colors[16] = { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0 , 1.0, 0.0, 0.0, 0.0 , 1.0, 0.0, 0.0, 0.0 };
 	float points[8] = {
 		0, 0,
@@ -57,19 +59,136 @@ Enemy::Enemy (float x_, float y_, enum Direction dir_, float w_, float h_, float
 	glVertexAttribPointer(loc2, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)));
 	glBindVertexArray(0);
 }
+void Enemy::drawSymetricParts(bool is_left, bool is_arm, int sprite, enum Direction dir) {
 
+	int posX, posY;
+	int refX, refY;
+	float angle;
+
+	if (is_arm && is_left) {
+		posX = 12;
+		posY = 35;
+		refX = -1;
+		refY = -1;
+		angle = 1.0;
+	}
+	else if (!is_arm && is_left) {
+		posX = 20;
+		posY = 20;
+		refX = -1;
+		refY = -1;
+		angle = 0.5;
+	}
+	else if (is_arm && !is_left) {
+		posX = 38;
+		posY = 35;
+		refX = 1;
+		refY = -1;
+		angle = 1.0;
+	}
+	else if (!is_arm && !is_left) {
+		posX = 30;
+		posY = 20;
+		refX = 1;
+		refY = -1;
+		angle = 0.5;
+	}
+	/********************/
+	/* Draw upper Parts */
+	/********************/
+	view = temp;
+	view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+	glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), -1 * angle*refX*sprite*(3.14f / 3), glm::vec3(0.0, 0.0, 1.0));
+	model = rotate * glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(posX, posY, 0)));
+	model_temp = model;
+	model = glm::scale(glm::mat4(1.0f), glm::vec3(refX*0.2, refY*0.2, 1.0)) * model;
+
+
+	glBindVertexArray(VAO_enemy);
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+	glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+	glDrawArrays(GL_QUADS, 0, 4);
+	glBindVertexArray(0);
+
+
+	/********************/
+	/* Draw lower Parts */
+	/********************/
+	view = temp;
+	view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+	glm::mat4 rotate2 = glm::rotate(glm::mat4(1.0f), -1 * angle*refX*sprite*(3.14f / 6), glm::vec3(0.0, 0.0, 1.0));
+	model = rotate2 * glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(0, -10, 0)))  * model_temp;
+	model_temp = model;
+	model = glm::scale(glm::mat4(1.0f), glm::vec3(refX*0.1, refY*0.2, 1.0)) * model;
+
+	glBindVertexArray(VAO_enemy);
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+	glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+	glDrawArrays(GL_QUADS, 0, 4);
+	glBindVertexArray(0);
+
+	/*************************/
+	/* Draw the lowest Parts */
+	/*************************/
+	view = temp;
+	view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+
+	model = glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(0, -10, 0)))  * model_temp;
+	model_temp = model;
+	model = glm::scale(glm::mat4(1.0f), glm::vec3(refX*0.2, refY*0.1, 1.0)) * model;
+
+	glBindVertexArray(VAO_enemy);
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+	glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+	glDrawArrays(GL_QUADS, 0, 4);
+	glBindVertexArray(0);
+
+
+}
 void Enemy::display()
 {
     if (status == ALIVE) {
-		sprite = (sprite + 1) % 4;
+		if (frame % 60 == 0)
+			sprite = (sprite + 1) % 3;
+		frame++;
 
 
-		ctm = temp;
-		ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(pos.x, pos.y, 0)));
+		/*************/
+		/* Draw Head */
+		/*************/
+		view = temp;
+		view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+		model = glm::scale(glm::mat4(1.0f), glm::vec3(0.2, 0.2, 1.0)) * glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(20, 40, 0)));
+
 		glBindVertexArray(VAO_enemy);
-		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+		glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
 		glDrawArrays(GL_QUADS, 0, 4);
 		glBindVertexArray(0);
+
+
+		/**************/
+		/* Draw Torso */
+		/**************/
+		view = temp;
+		view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+		model = glm::scale(glm::mat4(1.0f), glm::vec3(0.6, 0.4, 1.0)) *glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(10, 20, 0)));
+
+		glBindVertexArray(VAO_enemy);
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+		glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+		glDrawArrays(GL_QUADS, 0, 4);
+		glBindVertexArray(0);
+
+		drawSymetricParts(true, true, sprite, dir);
+		drawSymetricParts(true, false, (sprite + 1) % 3, dir);
+		drawSymetricParts(false, true, (sprite + 2) % 3, dir);
+		drawSymetricParts(false, false, (sprite + 3) % 3, dir);
 
 		/*/
 		glColor3f(0.0, 0.0, 0.0);

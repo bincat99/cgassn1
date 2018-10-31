@@ -40,10 +40,15 @@ GLuint buffer;
  unsigned int VAO_weapon;
  unsigned int VAO_inven;
  unsigned int VAO_life;
- unsigned int matrix_loc;
+ unsigned int VAO_gun;
 
-glm::mat4 ctm;
+ unsigned int matrix_loc;
+ unsigned int matrix_loc2;
+
+glm::mat4 model;
+glm::mat4 view;
 glm::mat4 temp;
+glm::mat4 model_temp;
 
 unsigned int
 windowId;

@@ -74,10 +74,14 @@ extern unsigned int VAO_item;
 extern unsigned int VAO_weapon;
 extern unsigned int VAO_inven;
 extern unsigned int VAO_life;
+extern unsigned int VAO_gun;
 
 extern unsigned int matrix_loc;
-extern glm::mat4 ctm;
+extern unsigned int matrix_loc2;
+extern glm::mat4 model;
+extern glm::mat4 view;
 extern glm::mat4 temp;
+extern glm::mat4 model_temp;
 
 extern unsigned int
 windowId;

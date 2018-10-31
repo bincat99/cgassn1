@@ -39,7 +39,7 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 	nohitState = 0;
 	nohitDuration = 0;
 
-	float colors[16] = { 0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0,0.0, 0.0, 0.0, 1.0 };
+	float colors[16] = { 0.5,0.5,1.0,1.0, 0.5,0.5,1.0,1.0, 0.5,0.5,1.0,1.0, 0.5,0.5,1.0,1.0 };
 	float points[8] = {
 		0, 0,
 		0, h,
@@ -137,8 +137,163 @@ Player::Player(float x_, float y_, enum Direction dir_, float w_, float h_, floa
 	glEnableVertexAttribArray(loc6);
 	glVertexAttribPointer(loc6, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(lpoints)));
 	glBindVertexArray(0);
+
+	float Gcolors[12] = { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 , 0.0, 1.0, 0.0, 1.0 };
+	float Gpoints[6] = {
+	   0, 0,
+	   0, 0 + GLOBAL_GRID_LENGTH,
+	   0 + GLOBAL_GRID_LENGTH , 0 + GLOBAL_GRID_LENGTH,
+	};
+
+	glGenVertexArrays(1, &VAO_gun);
+	glBindVertexArray(VAO_gun);
+	// Create a buffer
+	glGenBuffers(1, &buffer);
+
+	// Bind the buffer to vertx attributes
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+
+	// Init buffer
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Gpoints) + sizeof(Gcolors), NULL, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0,
+		sizeof(Gpoints), Gpoints);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(Gpoints),
+		sizeof(Gcolors), Gcolors);
+
+
+	unsigned int loc7 = glGetAttribLocation(shaderUtil.getProgram(), "position");
+	glEnableVertexAttribArray(loc7);
+	glVertexAttribPointer(loc7, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	unsigned int loc8 = glGetAttribLocation(shaderUtil.getProgram(), "color_in");
+	glEnableVertexAttribArray(loc8);
+	glVertexAttribPointer(loc8, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(Gpoints)));
+	glBindVertexArray(0);
 }
 
+void Player::drawSymetricParts(bool is_left, bool is_arm, int sprite, enum Direction dir) {
+
+	int posX, posY;
+	int refX, refY;
+	float angle;
+
+	if (is_arm && is_left) {
+		posX = 12;
+		posY = 35;
+		refX = -1;
+		refY = -1;
+		angle = 1.0;
+	}
+	else if (!is_arm && is_left) {
+		posX = 20;
+		posY = 20;
+		refX = -1;
+		refY = -1;
+		angle = 0.5;
+	}
+	else if (is_arm && !is_left) {
+		posX = 38;
+		posY = 35;
+		refX = 1;
+		refY = -1;
+		angle = 1.0;
+	}
+	else if (!is_arm && !is_left) {
+		posX = 30;
+		posY = 20;
+		refX = 1;
+		refY = -1;
+		angle = 0.5;
+	}
+	/********************/
+	/* Draw upper Parts */
+	/********************/
+	view = temp;
+	view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+	glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), -1*angle*refX*sprite*(3.14f / 3), glm::vec3(0.0, 0.0, 1.0));
+	model = rotate * glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(posX, posY, 0)));
+	model_temp = model;
+	model = glm::scale(glm::mat4(1.0f), glm::vec3(refX*0.2, refY*0.2, 1.0)) * model;
+
+
+	glBindVertexArray(VAO_player);
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+	glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+	glDrawArrays(GL_QUADS, 0, 4);
+	glBindVertexArray(0);
+
+
+	/********************/
+	/* Draw lower Parts */
+	/********************/
+	view = temp;
+	view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+	glm::mat4 rotate2 = glm::rotate(glm::mat4(1.0f), -1 * angle*refX*sprite*(3.14f / 6), glm::vec3(0.0, 0.0, 1.0));
+	model = rotate2* glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(0, -10, 0)))  * model_temp;
+	model_temp = model;
+	model = glm::scale(glm::mat4(1.0f), glm::vec3(refX*0.1, refY*0.2, 1.0)) * model;
+
+	glBindVertexArray(VAO_player);
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+	glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+	glDrawArrays(GL_QUADS, 0, 4);
+	glBindVertexArray(0);
+
+	/*************************/
+	/* Draw the lowest Parts */
+	/*************************/
+	view = temp;
+	view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+
+	model = glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(0, -10, 0)))  * model_temp;
+	model_temp = model;
+	model = glm::scale(glm::mat4(1.0f), glm::vec3(refX*0.2, refY*0.1, 1.0)) * model;
+
+	glBindVertexArray(VAO_player);
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+	glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+	glDrawArrays(GL_QUADS, 0, 4);
+	glBindVertexArray(0);
+
+
+	/**********************/
+	/* Draw the Gun Parts */
+	/**********************/
+	if (is_arm && is_left && (dir == LEFT || dir == UP)) {
+		view = temp;
+		view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+
+		model = glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(-10, -15, 0)))  * model_temp;
+		model_temp = model;
+		model = glm::scale(glm::mat4(1.0f), glm::vec3(-1*0.5, 0.5, 1.0)) * model;
+
+		glBindVertexArray(VAO_gun);
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+		glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindVertexArray(0);
+	}
+	else if (is_arm && !is_left &&  (dir == RIGHT || dir == DOWN)) {
+		view = temp;
+		view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+
+		model = glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(10, -15, 0)))  * model_temp;
+		model_temp = model;
+		model = glm::scale(glm::mat4(1.0f), glm::vec3(0.5, 0.5, 1.0)) * model;
+
+		glBindVertexArray(VAO_gun);
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+		glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindVertexArray(0);
+	}
+
+
+}
 void Player::display(void)
 {
     for (std::list<Weapon*>::iterator it = listWeapon.begin(); it != listWeapon.end(); it++)
@@ -149,16 +304,46 @@ void Player::display(void)
     }
     if (status == ALIVE)
     {
-        sprite = (sprite + 1) % 3;
+		if(frame%60 ==0)
+			sprite = (sprite + 1) % 3;
+		frame++;
 
 
+		/*************/
+		/* Draw Head */
+		/*************/
+		view = temp;
+		view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
 
-		ctm = temp;
-		ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(pos.x, pos.y, 0)));
+		model = glm::scale(glm::mat4(1.0f), glm::vec3(0.2, 0.2, 1.0)) * glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(20, 40, 0)));
+
 		glBindVertexArray(VAO_player);
-		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+		glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
 		glDrawArrays(GL_QUADS, 0, 4);
 		glBindVertexArray(0);
+
+
+		/**************/
+		/* Draw Torso */
+		/**************/
+		view = temp;
+		view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+
+		model = glm::scale(glm::mat4(1.0f), glm::vec3(0.6, 0.4, 1.0)) *glm::transpose(glm::translate(glm::mat4(1.0f), glm::vec3(10, 20, 0)));
+
+		glBindVertexArray(VAO_player);
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+		glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
+		glDrawArrays(GL_QUADS, 0, 4);
+		glBindVertexArray(0);
+
+		drawSymetricParts(true, true, sprite, dir);
+		drawSymetricParts(true, false, (sprite+1)%3, dir);
+		drawSymetricParts(false, true, (sprite+2)%3, dir);
+		drawSymetricParts(false, false, (sprite+3)%3, dir);
+
+
 		/*
         glColor3f(0.0, 0.0, 0.0);
         glBegin(GL_QUADS);
@@ -195,10 +380,12 @@ void Player::display(void)
             float ItemY = itemY + (idx / 3) * h;
 
 
-			ctm = temp;
-			ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(ItemX, ItemY, 0)));
+			view = temp;
+			view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(ItemX, ItemY, 0)));
+			model = glm::mat4(1.0f);
 			glBindVertexArray(VAO_inven);
-			glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+			glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+			glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
 			glDrawArrays(GL_QUADS, 0, 4);
 			glBindVertexArray(0);
 
@@ -221,10 +408,12 @@ void Player::display(void)
 			float lifeY = pos.y - 800;
 
 
-			ctm = temp;
-			ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(lifeX, lifeY, 0)));
+			view = temp;
+			view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(lifeX, lifeY, 0)));
+			model = glm::mat4(1.0f);
 			glBindVertexArray(VAO_life);
-			glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+			glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+			glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
 			glDrawArrays(GL_QUADS, 0, 4);
 			glBindVertexArray(0);
 		}

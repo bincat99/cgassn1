@@ -62,10 +62,12 @@ position Item::getPos ()
 void Item::display()
 {
 
-	ctm = temp;
-	ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(pos.x, pos.y, 0)));
+	view = temp;
+	view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+	model = glm::mat4(1.0f);
 	glBindVertexArray(VAO_item);
-	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+	glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
 	glDrawArrays(GL_QUADS, 0, 4);
 	glBindVertexArray(0);
 
@@ -95,10 +97,12 @@ void Item::displayBox(float x, float y, int idx)
 	ItemX = x + (idx % 3) * width;
 	ItemY = y + (idx / 3) * height;
 
-	ctm = temp;
-	ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(ItemX, ItemY, 0)));
+	view = temp;
+	view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(ItemX, ItemY, 0)));
+	model = glm::mat4(1.0f);
 	glBindVertexArray(VAO_item);
-	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+	glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+	glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
 	glDrawArrays(GL_QUADS, 0, 4);
 	glBindVertexArray(0);
 

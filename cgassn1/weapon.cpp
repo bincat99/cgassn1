@@ -13,7 +13,7 @@ Weapon::Weapon(float x_, float y_, enum Direction dir_, float w_, float h_, floa
     range = range_;
     status = ALIVE;
 
-	float colors[16] = { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 };
+	float colors[16] = { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
 	float points[8] = {
 		0, 0,
 		0, 0 + h,
@@ -51,10 +51,12 @@ void Weapon::display(void)
     if (status == ALIVE)
     {
 
-		ctm = temp;
-		ctm = glm::transpose(glm::translate(glm::transpose(ctm), glm::vec3(pos.x, pos.y, 0)));
+		view = temp;
+		view = glm::transpose(glm::translate(glm::transpose(view), glm::vec3(pos.x, pos.y, 0)));
+		model = glm::mat4(1.0f);
 		glBindVertexArray(VAO_weapon);
-		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(ctm));
+		glUniformMatrix4fv(matrix_loc, 1, GL_TRUE, value_ptr(view));
+		glUniformMatrix4fv(matrix_loc2, 1, GL_TRUE, value_ptr(model));
 		glDrawArrays(GL_QUADS, 0, 4);
 		glBindVertexArray(0);
 

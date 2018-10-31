@@ -51,9 +51,10 @@ init (void)
 void
 display (void)
 {
+	matrix_loc = glGetUniformLocation(shaderUtil.getProgram(), "view");
+	matrix_loc2 = glGetUniformLocation(shaderUtil.getProgram(), "model");
 
 
-	matrix_loc = glGetUniformLocation(shaderUtil.getProgram(), "transform");
 
 
 	shaderUtil.Use();
