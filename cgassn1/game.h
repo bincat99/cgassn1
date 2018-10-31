@@ -30,6 +30,8 @@ private:
 public:
     Game ();
 
+	bool gameEnd;
+
     void init (void);
 
 	void restart();
@@ -39,10 +41,12 @@ public:
 	void reshape(int w, int h);
 	void moveObjects();
 	void checkTimeout();
+	void timerFunc(int);
 
 	Player* getPlayer();
 
     
 };
+void timerFunc(int);
 
 #endif /* game_h */

@@ -24,12 +24,23 @@ void renderScene(void) {
     glFlush();
 }
 
+extern Game *game;
 
 Game::Game()
 {
     
 }
 
+void
+timerFunc(int n)
+{
+	game->gameEnd = true;
+}
+void
+gameTimerInit()
+{
+	glutTimerFunc(100 * 1000, timerFunc, 1);
+}
 
 void
 Game::init (void)
@@ -41,7 +52,10 @@ Game::init (void)
     msg = new Message ();
 
 	remainingTime = CLOCKS_PER_SEC * 100;
-	startTime = clock();
+	startTime = glutGet(GLUT_ELAPSED_TIME);
+	gameEnd = false;
+	gameClear = false;
+	gameTimerInit();
 }
 
 Player* Game::getPlayer(void)
@@ -52,7 +66,7 @@ Player* Game::getPlayer(void)
 
 void Game::display(void)
 {
-	if (player->getStatus() != KILLED && !gameClear)
+	if (player->getStatus() != KILLED && !gameClear && !gameEnd)
 	{
 
 		ctm = glm::scale(glm::mat4(1.0f), glm::vec3((float)1 / 800));
@@ -80,7 +94,7 @@ void Game::display(void)
 
 void Game::displayTime(void) {
 	char buf[100] = { 0 };
-	std::string str = "Remain Time : " + std::to_string((int)((remainingTime -clock()) / 1000));
+	std::string str = "Remain Time : " + std::to_string((int)((remainingTime - glutGet(GLUT_ELAPSED_TIME)+ startTime) / 1000));
 	sprintf_s(buf, str.c_str());
 	renderbitmap(500, 1550, GLUT_BITMAP_HELVETICA_18, buf);
 }
@@ -89,8 +103,8 @@ void Game::displayTime(void) {
 void Game::checkTimeout()
 {
 
-	if (clock() > startTime + remainingTime)
-		player->setStatus(KILLED);
+//	if (clock() > startTime + remainingTime)
+//		player->setStatus(KILLED);
 }
 void Game::restart()
 {
@@ -102,7 +116,7 @@ void Game::restart()
 
 void Game::moveObjects(void)
 {
-    if (player->getStatus() == ALIVE && !gameClear)
+    if (player->getStatus() == ALIVE && !gameClear && !gameEnd)
     {
         
         
@@ -127,7 +141,7 @@ void Game::moveObjects(void)
 
 		player->checkNohit();
 		map->checkPlayerKill(player);
-		checkTimeout();
+		//checkTimeout();
     }
     
     // player kill check
