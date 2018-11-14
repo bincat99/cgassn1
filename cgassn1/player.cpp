@@ -338,6 +338,10 @@ void Player::display(void)
 		glDrawArrays(GL_QUADS, 0, 4);
 		glBindVertexArray(0);
 
+		/**********************/
+		/* Draw remained parts*/
+		/**********************/
+
 		drawSymetricParts(true, true, sprite, dir);
 		drawSymetricParts(true, false, (sprite+1)%3, dir);
 		drawSymetricParts(false, true, (sprite+2)%3, dir);

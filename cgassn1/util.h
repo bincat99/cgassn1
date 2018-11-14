@@ -32,6 +32,14 @@
 #include <list>
 #include "ShaderUtil.h"
 
+#include "objLoader.h"
+
+#include "ModelParser.h"
+
+#include <iostream>
+
+#include "Renderer.h"
+
 #define KEYBOARD_BUFFER_SIZE 256
 #define GLOBAL_GRID_LENGTH 50
 
