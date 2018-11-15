@@ -30,7 +30,7 @@
 
 ShaderUtil shaderUtil;
 
-GLuint MatrixID;
+
 
 
 

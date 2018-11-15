@@ -1,6 +1,7 @@
 #include "sys.h"
 
 
+
 void VertexBuffer::add(float x)
 {
 	list.push_back(x);

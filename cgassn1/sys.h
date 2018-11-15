@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdio.h>
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
@@ -23,7 +24,7 @@
 
 
 #include <GL/glew.h>
-
+#include <assimp/scene.h>
 //#include <rapidjson/document.h>
 
 //#include <BP/btBulletDynamicsCommon.h>
@@ -39,6 +40,7 @@ private:
 	std::vector<float> list;
 	bool isStatic;
 public:
+	
 	void add(float x);
 	void add(float x, float y);
 	void add(const glm::vec2& v);
@@ -94,10 +96,13 @@ private:
 	VertexBuffer tBuf;
 	VertexBuffer nBuf;
 
+	std::vector<VertexBuffer*> vBufs;
 	IndexBuffer iBuf;
+	std::vector<aiNode*> ai_nodes;
 
 public:
 
+	
 	void init(std::string path, bool isStatic = false);
 
 	//void render(ProgramWrapperMain& prog);
@@ -110,6 +115,7 @@ public:
 
 	IndexBuffer* getIndexBuffer();
 
+	void recursiveNodeProcess(aiNode *);
 };
 
 class Camera

@@ -120,18 +120,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cgassn1\enemy.h" />
+    <ClInclude Include="cgassn1\gun.h" />
+    <ClInclude Include="cgassn1\player.h" />
     <ClInclude Include="cgassn1\ShaderUtil.h" />
     <ClInclude Include="cgassn1\sys.h" />
     <ClInclude Include="cgassn1\util.h" />
+    <ClInclude Include="cgassn1\wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cgassn1\camera.cpp" />
+    <ClCompile Include="cgassn1\enemy.cpp" />
+    <ClCompile Include="cgassn1\gun.cpp" />
     <ClCompile Include="cgassn1\IndexBuffer.cpp" />
     <ClCompile Include="cgassn1\main.cpp" />
     <ClCompile Include="cgassn1\mesh.cpp" />
+    <ClCompile Include="cgassn1\player.cpp" />
     <ClCompile Include="cgassn1\ShaderUtil.cpp" />
     <ClCompile Include="cgassn1\util.cpp" />
     <ClCompile Include="cgassn1\VertexBuffer.cpp" />
+    <ClCompile Include="cgassn1\wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cgassn1\shaders\fs.shader" />

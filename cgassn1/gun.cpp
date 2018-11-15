@@ -22,7 +22,17 @@ void Gun::display(Mesh& mesh, Camera& camera)
 	glm::mat4 View = camera.toViewMatrix();
 	glm::mat4 Model = glm::mat4(1.0f);
 
+	
+	float rotX = 0.0f;
+	float rotY = 20.0f;
+	float rotZ = 0.0f;
+	
+	Model *= glm::rotate(glm::mat4(1.0f), glm::radians(rotX), glm::vec3(1.0f, 0.0f, 0.0f))*
+		glm::rotate(glm::mat4(1.0f), glm::radians(rotY), glm::vec3(0.0f, 1.0f, 0.0f))*
+		glm::rotate(glm::mat4(1.0f), glm::radians(rotZ), glm::vec3(0.0f, 0.0f, 1.0f));
 	glm::mat4 mvp = Projection * View * Model;
+
+	
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 	glEnableVertexAttribArray(0);
@@ -38,6 +48,10 @@ void Gun::display(Mesh& mesh, Camera& camera)
 	glDrawElements(GL_LINE_STRIP, mesh.getIndexBuffer()->size(), GL_UNSIGNED_INT, 0);
 
 	mesh.getIndexBuffer()->unbind();
+
+	mvp = Projection * View * glm::mat4(1.0f);
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+	glEnableVertexAttribArray(0);
 }
 
 

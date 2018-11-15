@@ -53,9 +53,9 @@ init(void)
 	M_enemy.init("cgassn1/resources/Skeleton.obj");
 	M_player.init("cgassn1/resources/dummy_obj.obj");
 	M_gun.init("cgassn1/resources/M1911.obj");
-	M_wall.init("cgassn1/resources/cube.obj");
+	//M_wall.init("cgassn1/resources/cube.obj");
 	camera.init(glm::vec3(40, 30, 100), glm::vec2(0.0f, 0.0f));
-	enemy.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
+	enemy.init(glm::vec3(0, 0, 50), glm::vec2(0.0f, 0.0f));
 	player.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
 	gun.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
 	// need to be iterative
@@ -81,26 +81,13 @@ display(void)
 	//	glm::vec3(0, 1, 0)
 	//);
 
-	float rotX = 270.0f;
-	float rotY = 0.0f;
-	float rotZ = 200.0f;
-	glm::mat4 Model = glm::mat4(1.0f);
-	Model *=	glm::rotate(glm::mat4(1.0f), glm::radians(rotX), glm::vec3(1.0f, 0.0f, 0.0f))*
-				glm::rotate(glm::mat4(1.0f), glm::radians(rotY), glm::vec3(0.0f, 1.0f, 0.0f))*
-				glm::rotate(glm::mat4(1.0f), glm::radians(rotZ), glm::vec3(0.0f, 0.0f, 1.0f));
-	glm::mat4 mvp = Projection * View * Model;
 
 
 	enemy.display(M_enemy, camera);
 	player.display(M_player, camera);
 	gun.display(M_gun, camera);
-	wall.display(M_wall, camera);
+	//wall.display(M_wall, camera);
 
-
-
-	mvp = Projection * View * glm::mat4(1.0f);
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
-	glEnableVertexAttribArray(0);
 
 	glBegin(GL_LINES);
 	glVertex3f(.0f, .0f, .0f);

@@ -24,6 +24,18 @@
     <ClInclude Include="cgassn1\ShaderUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cgassn1\enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cgassn1\gun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cgassn1\player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cgassn1\wall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cgassn1\util.cpp">
@@ -45,6 +57,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cgassn1\camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\gun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
