@@ -1,0 +1,113 @@
+#pragma once
+
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <ctime>
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <map>
+#include <limits>
+
+//#include <SDL/SDL.h>
+// <SDL/SDL_ttf.h>
+
+//#include <freeimage/FreeImage.h>
+
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+
+#include <GL/glew.h>
+
+//#include <rapidjson/document.h>
+
+//#include <BP/btBulletDynamicsCommon.h>
+
+//#include <LUA/lua.hpp>
+
+
+// Vertex Buffer
+class VertexBuffer
+{
+private:
+	uint32_t id;
+	std::vector<float> list;
+	bool isStatic;
+public:
+	void add(float x);
+	void add(float x, float y);
+	void add(const glm::vec2& v);
+	void add(float x, float y, float z);
+	void add(const glm::vec3& v);
+	void add(float x, float y, float z, float w);
+	void add(const glm::vec4& v);
+	void add(const glm::mat4& m);
+	void addAll(std::vector<float>& v);
+	void addAll(std::vector<glm::vec2>& v);
+	void addAll(std::vector<glm::vec3>& v);
+	void addAll(std::vector<glm::vec4>& v);
+	void addAll(std::vector<glm::mat4>& m);
+	void clear();
+	void create(bool isStatic = false);
+	void upload();
+	void bind();
+	void unbind();
+	void release();
+	uint32_t size();
+};
+
+
+// Index Buffer
+class IndexBuffer
+{
+private:
+	uint32_t id;
+	std::vector<uint32_t> list;
+public:
+	void add(uint32_t x);
+	void add(uint32_t x, uint32_t y);
+	void add(uint32_t x, uint32_t y, uint32_t z);
+	void add(uint32_t x, uint32_t y, uint32_t z, uint32_t w);
+	void addAll(std::vector<uint32_t>& v);
+	void addAll(std::vector<glm::ivec2>& v);
+	void addAll(std::vector<glm::ivec3>& v);
+	void addAll(std::vector<glm::ivec4>& v);
+	void clear();
+	void create();
+	void upload();
+	void bind();
+	void unbind();
+	void release();
+	uint32_t size();
+};
+
+
+
+class Mesh
+{
+private:
+	VertexBuffer vBuf;
+	VertexBuffer tBuf;
+	VertexBuffer nBuf;
+
+	IndexBuffer iBuf;
+
+public:
+
+	void init(std::string path, bool isStatic = false);
+
+	//void render(ProgramWrapperMain& prog);
+
+	void release();
+
+	VertexBuffer* getVertexBuffer();
+	VertexBuffer* getTexCoordBuffer();
+	VertexBuffer* getNormalBuffer();
+
+	IndexBuffer* getIndexBuffer();
+
+};
