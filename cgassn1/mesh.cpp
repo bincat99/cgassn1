@@ -41,10 +41,12 @@ void Mesh::init(std::string path, bool isStatic)
 		vertices.push_back(v);
 		// Normals
 		glm::vec3 vn;
-		vn.x = mesh->mNormals[i].x;
-		vn.y = mesh->mNormals[i].z;
-		vn.z = mesh->mNormals[i].y;
-		normals.push_back(vn);
+		if (mesh->mNormals != NULL) {
+			vn.x = mesh->mNormals[i].x;
+			vn.y = mesh->mNormals[i].z;
+			vn.z = mesh->mNormals[i].y;
+			normals.push_back(vn);
+		}
 		// TexCoords
 		glm::vec2 vt;
 		vt.x = mesh->mTextureCoords[0][i].x;

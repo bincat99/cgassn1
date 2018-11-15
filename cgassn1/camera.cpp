@@ -57,6 +57,24 @@ void Camera::update(float delta)
 				pos.z -= sp * glm::cos(yrad) * delta;
 			}
 
+			if (i == 'r')
+			{
+				rot.x += this->rotSpeed;
+			}
+			if (i == 'f')
+			{
+				rot.x -= this->rotSpeed;
+			}
+			if (i == 't')
+			{
+				pos.y += sp * glm::sin(yrad) * delta;
+				pos.z -= sp * glm::cos(yrad) * delta;
+			}
+			if (i == 'g')
+			{
+				pos.y -= sp * glm::sin(yrad) * delta;
+				pos.z += sp * glm::cos(yrad) * delta;
+			}
 
 		}
 	}
@@ -93,7 +111,7 @@ glm::mat4 Camera::toProjMatrix()
 
 		1.0f,
 
-		1024.0f
+		3000.0f
 
 	);
 

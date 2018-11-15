@@ -69,24 +69,8 @@ typedef struct
 
 extern ShaderUtil shaderUtil;
 
-extern GLuint buffer;
 
-extern unsigned int VAO_enemy;
-extern unsigned int VAO_player;
-extern unsigned int VAO_wall;
-extern unsigned int VAO_empty;
-extern unsigned int VAO_item;
-extern unsigned int VAO_weapon;
-extern unsigned int VAO_inven;
-extern unsigned int VAO_life;
-extern unsigned int VAO_gun;
-
-extern unsigned int matrix_loc;
-extern unsigned int matrix_loc2;
-extern glm::mat4 model;
-extern glm::mat4 view;
-extern glm::mat4 temp;
-extern glm::mat4 model_temp;
+extern GLuint MatrixID;
 
 extern unsigned int
 windowId;
