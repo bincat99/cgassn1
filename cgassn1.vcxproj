@@ -72,8 +72,8 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\pos\Downloads\install_library\freeglut\include;C:\Users\pos\Downloads\install_library\glew-2.1.0\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>C:\Users\pos\Downloads\install_library\glew-2.1.0\lib\Release\x64;C:\Users\pos\Downloads\install_library\freeglut\lib\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\include;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\include;C:\Users\wonjong\Downloads\glm-0.9.9.2\glm;C:\Users\wonjong\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\lib64;C:\Users\wonjong\Downloads\install_library\freeglut\lib\x64;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\lib\Release\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\pos\Downloads\install_library\glew-2.1.0\include;C:\Users\pos\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
@@ -111,7 +111,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>freeglut.lib;glew32.lib;Opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;freeglut.lib;glew32.lib;Opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,32 +120,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cgassn1\BmpLoader.cpp" />
-    <ClCompile Include="cgassn1\emptySpace.cpp" />
-    <ClCompile Include="cgassn1\enemy.cpp" />
-    <ClCompile Include="cgassn1\game.cpp" />
-    <ClCompile Include="cgassn1\item.cpp" />
-    <ClCompile Include="cgassn1\main.cpp" />
-    <ClCompile Include="cgassn1\map.cpp" />
-    <ClCompile Include="cgassn1\msg.cpp" />
-    <ClCompile Include="cgassn1\player.cpp" />
-    <ClCompile Include="cgassn1\util.cpp" />
-    <ClCompile Include="cgassn1\wall.cpp" />
-    <ClCompile Include="cgassn1\weapon.cpp" />
+    <ClInclude Include="cgassn1\ShaderUtil.h" />
+    <ClInclude Include="cgassn1\sys.h" />
+    <ClInclude Include="cgassn1\util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cgassn1\BmpLoader.h" />
-    <ClInclude Include="cgassn1\emptySpace.h" />
-    <ClInclude Include="cgassn1\enemy.h" />
-    <ClInclude Include="cgassn1\game.h" />
-    <ClInclude Include="cgassn1\item.h" />
-    <ClInclude Include="cgassn1\map.h" />
-    <ClInclude Include="cgassn1\msg.h" />
-    <ClInclude Include="cgassn1\object.h" />
-    <ClInclude Include="cgassn1\player.h" />
-    <ClInclude Include="cgassn1\util.h" />
-    <ClInclude Include="cgassn1\wall.h" />
-    <ClInclude Include="cgassn1\weapon.h" />
+    <ClCompile Include="cgassn1\camera.cpp" />
+    <ClCompile Include="cgassn1\IndexBuffer.cpp" />
+    <ClCompile Include="cgassn1\main.cpp" />
+    <ClCompile Include="cgassn1\mesh.cpp" />
+    <ClCompile Include="cgassn1\ShaderUtil.cpp" />
+    <ClCompile Include="cgassn1\util.cpp" />
+    <ClCompile Include="cgassn1\VertexBuffer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cgassn1\shaders\fs.shader" />
+    <None Include="cgassn1\shaders\vs.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -36,6 +36,7 @@ GLuint uvbuffer;
 GLuint MatrixID;
 
 static Mesh object;
+static Camera camera;
 
 void
 init(void)
@@ -51,15 +52,17 @@ display(void)
 {
 	shaderUtil.Use();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)800, 0.1f, 100.0f);
+	glm::mat4 Projection = camera.toProjMatrix();
 
 
 	// 카메라 매트릭스
-	glm::mat4 View = glm::lookAt(
-		glm::vec3(40, 30, 30), 
-		glm::vec3(0, 0, 0), 
-		glm::vec3(0, 1, 0) 
-	);
+	glm::mat4 View = camera.toViewMatrix();
+
+	//glm::mat4 View = glm::lookAt(
+	//	glm::vec3(40, 30, 30),
+	//	glm::vec3(0, 0, 0),
+	//	glm::vec3(0, 1, 0)
+	//);
 
 	glm::mat4 Model = glm::mat4(1.0f);
 	glm::mat4 mvp = Projection * View * Model;
@@ -75,7 +78,7 @@ display(void)
 
 	object.getIndexBuffer()->bind();
 
-	glDrawElements(GL_TRIANGLES, object.getIndexBuffer()->size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_LINE_STRIP, object.getIndexBuffer()->size(), GL_UNSIGNED_INT, 0);
 
 	object.getIndexBuffer()->unbind();
 
@@ -92,6 +95,7 @@ reshape(int w, int h)
 void
 moveObjects()
 {
+	camera.update(1.0);
 	glutPostRedisplay();
 }
 
@@ -115,14 +119,7 @@ main(int argc, char * argv[])
 
 
 	object.init("cgassn1/resources/M1911.obj");
-	/*bool res = loadOBJ("cgassn1/resources/cube.obj", vertices, uvs, normals);
-	if (res) {
-
-	}
-	else {
-		return 0;
-	}*/
-
+	camera.init(glm::vec3(40, 30, 100), glm::vec2(0.0f, 0.0f));
 
 
 	glGenBuffers(1, &vertexbuffer);

@@ -15,79 +15,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cgassn1\BmpLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\emptySpace.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\weapon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\msg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="cgassn1\BmpLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cgassn1\emptySpace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cgassn1\enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cgassn1\game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cgassn1\item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cgassn1\map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cgassn1\object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cgassn1\player.h">
+    <ClInclude Include="cgassn1\sys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cgassn1\util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cgassn1\wall.h">
+    <ClInclude Include="cgassn1\ShaderUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cgassn1\weapon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cgassn1\msg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cgassn1\util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\IndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\ShaderUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cgassn1\shaders\fs.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cgassn1\shaders\vs.shader">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
