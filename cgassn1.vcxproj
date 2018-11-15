@@ -72,8 +72,8 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\include;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\include;C:\Users\wonjong\Downloads\glm-0.9.9.2\glm;C:\Users\wonjong\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\lib64;C:\Users\wonjong\Downloads\install_library\freeglut\lib\x64;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\lib\Release\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>C:\Users\PLUS\Downloads\assimp-3.1.1-win-binaries\include;C:\Users\PLUS\Downloads\install_library\glew-2.1.0\include;C:\Users\PLUS\Downloads\glm-0.9.9.2;C:\Users\PLUS\Downloads\install_library\freeglut\include;C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\include;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\include;C:\Users\wonjong\Downloads\glm-0.9.9.2\glm;C:\Users\wonjong\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\PLUS\Downloads\assimp-3.1.1-win-binaries\lib64;C:\Users\PLUS\Downloads\install_library\freeglut\lib\x64;C:\Users\PLUS\Downloads\install_library\glew-2.1.0\lib\Release\x64;C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\lib64;C:\Users\wonjong\Downloads\install_library\freeglut\lib\x64;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\lib\Release\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\pos\Downloads\install_library\glew-2.1.0\include;C:\Users\pos\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>

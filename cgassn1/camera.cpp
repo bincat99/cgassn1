@@ -14,7 +14,7 @@ void Camera::init(const glm::vec3& pos, const glm::vec2& rot)
 
 
 
-	this->rotSpeed = 1.0f;
+	this->rotSpeed = .5f;
 
 }
 
@@ -35,7 +35,7 @@ void Camera::update(float delta)
 		{
 			if (i == 'a')
 			{
-				rot.y += this->rotSpeed;
+				rot.y -= this->rotSpeed;
 			}
 
 			if (i == 's')
@@ -47,7 +47,7 @@ void Camera::update(float delta)
 
 			if (i == 'd')
 			{
-				rot.y -= this->rotSpeed;
+				rot.y += this->rotSpeed;
 			}
 
 

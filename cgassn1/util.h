@@ -3,7 +3,7 @@
 //  cgassn1
 //
 //  Created by Dahun Lee on 2018. 10. 1..
-//  Copyright © 2018년 Dahun Lee. All rights reserved.
+//  Copyright © 2018??Dahun Lee. All rights reserved.
 //
 
 #ifndef util_h

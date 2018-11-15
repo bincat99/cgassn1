@@ -3,25 +3,19 @@
 //  cgassn1
 //
 //  Created by Dahun Lee on 2018. 10. 1..
-//  Copyright © 2018년 Dahun Lee. All rights reserved.
+//  Copyright © 2018??Dahun Lee. All rights reserved.
 //
 
 
 #include <iostream>
 
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <OpenGL/glext.h>
-#include <GLUT/GLUT.h>
-#else
+
 #include <windows.h>
 #include <GL/glew.h>
 #include <GL/GL.h>
 #include <GL/GLU.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
-#endif
 
 #include "util.h"
 #include "sys.h"
@@ -30,6 +24,7 @@ using namespace std;
 std::vector<glm::vec3> vertices;
 std::vector<glm::vec2> uvs;
 std::vector<glm::vec3> normals;
+
 
 GLuint vertexbuffer;
 GLuint uvbuffer;
@@ -55,7 +50,7 @@ display(void)
 	glm::mat4 Projection = camera.toProjMatrix();
 
 
-	// 카메라 매트릭스
+	
 	glm::mat4 View = camera.toViewMatrix();
 
 	//glm::mat4 View = glm::lookAt(
@@ -64,7 +59,13 @@ display(void)
 	//	glm::vec3(0, 1, 0)
 	//);
 
+	float rotX = 270.0f;
+	float rotY = 0.0f;
+	float rotZ = 200.0f;
 	glm::mat4 Model = glm::mat4(1.0f);
+	Model *=	glm::rotate(glm::mat4(1.0f), glm::radians(rotX), glm::vec3(1.0f, 0.0f, 0.0f))*
+				glm::rotate(glm::mat4(1.0f), glm::radians(rotY), glm::vec3(0.0f, 1.0f, 0.0f))*
+				glm::rotate(glm::mat4(1.0f), glm::radians(rotZ), glm::vec3(0.0f, 0.0f, 1.0f));
 	glm::mat4 mvp = Projection * View * Model;
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
@@ -82,9 +83,27 @@ display(void)
 
 	object.getIndexBuffer()->unbind();
 
+	mvp = Projection * View * glm::mat4(1.0f);
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+	glEnableVertexAttribArray(0);
+
+	glBegin(GL_LINES);
+	glVertex3f(.0f, .0f, .0f);
+	glVertex3f(10000.0f, .0f, .0f);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex3f(.0f, .0f, .0f);
+	glVertex3f(0.0f, 100.0f, .0f);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex3f(.0f, .0f, .0f);
+	glVertex3f(0.0f, .0f, 50.0f);
+	glEnd();
+
 	glutSwapBuffers();
 	shaderUtil.Delete();
-
 }
 
 void
