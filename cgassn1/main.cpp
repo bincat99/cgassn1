@@ -33,9 +33,9 @@ GLuint MatrixID;
 
 
 Mesh* M_enemy = new Mesh();
-static Mesh M_gun;
-static Mesh M_player;
-static Mesh M_wall;
+Mesh* M_gun = new Mesh();
+Mesh* M_player = new Mesh();
+Mesh* M_wall = new Mesh();
 
 static Camera camera;
 
@@ -51,15 +51,15 @@ init(void)
 	shaderUtil.Load("cgassn1/shaders/vs.shader", "cgassn1/shaders/fs.shader");
 	MatrixID = glGetUniformLocation(shaderUtil.getProgram(), "MVP");
 	M_enemy->init("cgassn1/resources/Skeleton.obj");
-	M_player.init("cgassn1/resources/dummy_obj.obj");
-	M_gun.init("cgassn1/resources/M1911.obj");
-	//M_wall.init("cgassn1/resources/cube.obj");
+	M_player->init("cgassn1/resources/dummy_obj.obj");
+	M_gun->init("cgassn1/resources/M1911.obj");
+	M_wall->init("cgassn1/resources/cube.obj");
 	camera.init(glm::vec3(40, 30, 100), glm::vec2(0.0f, 0.0f));
 	enemy.init(glm::vec3(0, 0, 50), glm::vec2(0.0f, 0.0f));
-	//player.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
-	//gun.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
+	player.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
+	gun.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
 	// need to be iterative
-	//wall.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
+	wall.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
 
 }
 
@@ -71,21 +71,14 @@ display(void)
 
 	glm::mat4 Projection = camera.toProjMatrix();
 
-
-	
 	glm::mat4 View = camera.toViewMatrix();
 
-	//glm::mat4 View = glm::lookAt(
-	//	glm::vec3(40, 30, 30),
-	//	glm::vec3(0, 0, 0),
-	//	glm::vec3(0, 1, 0)
-	//);
 
 
 	enemy.display(M_enemy, camera);
-	//player.display(M_player, camera);
-	//gun.display(M_gun, camera);
-	//wall.display(M_wall, camera);
+	player.display(M_player, camera);
+	gun.display(M_gun, camera);
+	wall.display(M_wall, camera);
 
 
 	glBegin(GL_LINES);

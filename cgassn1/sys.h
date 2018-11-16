@@ -102,6 +102,7 @@ private:
 	std::vector<struct MyMesh> myMeshes;
 
 	std::vector<aiNode*> ai_nodes;
+	float scaleFactor;
 
 public:
 
@@ -110,14 +111,11 @@ public:
 	void Mesh::render();
 	//void render(ProgramWrapperMain& prog);
 
-	void release();
-
-	VertexBuffer* getVertexBuffer();
-	VertexBuffer* getTexCoordBuffer();
-	VertexBuffer* getNormalBuffer();
-
-	IndexBuffer* getIndexBuffer();
-
+	void get_bounding_box(const aiScene* scene, aiVector3D* min, aiVector3D* max);
+	void get_bounding_box_for_node(const aiScene* scene, const aiNode* nd,
+		aiVector3D* min,
+		aiVector3D* max);
+	float getScaleFactor(void);
 	void recursiveNodeProcess(aiNode *);
 };
 
