@@ -54,7 +54,7 @@ init(void)
 	M_player->init("cgassn1/resources/dummy_obj.obj");
 	M_gun->init("cgassn1/resources/M1911.obj");
 	M_wall->init("cgassn1/resources/cube.obj");
-	camera.init(glm::vec3(40, 30, 100), glm::vec2(0.0f, 0.0f));
+	camera.init(glm::vec3(0, 45, 100), glm::vec2(0.0f, 0.0f));
 	enemy.init(glm::vec3(0, 0, 50), glm::vec2(0.0f, 0.0f));
 	player.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
 	gun.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
