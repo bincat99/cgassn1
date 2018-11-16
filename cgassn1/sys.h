@@ -88,23 +88,26 @@ public:
 	uint32_t size();
 };
 
+struct MyMesh {
+
+	GLuint vao;
+	GLuint texIndex;
+	GLuint uniformBlockIndex;
+	int numFaces;
+};
 
 class Mesh
 {
 private:
-	VertexBuffer vBuf;
-	VertexBuffer tBuf;
-	VertexBuffer nBuf;
+	std::vector<struct MyMesh> myMeshes;
 
-	std::vector<VertexBuffer*> vBufs;
-	IndexBuffer iBuf;
 	std::vector<aiNode*> ai_nodes;
 
 public:
 
-	
+	Mesh();
 	void init(std::string path, bool isStatic = false);
-
+	void Mesh::render();
 	//void render(ProgramWrapperMain& prog);
 
 	void release();
