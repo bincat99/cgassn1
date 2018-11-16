@@ -98,7 +98,7 @@ glm::mat4 Camera::toViewMatrix()
 		glm::rotate(glm::mat4(1.0f), glm::radians(rot.y), glm::vec3(0.0f, 1.0f, 0.0f)) *
 
 		glm::translate(glm::mat4(1.0f), -this->pos);
-
+	 
 }
 
 
