@@ -69,17 +69,19 @@ display(void)
 	shaderUtil.Use();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+
+
+	wall.display(M_wall, camera);
+	enemy.display(M_enemy, camera);
+	player.display(M_player, camera);
+	gun.display(M_gun, camera);
+
 	glm::mat4 Projection = camera.toProjMatrix();
 
 	glm::mat4 View = camera.toViewMatrix();
 
-
-
-	enemy.display(M_enemy, camera);
-	player.display(M_player, camera);
-	gun.display(M_gun, camera);
-	wall.display(M_wall, camera);
-
+	glm::mat4 model = glm::mat4(1.0f);
 
 	glBegin(GL_LINES);
 	glVertex3f(.0f, .0f, .0f);
