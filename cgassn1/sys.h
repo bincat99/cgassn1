@@ -119,6 +119,11 @@ public:
 	void recursiveNodeProcess(aiNode *);
 };
 
+enum MODE
+{
+	FPS,
+	TPS
+};
 class Camera
 
 {
@@ -136,6 +141,7 @@ private:
 	float walkSpeed = 1.0f;
 
 public:
+	enum MODE mode;
 
 	void init(const glm::vec3& pos, const glm::vec2& rot);
 	void update(float delta);
@@ -167,5 +173,7 @@ public:
 	float getRotSpeed();
 
 	void setRotSpeed(float rotSpeed);
+
+	void convertMode();
 
 };

@@ -2,6 +2,19 @@
 #include "util.h"
 
 
+Wall::Wall()
+{
+
+}
+
+Wall::Wall(float x, float y)
+{
+	glm::vec3 pos = glm::vec3(x, 0, y);
+	glm::vec2 dir = glm::vec2(0, 0);
+
+	setPos(pos);
+	setDir(dir);
+}
 
 void Wall::init(const glm::vec3& pos, const glm::vec2& dir)
 {
@@ -17,7 +30,6 @@ void Wall::update(void)
 
 void Wall::display(Mesh* mesh, Camera& camera)
 {
-
 	glm::mat4 Projection = camera.toProjMatrix();
 	glm::mat4 View = camera.toViewMatrix();
 	float scaleFactor = mesh->getScaleFactor();

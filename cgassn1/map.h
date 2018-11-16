@@ -8,20 +8,27 @@
 #include "wall.h"
 
 
-
+enum ObjectType
+{
+	EMPTY,
+	WALL,
+	ITEM,
+	ENEMY,
+	SAFE
+};
 
 class Map
 {
+	int gridLength;
+	ObjectType objMap[32][32];
+	int gridSize;
+
 public:
-
-
-
-
-	std::vector<Enemy*>* enemyVect;
-	std::vector<Wall*>* wallVect;
+	Camera camera;
+	std::list<Enemy*> listEnemy;
+	std::list<Wall*> listWall;
 	Player* player;
 	Gun* gun;
-	
 
 	Map();
 	void init();

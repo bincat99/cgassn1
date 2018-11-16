@@ -14,6 +14,7 @@ void Camera::init(const glm::vec3& pos, const glm::vec2& rot)
 
 	this->rotSpeed = .5f;
 
+	this->mode = FPS;
 }
 
 
@@ -74,6 +75,11 @@ void Camera::update(float delta)
 				pos.z += sp * glm::cos(yrad) * delta;
 			}
 
+			if (i == 'v')
+			{
+				convertMode();
+			}
+
 		}
 	}
 
@@ -128,69 +134,43 @@ glm::vec3 Camera::getPos()
 
 
 void Camera::setPos(const glm::vec3& pos)
-
 {
-
 	this->pos = pos;
-
 }
-
-
 
 glm::vec2 Camera::getRot()
-
 {
-
 	return this->rot;
-
 }
 
-
-
 void Camera::setRot(const glm::vec2& rot)
-
 {
-
 	this->rot = rot;
-
 }
 
 
 
 float Camera::getFOV()
-
 {
-
 	return this->fov;
-
 }
-
-
 
 void Camera::setFOV(float fov)
-
 {
-
 	this->fov = fov;
-
 }
-
-
 
 float Camera::getRotSpeed()
-
 {
-
 	return this->rotSpeed;
-
 }
 
-
-
 void Camera::setRotSpeed(float rotSpeed)
-
 {
-
 	this->rotSpeed = rotSpeed;
+}
 
+void Camera::convertMode()
+{
+	this->mode = this->mode == FPS ? TPS : FPS;
 }
