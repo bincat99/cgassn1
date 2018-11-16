@@ -102,6 +102,10 @@ private:
 	std::vector<struct MyMesh> myMeshes;
 
 	std::vector<aiNode*> ai_nodes;
+	std::vector<glm::mat4> saved_matrices;
+	std::vector<float *> matrixStack;
+	float current_matrix[16];
+
 	float scaleFactor;
 
 public:
@@ -117,6 +121,9 @@ public:
 		aiVector3D* max);
 	float getScaleFactor(void);
 	void recursiveNodeProcess(aiNode *);
+	void pushMatrix();
+	void popMatrix();
+	void saveMatrix();
 };
 
 class Camera

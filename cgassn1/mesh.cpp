@@ -107,12 +107,17 @@ void Mesh::recursiveNodeProcess(aiNode * node)
 	memcpy(nnode, node, sizeof(aiNode));
 	nnode->mMeshes = (unsigned*)malloc(sizeof(unsigned)*node->mNumMeshes);
 	memcpy(nnode->mMeshes, node->mMeshes, sizeof(unsigned)*node->mNumMeshes);
+
+	pushMatrix();
+
+	saveMatrix();
 	ai_nodes.push_back(nnode);
 
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
 		recursiveNodeProcess(node->mChildren[i]);
 	}
+	popMatrix();
 }
 
 
@@ -159,4 +164,27 @@ void Mesh::get_bounding_box(const aiScene* scene, aiVector3D* min, aiVector3D* m
 
 float Mesh::getScaleFactor(void) {
 	return scaleFactor;
+}
+
+void Mesh::pushMatrix() {
+
+	float *aux = (float *)malloc(sizeof(float) * 16);
+	memcpy(aux, current_matrix, sizeof(float) * 16);
+	matrixStack.push_back(aux);
+}
+
+void Mesh::popMatrix() {
+	float *m = matrixStack[matrixStack.size() - 1];
+	memcpy(current_matrix, m, sizeof(float) * 16);
+	matrixStack.pop_back();
+	free(m);
+}
+
+void Mesh::saveMatrix() {
+	glm::mat4 temp = glm::make_mat4(current_matrix);
+
+	// do something on temp;
+
+	saved_matrices.push_back(temp);
+	memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
 }
