@@ -12,8 +12,6 @@ void Camera::init(const glm::vec3& pos, const glm::vec2& rot)
 
 	this->setRot(rot);
 
-
-
 	this->rotSpeed = .5f;
 
 }

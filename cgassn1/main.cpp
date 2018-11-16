@@ -8,7 +8,8 @@
 
 
 #include <iostream>
-
+#include <stdlib.h>
+#include <time.h>
 
 #include <windows.h>
 #include <GL/glew.h>
@@ -57,10 +58,11 @@ init(void)
 	camera.init(glm::vec3(0, 45, 100), glm::vec2(0.0f, 0.0f));
 	enemy.init(glm::vec3(0, 0, 50), glm::vec2(0.0f, 0.0f));
 	player.init(glm::vec3(0, 0, 100), glm::vec2(0.0f, 0.0f));
-	gun.init(glm::vec3(50, 0, 0), glm::vec2(0.0f, 0.0f));
+	gun.init(glm::vec3(0, 0, 80), glm::vec2(0.0f, 0.0f));
 	// need to be iterative
 	wall.init(glm::vec3(-30, 0, 0), glm::vec2(0.0f, 0.0f));
 
+	srand(time(NULL));
 }
 
 void
@@ -116,7 +118,15 @@ void
 moveObjects()
 {
 	camera.update(1.0);
+
+	glm::vec3 tmp = camera.getPos();
+	//tmp.z += 50.f;
+	tmp.y -= 45.0f;
+	player.setPos(tmp);
 	glutPostRedisplay();
+	//enemy.moveRandom();
+	//printf("%f, %f\n", player.getPos().y, enemy.getPos().y);
+	printf("%f\n", glm::distance(player.getPos(), enemy.getPos()));
 }
 
 

@@ -7,7 +7,6 @@ private:
 	glm::vec3 pos;
 	glm::vec2 dir;
 
-
 	float walkSpeed = 1.0f;
 
 public:

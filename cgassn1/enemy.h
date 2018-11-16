@@ -25,4 +25,6 @@ public:
 
 	void setDir(const glm::vec2& dir);
 
+	void moveRandom();
+
 };

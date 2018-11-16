@@ -138,12 +138,7 @@ private:
 public:
 
 	void init(const glm::vec3& pos, const glm::vec2& rot);
-
-
-
 	void update(float delta);
-
-
 
 	glm::mat4 toViewMatrix();
 
