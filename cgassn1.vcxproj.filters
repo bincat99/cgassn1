@@ -36,7 +36,7 @@
     <ClInclude Include="cgassn1\wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="map.h">
+    <ClInclude Include="cgassn1\map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,7 +74,9 @@
     <ClCompile Include="cgassn1\wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="map.cpp" />
+    <ClCompile Include="cgassn1\map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cgassn1\shaders\fs.shader">

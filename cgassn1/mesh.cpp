@@ -30,7 +30,7 @@ void Mesh::init(std::string path, bool isStatic)
 	tmp = scene_max.x - scene_min.x;
 	tmp = scene_max.y - scene_min.y > tmp ? scene_max.y - scene_min.y : tmp;
 	tmp = scene_max.z - scene_min.z > tmp ? scene_max.z - scene_min.z : tmp;
-	scaleFactor = 50.f / tmp;
+	this->scaleFactor = 50.f / tmp;
 
 	recursiveNodeProcess(sc->mRootNode);
 

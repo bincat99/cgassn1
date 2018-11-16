@@ -15,7 +15,7 @@ void Gun::update(void)
 	if (mouseBuffer[GLUT_LEFT_BUTTON])
 	{
 		printf("SHOT\n");
-		glutLeaveMainLoop();
+		//glutLeaveMainLoop();
 	}
 }
 
@@ -49,9 +49,7 @@ glm::vec3 Gun::getPos()
 void Gun::setPos(const glm::vec3& pos)
 
 {
-
 	this->pos = pos;
-
 }
 
 
