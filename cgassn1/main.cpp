@@ -104,7 +104,6 @@ display(void)
 	player.display(M_player, camera);
 	gun.display(M_gun, camera);
 
-
 	glutSwapBuffers();
 	shaderUtil.Delete();
 }
@@ -123,10 +122,22 @@ moveObjects()
 	//tmp.z += 50.f;
 	tmp.y -= 45.0f;
 	player.setPos(tmp);
+	tmp.z -= 20.f;
+	gun.setPos(tmp);
+
+	glm::vec2 rot = camera.getRot();
+	player.setDir(rot);
+	gun.setDir(rot);
 	glutPostRedisplay();
 	//enemy.moveRandom();
 	//printf("%f, %f\n", player.getPos().y, enemy.getPos().y);
 	printf("%f\n", glm::distance(player.getPos(), enemy.getPos()));
+
+	gun.update ();
+	if (mouseBuffer[GLUT_LEFT_BUTTON])
+	{
+
+	}
 }
 
 
@@ -136,20 +147,16 @@ main(int argc, char * argv[])
 	utilInit();
 
 	glutInit(&argc, argv);
+
+
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(200, 150);
 	glutInitWindowSize(800, 800);
 	windowId = glutCreateWindow("assn3");
 	//    glutDisplayFunc(renderScene);
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-
-
 	glewInit();
 	init();
-
-
-
-
 
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
@@ -158,5 +165,7 @@ main(int argc, char * argv[])
 	glutKeyboardUpFunc(myKeyboardUpFunc);
 	glutSpecialFunc(mySpecialFunc);
 	glutSpecialUpFunc(mySpecialUpFunc);
+	glutMouseFunc(myMouseFunc);
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	glutMainLoop();
 }

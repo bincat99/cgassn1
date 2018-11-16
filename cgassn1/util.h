@@ -31,6 +31,7 @@
 #include <time.h>
 #include <list>
 #include "ShaderUtil.h"
+#include "sys.h"
 
 
 
@@ -39,7 +40,7 @@
 
 #define KEYBOARD_BUFFER_SIZE 256
 #define GLOBAL_GRID_LENGTH 50
-
+#define MOUSE_BUFFER_SIZE 3
 
 #define COL_LEFT (1<<0)
 #define COL_UP (1<<1)
@@ -59,7 +60,8 @@ keyboardBuffer [KEYBOARD_BUFFER_SIZE];
 extern bool
 specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 
-
+extern bool
+mouseBuffer[MOUSE_BUFFER_SIZE];
 
 typedef struct
 {
@@ -92,6 +94,12 @@ mySpecialFunc (int key, int x, int y);
 
 void
 mySpecialUpFunc (int key, int x, int y);
+
+void
+myMouseFunc(int, int, int, int);
+
+void
+myMouseUpFunc(int, int, int, int);
 
 unsigned int
 CheckCollision (position , position );

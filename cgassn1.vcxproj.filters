@@ -36,6 +36,9 @@
     <ClInclude Include="cgassn1\wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cgassn1\util.cpp">
@@ -71,6 +74,7 @@
     <ClCompile Include="cgassn1\wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cgassn1\shaders\fs.shader">

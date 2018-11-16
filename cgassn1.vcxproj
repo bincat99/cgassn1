@@ -127,6 +127,7 @@
     <ClInclude Include="cgassn1\sys.h" />
     <ClInclude Include="cgassn1\util.h" />
     <ClInclude Include="cgassn1\wall.h" />
+    <ClInclude Include="map.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cgassn1\camera.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="cgassn1\util.cpp" />
     <ClCompile Include="cgassn1\VertexBuffer.cpp" />
     <ClCompile Include="cgassn1\wall.cpp" />
+    <ClCompile Include="map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cgassn1\shaders\fs.shader" />

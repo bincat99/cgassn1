@@ -47,6 +47,9 @@ keyboardBuffer [KEYBOARD_BUFFER_SIZE];
 bool
 specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 
+bool
+mouseBuffer[MOUSE_BUFFER_SIZE];
+
 void
 utilInit ()
 {
@@ -84,6 +87,22 @@ void
 mySpecialUpFunc (int key, int x, int y)
 {
     specialKeyBuffer[key] = false;
+}
+
+void
+myMouseFunc(int button, int state, int x, int y)
+{
+	if (state == GLUT_DOWN)
+		mouseBuffer[button] = true;
+
+	else
+		mouseBuffer[button] = false;
+}
+
+void
+myMouseUpFunc(int, int, int, int)
+{
+
 }
 
 unsigned int
@@ -158,6 +177,8 @@ calDistance (float x1, float y1, float x2, float y2)
 {
     return (sqrt (pow(x2-x1, 2) + pow(y2-y1, 2)));
 }
+
+
 
 void
 renderbitmap(float x, float y, void*font, char* string) {
