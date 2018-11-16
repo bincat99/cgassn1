@@ -56,10 +56,10 @@ init(void)
 	M_wall->init("cgassn1/resources/cube.obj");
 	camera.init(glm::vec3(0, 45, 100), glm::vec2(0.0f, 0.0f));
 	enemy.init(glm::vec3(0, 0, 50), glm::vec2(0.0f, 0.0f));
-	player.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
-	gun.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
+	player.init(glm::vec3(0, 0, 100), glm::vec2(0.0f, 0.0f));
+	gun.init(glm::vec3(50, 0, 0), glm::vec2(0.0f, 0.0f));
 	// need to be iterative
-	wall.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
+	wall.init(glm::vec3(-30, 0, 0), glm::vec2(0.0f, 0.0f));
 
 }
 
@@ -70,18 +70,16 @@ display(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-
-
-	wall.display(M_wall, camera);
-	enemy.display(M_enemy, camera);
-	player.display(M_player, camera);
-	gun.display(M_gun, camera);
-
 	glm::mat4 Projection = camera.toProjMatrix();
 
 	glm::mat4 View = camera.toViewMatrix();
 
-	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 World = glm::mat4(1.0f);
+
+	glm::mat4 Model = glm::mat4(1.0f);
+	glm::mat4 mvp = Projection * View * World * Model;
+
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 
 	glBegin(GL_LINES);
 	glVertex3f(.0f, .0f, .0f);
@@ -97,6 +95,13 @@ display(void)
 	glVertex3f(.0f, .0f, .0f);
 	glVertex3f(0.0f, .0f, 50.0f);
 	glEnd();
+
+
+	wall.display(M_wall, camera);
+	enemy.display(M_enemy, camera);
+	player.display(M_player, camera);
+	gun.display(M_gun, camera);
+
 
 	glutSwapBuffers();
 	shaderUtil.Delete();
