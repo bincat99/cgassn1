@@ -108,6 +108,8 @@ private:
 
 	float scaleFactor;
 
+	int type;
+
 public:
 
 	Mesh();

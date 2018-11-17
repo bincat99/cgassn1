@@ -31,6 +31,8 @@
 ShaderUtil shaderUtil;
 
 
+GLuint MatrixID;
+GLuint MatrixID2;
 
 
 
@@ -166,4 +168,19 @@ renderbitmap(float x, float y, void*font, char* string) {
 	for (c = string; *c != '\0'; c++) {
 		glutBitmapCharacter(font, *c);
 	}
+}
+
+std::vector<std::string>
+split_string(std::string str) {
+	using namespace std;
+
+	string buf;
+	stringstream ss(str);
+
+	vector<string> tokens;
+
+	while (ss >> buf)
+		tokens.push_back(buf);
+
+	return tokens;
 }

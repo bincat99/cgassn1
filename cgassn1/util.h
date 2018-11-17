@@ -28,6 +28,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
+#include <sstream>
+#include <algorithm>
+#include <vector>
 #include <time.h>
 #include <list>
 #include "ShaderUtil.h"
@@ -71,6 +75,7 @@ extern ShaderUtil shaderUtil;
 
 
 extern GLuint MatrixID;
+extern GLuint MatrixID2;
 
 extern unsigned int
 windowId;
@@ -105,6 +110,8 @@ calDistance (float x1, float y1, float x2, float y2);
 void
 renderbitmap(float x, float y, void*font, char* string);
 
+std::vector<std::string>
+split_string(std::string str);
 #endif /* util_h */
 
 

@@ -27,9 +27,6 @@
 using namespace std;
 
 
-GLuint vertexbuffer;
-GLuint uvbuffer;
-GLuint MatrixID;
 
 
 Mesh* M_enemy = new Mesh();
@@ -50,12 +47,13 @@ init(void)
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	shaderUtil.Load("cgassn1/shaders/vs.shader", "cgassn1/shaders/fs.shader");
 	MatrixID = glGetUniformLocation(shaderUtil.getProgram(), "MVP");
-	M_enemy->init("cgassn1/resources/Skeleton.obj");
+	MatrixID2 = glGetUniformLocation(shaderUtil.getProgram(), "ani");
+	M_enemy->init("cgassn1/resources/dummy_obj.obj");
 	M_player->init("cgassn1/resources/dummy_obj.obj");
 	M_gun->init("cgassn1/resources/M1911.obj");
 	M_wall->init("cgassn1/resources/cube.obj");
-	camera.init(glm::vec3(0, 45, 100), glm::vec2(0.0f, 0.0f));
-	enemy.init(glm::vec3(0, 0, 50), glm::vec2(0.0f, 0.0f));
+	camera.init(glm::vec3(100, 45, 0), glm::vec2(0.0f, 0.0f));
+	enemy.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
 	player.init(glm::vec3(0, 0, 100), glm::vec2(0.0f, 0.0f));
 	gun.init(glm::vec3(50, 0, 0), glm::vec2(0.0f, 0.0f));
 	// need to be iterative
@@ -80,6 +78,7 @@ display(void)
 	glm::mat4 mvp = Projection * View * World * Model;
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+	glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 
 	glBegin(GL_LINES);
 	glVertex3f(.0f, .0f, .0f);
@@ -97,10 +96,10 @@ display(void)
 	glEnd();
 
 
-	wall.display(M_wall, camera);
+	//wall.display(M_wall, camera);
 	enemy.display(M_enemy, camera);
-	player.display(M_player, camera);
-	gun.display(M_gun, camera);
+	//player.display(M_player, camera);
+	//gun.display(M_gun, camera);
 
 
 	glutSwapBuffers();
