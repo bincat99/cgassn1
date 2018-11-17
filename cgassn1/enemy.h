@@ -9,6 +9,7 @@ private:
 
 
 	float walkSpeed = 1.0f;
+	int moveCount = 30;
 
 public:
 	enum Status status;
@@ -17,7 +18,7 @@ public:
 	Enemy(float, float, enum Direction);
 	void init(const glm::vec3& pos, const glm::vec2& rot);
 
-	void update();
+	void update(glm::vec3);
 	void display(Mesh*, Camera&);
 
 	glm::vec3 getPos();

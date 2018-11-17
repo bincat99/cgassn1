@@ -759,7 +759,7 @@ void Map::checkWallEnemy()
 void Map::moveEnemy()
 {
 	for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
-		(*it)->update();
+		(*it)->update(player->getPos());
 }
 
 void Map::gameReset()
