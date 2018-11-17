@@ -368,36 +368,26 @@ Map::display(void)
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 	glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 
-	glBegin(GL_LINES);
-	glVertex3f(.0f, .0f, .0f);
-	glVertex3f(10000.0f, .0f, .0f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glVertex3f(.0f, .0f, .0f);
-	glVertex3f(0.0f, 100.0f, .0f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glVertex3f(.0f, .0f, .0f);
-	glVertex3f(0.0f, .0f, 50.0f);
-	glEnd();
 
-	//wall.display(M_wall, camera);
-	//enemy.display(M_enemy, camera);
-	player->display(M_player, camera);
-	gun->display(M_gun, camera);
-	
+	if (!(player->status == KILLED || gameClear))
+	{
+		//wall.display(M_wall, camera);
+		//enemy.display(M_enemy, camera);
+		player->display(M_player, camera);
+		gun->display(M_gun, camera);
 
-	for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
-		(*it)->display(M_wall, camera);
 
-	for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
-		(*it)->display(M_enemy, camera);
+		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+			(*it)->display(M_wall, camera);
 
-	for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
-		(*it)->display(M_wall, camera);
-	
+		for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+			(*it)->display(M_enemy, camera);
+
+		for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
+			(*it)->display(M_wall, camera);
+	}
 	shaderUtil.Delete();
 }
 
@@ -435,7 +425,7 @@ Map::moveObjects()
 		tmp.x -= 80.f * glm::sin(yrad);
 		tmp.z += 80.f * glm::cos(yrad);
 		camera.setPos(tmp);
-		rot.x += 45.f;
+		rot.x += 30.f;
 		camera.setRot(rot);
 	}
 
@@ -481,6 +471,25 @@ Map::moveObjects()
 	checkWallEnemy();
 	checkEnemyKill();
 	checkPlayerKill();
+
+	if (player->status == KILLED || gameClear)
+	{
+
+			if (keyboardBuffer['q'])
+			{
+
+				glutDestroyWindow(windowId);
+				exit(0);
+			}
+
+			if (keyboardBuffer['r'])
+			{
+
+				gameReset();
+			
+			}
+
+	}
 
 }
 
@@ -726,4 +735,39 @@ void Map::moveEnemy()
 {
 	for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
 		(*it)->update();
+}
+
+void Map::gameReset()
+{
+	std::list<Enemy*>::iterator itEnemy = listEnemy.begin();
+
+	while (itEnemy != listEnemy.end())
+	{
+			Enemy *tmp = NULL;
+			tmp = *itEnemy;
+			itEnemy = listEnemy.erase(itEnemy);
+			delete tmp;
+	}
+
+	std::list<Bullet*>::iterator itBullet = listBullet.begin();
+
+	while (itBullet != listBullet.end())
+	{
+		Bullet *tmp = NULL;
+		tmp = *itBullet;
+		itBullet = listBullet.erase(itBullet);
+		delete tmp;
+	}
+
+	std::list<Wall*>::iterator itWall = listWall.begin();
+
+	while (itWall != listWall.end())
+	{
+		Wall *tmp = NULL;
+		tmp = *itWall;
+		itWall = listWall.erase(itWall);
+		delete tmp;
+	}
+
+	init();
 }

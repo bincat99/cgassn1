@@ -64,7 +64,6 @@ void
 display(void)
 {
 	gameMap->display();
-
 }
 
 void
