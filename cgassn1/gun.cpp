@@ -23,13 +23,13 @@ void Gun::update(void)
 
 void Gun::display(Mesh* mesh, Camera& camera)
 {
-
+	float yrad = glm::radians(dir.y);
 	glm::mat4 Projection = camera.toProjMatrix();
-	glm::mat4 View = glm::rotate(glm::mat4(1.0f), glm::radians(-camera.getRot().y), glm::vec3(0.0f, 1.0f, 0.0f))
-						*camera.toViewMatrix();
+	glm::mat4 View = camera.toViewMatrix();
 	float scaleFactor = mesh->getScaleFactor();
-	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, pos.z));
-	glm::mat4 Model = glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x + 20.f * glm::sin(yrad), pos.y+35, pos.z - 20.0f*glm::cos(yrad)));
+	glm::mat4 Model = glm::rotate(glm::mat4(1.0f), glm::radians(-camera.getRot().y ), glm::vec3(0.0f, 1.0f, 0.0f))
+		* glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor/5, scaleFactor/5, scaleFactor/5));
 
 	glm::mat4 mvp = Projection * View * World * Model;
 

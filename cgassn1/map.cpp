@@ -414,7 +414,7 @@ Map::moveObjects()
 	if (camera.mode == FPS)
 	{
 		tmp.y += 45.0f;
-		camera.setPos(tmp);
+		camera.setPos(glm::vec3(tmp.x + 5.f * glm::sin(yrad),tmp.y,tmp.z- 5.0f*glm::cos(yrad)));
 		camera.setRot(rot);
 	}
 	else if (camera.mode == TPS)
