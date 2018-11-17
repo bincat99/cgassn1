@@ -15,6 +15,9 @@ void Camera::init(const glm::vec3& pos, const glm::vec2& rot)
 	this->rotSpeed = .5f;
 
 	this->mode = FPS;
+
+	modeDelay = CLOCKS_PER_SEC / 2;
+	lastConvert = 0;
 }
 
 
@@ -28,11 +31,16 @@ void Camera::update(float delta)
 
 	float sp = this->walkSpeed;
 
+	if (lastConvert + modeDelay < clock())
+	{
+		lastConvert = 0;
+	}
+
 	for (i = 0; i < KEYBOARD_BUFFER_SIZE; i++)
 	{
 		if (keyboardBuffer[i])
 		{
-			if (i == 'a')
+	/*		if (i == 'a')
 			{
 				rot.y -= this->rotSpeed;
 			}
@@ -73,11 +81,12 @@ void Camera::update(float delta)
 			{
 				pos.y -= sp * glm::sin(yrad) * delta;
 				pos.z += sp * glm::cos(yrad) * delta;
-			}
+			}*/
 
-			if (i == 'v')
+			if (i == 'v' && lastConvert == 0)
 			{
 				convertMode();
+				lastConvert = clock();
 			}
 
 		}

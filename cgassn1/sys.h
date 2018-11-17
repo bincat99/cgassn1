@@ -140,6 +140,9 @@ private:
 
 	float walkSpeed = 1.0f;
 
+	clock_t modeDelay;
+	clock_t lastConvert;
+
 public:
 	enum MODE mode;
 
