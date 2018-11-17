@@ -12,7 +12,9 @@ private:
 	clock_t rotDelay;
 	clock_t lastRot;
 
+
 public:
+	enum Status status;
 	std::string name;
 	enum Direction viewDir;
 	bool canGo;

@@ -25,6 +25,10 @@ class Map
 	ObjectType objMap[32][32];
 	int gridSize;
 
+
+	clock_t remainingTime;
+	clock_t startTime;
+
 public:
 	Camera camera;
 	std::list<Enemy*> listEnemy;
@@ -39,4 +43,12 @@ public:
 	void reshape(int, int);
 	void moveObjects();
 	void checkWall();
+
+
+	void displayTime(void);
+
+	void checkTimeout();
+
+	void update();
+	void restart();
 };

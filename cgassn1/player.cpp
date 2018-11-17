@@ -12,6 +12,7 @@ void Player::init(const glm::vec3& pos, const glm::vec2& dir)
 
 	this->viewDir = UP;
 	canGo = true;
+	status = ALIVE;
 }
 
 

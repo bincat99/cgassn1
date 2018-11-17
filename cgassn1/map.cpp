@@ -335,6 +335,9 @@ Map::init(void)
 				break;
 			}
 		}
+
+	remainingTime = CLOCKS_PER_SEC * 100;
+	startTime = clock();
 }
 
 void
@@ -352,6 +355,7 @@ Map::display(void)
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 	glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 
+	displayTime();
 	glBegin(GL_LINES);
 	glVertex3f(.0f, .0f, .0f);
 	glVertex3f(10000.0f, .0f, .0f);
@@ -493,4 +497,30 @@ void Map::checkWall()
 	else player->canGo = true;
 	
 	printf("%f\n", glm::distance(tmpDist, tmp));
+}
+
+void Map::update() {
+	if (keyboardBuffer['r'])
+	{
+		restart();
+	}
+
+}
+
+void Map::restart() {
+}
+
+void Map::checkTimeout()
+{
+	if (clock() > startTime + remainingTime)
+		player->status = KILLED;
+}
+
+void Map::displayTime(void) {
+	glColor3f(0.f, 0.f, 0.f);
+	char buf[100] = { 0 };
+	std::string str = "Remain Time : " + std::to_string((int)((remainingTime - clock()) / 1000));
+	std::cout << remainingTime - clock() << std::endl;
+	sprintf_s(buf, str.c_str());
+	renderbitmap(50, 0,50, GLUT_BITMAP_TIMES_ROMAN_24, buf);
 }
