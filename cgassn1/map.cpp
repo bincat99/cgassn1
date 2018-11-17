@@ -368,8 +368,15 @@ Map::display(void)
 	//enemy.display(M_enemy, camera);
 	player->display(M_player, camera);
 	gun->display(M_gun, camera);
-	listEnemy.front()->display(M_enemy, camera);
+	
+
 	for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+		(*it)->display(M_wall, camera);
+
+	for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+		(*it)->display(M_enemy, camera);
+
+	for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
 		(*it)->display(M_wall, camera);
 	
 	shaderUtil.Delete();
@@ -400,8 +407,28 @@ Map::moveObjects()
 	//	printf("%f\n", glm::distance(player.getPos(), enemy.getPos()));
 
 	//gun.update();
-	//if (mouseBuffer[GLUT_LEFT_BUTTON])
-	//{
+	for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
+		(*it)->update();
 
+	if (mouseBuffer[GLUT_LEFT_BUTTON])
+	{
+		listBullet.push_back(new Bullet (player->getPos(), player->getDir()));
+	}
+}
+
+void Map::checkWall()
+{
+	//unsigned int colBit = 0;
+	//bool colSide[4] = { 0, };
+	//for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+	//{
+	//	colBit |= CheckCollision(player->getPos(), (*it)->getPos());
 	//}
+
+	//colSide[LEFT] = colBit & COL_LEFT;
+	//colSide[UP] = colBit & COL_UP;
+	//colSide[RIGHT] = colBit & COL_RIGHT;
+	//colSide[DOWN] = colBit & COL_DOWN;
+
+	//player->checkWall(colSide);
 }

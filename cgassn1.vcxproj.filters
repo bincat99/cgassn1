@@ -39,6 +39,9 @@
     <ClInclude Include="cgassn1\map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cgassn1\bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cgassn1\util.cpp">
@@ -75,6 +78,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cgassn1\map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cgassn1\bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

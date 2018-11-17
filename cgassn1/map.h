@@ -6,6 +6,7 @@
 #include "enemy.h"
 #include "gun.h"
 #include "wall.h"
+#include "bullet.h"
 
 
 enum ObjectType
@@ -27,6 +28,7 @@ public:
 	Camera camera;
 	std::list<Enemy*> listEnemy;
 	std::list<Wall*> listWall;
+	std::list<Bullet*> listBullet;
 	Player* player;
 	Gun* gun;
 
@@ -35,4 +37,5 @@ public:
 	void display();
 	void reshape(int, int);
 	void moveObjects();
+	void checkWall();
 };

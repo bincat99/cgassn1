@@ -120,6 +120,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cgassn1\bullet.h" />
     <ClInclude Include="cgassn1\enemy.h" />
     <ClInclude Include="cgassn1\gun.h" />
     <ClInclude Include="cgassn1\map.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="cgassn1\wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cgassn1\bullet.cpp" />
     <ClCompile Include="cgassn1\camera.cpp" />
     <ClCompile Include="cgassn1\enemy.cpp" />
     <ClCompile Include="cgassn1\gun.cpp" />
