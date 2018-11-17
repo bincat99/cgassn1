@@ -12,6 +12,7 @@ private:
 	clock_t rotDelay;
 	clock_t lastRot;
 
+
 public:
 	std::string name;
 	enum Status status;

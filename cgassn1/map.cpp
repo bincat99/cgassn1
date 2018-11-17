@@ -31,7 +31,7 @@ Map::Map()
 	MatrixID2 = glGetUniformLocation(shaderUtil.getProgram(), "ani");
 
 	M_enemy->init("cgassn1/resources/dummy_obj.obj");
-	M_player->init("cgassn1/resources/dummy_obj.obj");
+	M_player->init("cgassn1/resources/dummy_obj.obj", false,true);
 	M_gun->init("cgassn1/resources/M1911.obj", true);
 	M_wall->init("cgassn1/resources/cube.obj", true);
 
@@ -351,6 +351,9 @@ int enemyNum = 0;
 				break;
 			}
 		}
+
+	remainingTime = CLOCKS_PER_SEC * 500;
+	startTime = clock();
 }
 
 void
@@ -367,6 +370,28 @@ Map::display(void)
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 	glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
+
+
+	displayTime();
+	glBegin(GL_LINES);
+	glVertex3f(.0f, .0f, .0f);
+	glVertex3f(10000.0f, .0f, .0f);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex3f(.0f, .0f, .0f);
+	glVertex3f(0.0f, 100.0f, .0f);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex3f(.0f, .0f, .0f);
+	glVertex3f(0.0f, .0f, 50.0f);
+	glEnd();
+
+	//wall.display(M_wall, camera);
+	//enemy.display(M_enemy, camera);
+	player->display(M_player, camera);
+	gun->display(M_gun, camera);
 
 
 
@@ -416,7 +441,7 @@ Map::moveObjects()
 	if (camera.mode == FPS)
 	{
 		tmp.y += 45.0f;
-		camera.setPos(tmp);
+		camera.setPos(glm::vec3(tmp.x + 5.f * glm::sin(yrad),tmp.y,tmp.z- 5.0f*glm::cos(yrad)));
 		camera.setRot(rot);
 	}
 	else if (camera.mode == TPS)
@@ -770,4 +795,30 @@ void Map::gameReset()
 	}
 
 	init();
+}
+
+void Map::update() {
+	if (keyboardBuffer['r'])
+	{
+		restart();
+	}
+
+}
+
+void Map::restart() {
+}
+
+void Map::checkTimeout()
+{
+	if (clock() > startTime + remainingTime)
+		player->status = KILLED;
+}
+
+void Map::displayTime(void) {
+	glColor3f(0.f, 0.f, 0.f);
+	char buf[100] = { 0 };
+	std::string str = "Remain Time : " + std::to_string((int)((remainingTime - clock()) / 1000));
+	std::cout << remainingTime - clock() << std::endl;
+	sprintf_s(buf, str.c_str());
+	renderbitmap(50, 0,50, GLUT_BITMAP_TIMES_ROMAN_24, buf);
 }

@@ -121,7 +121,7 @@ float
 calDistance (float x1, float y1, float x2, float y2);
 
 void
-renderbitmap(float x, float y, void*font, char* string);
+renderbitmap(float x, float y,float z, void*font, char* string);
 
 
 int
