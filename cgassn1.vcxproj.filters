@@ -50,16 +50,10 @@
     <ClCompile Include="cgassn1\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cgassn1\IndexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cgassn1\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cgassn1\ShaderUtil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cgassn1\VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cgassn1\camera.cpp">

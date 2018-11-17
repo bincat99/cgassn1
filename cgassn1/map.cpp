@@ -637,7 +637,7 @@ void Map::checkWallBullet()
 
 void Map::checkEnemyKill()
 {
-	float killDistance = 8.f;
+	float killDistance = 25.f;
 	if (listBullet.empty())
 	{
 		return;
@@ -797,16 +797,8 @@ void Map::gameReset()
 	init();
 }
 
-void Map::update() {
-	if (keyboardBuffer['r'])
-	{
-		restart();
-	}
 
-}
 
-void Map::restart() {
-}
 
 void Map::checkTimeout()
 {

@@ -58,7 +58,6 @@ public:
 
 	void checkTimeout();
 
-	void update();
-	void restart();
+
 
 };

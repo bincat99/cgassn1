@@ -9,7 +9,7 @@ private:
 	glm::vec2 dir;
 	
 
-	float walkSpeed = 3.0f;
+	float walkSpeed = 5.0f;
 
 	clock_t creationTime;
 	clock_t lifeTime;
