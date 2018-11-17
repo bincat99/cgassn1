@@ -140,7 +140,7 @@ void Mesh::recursiveNodeProcess(aiNode * node)
 		std::string parts = tokens.at(tokens.size() - 1);
 
 		if (std::find(tokens.begin(), tokens.end(), "dummy_rshoulder") != tokens.end()) {
-			glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 1, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
+			glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 2 + 3.14f/24), glm::vec3(0, 1, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
 			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
 			saveMatrix(0);
 			saveMatrix(1);
