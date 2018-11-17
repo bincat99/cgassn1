@@ -197,3 +197,9 @@ renderbitmap(float x, float y, void*font, char* string) {
 		glutBitmapCharacter(font, *c);
 	}
 }
+
+int
+pos2idx(float x)
+{
+	return (int)(x / 50.f);
+}

@@ -115,6 +115,9 @@ calDistance (float x1, float y1, float x2, float y2);
 void
 renderbitmap(float x, float y, void*font, char* string);
 
+int
+pos2idx(float);
+
 #endif /* util_h */
 
 
