@@ -50,12 +50,12 @@ init(void)
 	MatrixID2 = glGetUniformLocation(shaderUtil.getProgram(), "ani");
 	M_enemy->init("cgassn1/resources/dummy_obj.obj");
 	M_player->init("cgassn1/resources/dummy_obj.obj");
-	M_gun->init("cgassn1/resources/M1911.obj");
-	M_wall->init("cgassn1/resources/cube.obj");
-	camera.init(glm::vec3(100, 45, 0), glm::vec2(0.0f, 0.0f));
+	M_gun->init("cgassn1/resources/M1911.obj", true);
+	M_wall->init("cgassn1/resources/cube.obj",true);
+	camera.init(glm::vec3(0, 45, 100), glm::vec2(0.0f, 0.0f));
 	enemy.init(glm::vec3(0, 0, 0), glm::vec2(0.0f, 0.0f));
 	player.init(glm::vec3(0, 0, 100), glm::vec2(0.0f, 0.0f));
-	gun.init(glm::vec3(50, 0, 0), glm::vec2(0.0f, 0.0f));
+	gun.init(glm::vec3(0, 0, 20), glm::vec2(0.0f, 0.0f));
 	// need to be iterative
 	wall.init(glm::vec3(-30, 0, 0), glm::vec2(0.0f, 0.0f));
 

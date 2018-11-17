@@ -9,8 +9,9 @@ Mesh::Mesh() {
 	memcpy(current_matrix, glm::value_ptr(glm::mat4(1.0f)), sizeof(current_matrix));
 }
 
-void Mesh::init(std::string path, bool isStatic)
+void Mesh::init(std::string path, bool isStatic_)
 {
+	isStatic = isStatic_;
 	Assimp::Importer importer;
 	const aiScene* sc = importer.ReadFile(path.c_str(),
 			aiProcess_Triangulate 
@@ -86,10 +87,31 @@ void Mesh::init(std::string path, bool isStatic)
 
 void Mesh::render()
 {
+	fps = (fps + 1) % 60;
+	if(fps ==0)
+		sprite = (sprite + 1) % 4;
 	for (unsigned int i = 0; i < ai_nodes.size(); i++) {
 		// draw all meshes assigned to this node
 		for (unsigned int n = 0; n < ai_nodes[i]->mNumMeshes; ++n) {
-			glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices.at(i)[0][0]);
+			if (!isStatic) {
+				switch (sprite) {
+				case 0:
+					glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices0.at(i)[0][0]);
+					break;
+				case 1:
+					glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices1.at(i)[0][0]);
+					break;
+				case 2:
+					glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices2.at(i)[0][0]);
+					break;
+				case 3:
+					glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices3.at(i)[0][0]);
+					break;
+				}
+			}
+			else {
+				glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices0.at(i)[0][0]);
+			}
 			//glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 			// bind VAO
 			glBindVertexArray(myMeshes[ai_nodes[i]->mMeshes[n]].vao);
@@ -112,34 +134,55 @@ void Mesh::recursiveNodeProcess(aiNode * node)
 
 	pushMatrix();
 
-	std::string a = node->mName.C_Str();
-	std::vector<std::string> tokens = split_string(a);
-	std::string parts = tokens.at(tokens.size() - 1);
+	if (!isStatic) {
+		std::string a = node->mName.C_Str();
+		std::vector<std::string> tokens = split_string(a);
+		std::string parts = tokens.at(tokens.size() - 1);
 
-	if (std::find(tokens.begin(), tokens.end(), "dummy_rshoulder") != tokens.end()) {
-		glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-10, 38, 0))*glm::rotate(glm::mat4(1.0), (3.14f/4), glm::vec3(0,1,0))*glm::translate(glm::mat4(1.0f), glm::vec3(10,-38,0));
+		if (std::find(tokens.begin(), tokens.end(), "dummy_rshoulder") != tokens.end()) {
+			glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 1, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
+			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+			saveMatrix(0);
+			saveMatrix(1);
+			saveMatrix(2);
+			saveMatrix(3);
 
-		memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				std::cout << current_matrix[4*i+j]<<" ";
-			}
-			std::cout<<std::endl;
 		}
+		else if (std::find(tokens.begin(), tokens.end(), "dummy_lshoulder") != tokens.end()) {
+			glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
+			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+			saveMatrix(0);
+			temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
+			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+			saveMatrix(1);
+			temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
+			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+			saveMatrix(2);
+			temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
+			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+			saveMatrix(3);
+		}
+		else if (std::find(tokens.begin(), tokens.end(), "dummy_rpelvis") != tokens.end()) {
+			glm::mat4 temp = glm::mat4(1.0f);
+			saveMatrix(0);
+			glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-8, 90, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(8, -90, 0));
+			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+			saveMatrix(1);
+			saveMatrix(2);
+			saveMatrix(3);
+		}
+		else {
+			saveMatrix(0);
+			saveMatrix(1);
+			saveMatrix(2);
+			saveMatrix(3);
+		}
+		
+	}
+	else {
+		saveMatrix(0);
 	}
 	
-	if (parts == "dummy_relbow") {
-		std::cout << "dummy_relbow : " << std::endl;
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				std::cout << current_matrix[4 * i + j] << " ";
-			}
-			std::cout << std::endl;
-		}
-	}
-	
-	saveMatrix();
 	ai_nodes.push_back(nnode);
 
 	for (int i = 0; i < node->mNumChildren; i++)
@@ -209,8 +252,22 @@ void Mesh::popMatrix() {
 	free(m);
 }
 
-void Mesh::saveMatrix() {
-	glm::mat4 temp = (glm::make_mat4(current_matrix));
-
-	saved_matrices.push_back(temp);
+void Mesh::saveMatrix(int sprite_) {
+	glm::mat4 temp = glm::make_mat4(current_matrix);
+	switch (sprite_) {
+	case 0:
+		saved_matrices0.push_back(temp);
+		break;
+	case 1:
+		saved_matrices1.push_back(temp);
+		break;
+	case 2:
+		saved_matrices2.push_back(temp);
+		break;
+	case 3:
+		saved_matrices3.push_back(temp);
+		break;
+	default :
+		break;
+	}
 }

@@ -102,7 +102,12 @@ private:
 	std::vector<struct MyMesh> myMeshes;
 
 	std::vector<aiNode*> ai_nodes;
-	std::vector<glm::mat4> saved_matrices;
+
+	std::vector<glm::mat4> saved_matrices0;
+	std::vector<glm::mat4> saved_matrices1;
+	std::vector<glm::mat4> saved_matrices2;
+	std::vector<glm::mat4> saved_matrices3;
+
 	std::vector<float *> matrixStack;
 	float current_matrix[16];
 
@@ -110,6 +115,9 @@ private:
 
 	int type;
 
+	bool isStatic;
+	unsigned int sprite = 0;
+	unsigned int fps = 0;
 public:
 
 	Mesh();
@@ -125,7 +133,7 @@ public:
 	void recursiveNodeProcess(aiNode *);
 	void pushMatrix();
 	void popMatrix();
-	void saveMatrix();
+	void saveMatrix(int);
 };
 
 class Camera
