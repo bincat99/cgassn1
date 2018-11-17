@@ -127,6 +127,9 @@ renderbitmap(float x, float y, void*font, char* string);
 int
 pos2idx(float);
 
+float
+idx2pos(int);
+
 std::vector<std::string>
 split_string(std::string str);
 

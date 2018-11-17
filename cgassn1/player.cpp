@@ -9,6 +9,9 @@ void Player::init(const glm::vec3& pos, const glm::vec2& dir)
 	this->setDir(dir);
 	rotDelay = CLOCKS_PER_SEC / 2;
 	lastRot = 0;
+
+	this->viewDir = UP;
+	canGo = true;
 }
 
 
@@ -24,6 +27,7 @@ void Player::update(void)
 	{
 		lastRot = 0;
 	}
+
 
 	for (i = 0; i < KEYBOARD_BUFFER_SIZE; i++)
 	{
@@ -50,17 +54,19 @@ void Player::update(void)
 			if (i == 'a' && lastRot == 0)
 			{
 				dir.y -= 90;
+				this->viewDir = (enum Direction) ((this->viewDir + 3) % 4);
 				lastRot = clock();
 			}
 
 			if (i == 'd' && lastRot == 0)
 			{
 				dir.y += 90;
+				this->viewDir = (enum Direction) ((this->viewDir + 1) % 4);
 				lastRot = clock();
 			}
 
 
-			if (i == 'w')
+			if (i == 'w' && canGo)
 			{
 				pos.x += sp * glm::sin(yrad) * delta;
 				pos.z -= sp * glm::cos(yrad) * delta;
@@ -99,7 +105,7 @@ void Player::display(Mesh* mesh, Camera& camera)
 	glm::mat4 View = camera.toViewMatrix();
 	float scaleFactor = mesh->getScaleFactor();
 	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, pos.z));
-	glm::mat4 Model =	glm::rotate(glm::mat4(1.0f), glm::radians(- camera.getRot().y), glm::vec3(0.0f, 1.0f, 0.0f))
+	glm::mat4 Model =	glm::rotate(glm::mat4(1.0f), glm::radians(-camera.getRot().y + 180.f), glm::vec3(0.0f, 1.0f, 0.0f))
 						* glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor, scaleFactor, scaleFactor));
 
 	glm::mat4 mvp = Projection * View * World * Model;

@@ -4,6 +4,7 @@
 #include "gun.h"
 #include "wall.h"
 #include "sys.h"
+#include "util.h"
 
 
 
@@ -393,12 +394,12 @@ void
 Map::moveObjects()
 {
 
-
+	checkWall();
 	player->update();
 	
 
 	glm::vec3 tmp = player->getPos();
-
+	
 	gun->setPos(tmp);
 
 	glm::vec2 rot = player->getDir();
@@ -438,17 +439,58 @@ Map::moveObjects()
 
 void Map::checkWall()
 {
-	//unsigned int colBit = 0;
-	//bool colSide[4] = { 0, };
-	//for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
-	//{
-	//	colBit |= CheckCollision(player->getPos(), (*it)->getPos());
-	//}
+	int fx, fy, bx, by;
+	glm::vec3 tmp = player->getPos();
+	fx = pos2idx(tmp.x);
+	fy = pos2idx(tmp.z);
+	bx = fx;
+	by = fy;
 
-	//colSide[LEFT] = colBit & COL_LEFT;
-	//colSide[UP] = colBit & COL_UP;
-	//colSide[RIGHT] = colBit & COL_RIGHT;
-	//colSide[DOWN] = colBit & COL_DOWN;
+	float colDistance = 34.0f;
+	float dist = 0;
+	switch (player->viewDir)
+	{
+	case UP:
+		fy -= 1;
+		by += 1;
+		break;
+	case DOWN:
+		fy += 1;
+		by -= 1;
+		break;
+	case LEFT:
+		fx -= 1;
+		bx += 1;
+		break;
+	case RIGHT:
+		fx += 1;
+		bx -= 1;
+		break;
+	}
 
-	//player->checkWall(colSide);
+	glm::vec3 tmpDist;
+	if (fx == -1 || fx == 32 || fy == -1 || fy == 32 ||objMap[fx][fy] == WALL)
+	{
+		switch (player->viewDir)
+		{
+		case UP:
+		case DOWN:
+			tmpDist = glm::vec3(tmp.x, 0, idx2pos(fy));
+			break;
+	
+		case LEFT:
+		case RIGHT:
+			tmpDist = glm::vec3(idx2pos(fx), 0, tmp.z);
+			break;
+		}
+	}
+
+	if (colDistance >= glm::distance(tmpDist, tmp))
+	{
+		player->canGo = false;
+	}
+
+	else player->canGo = true;
+	
+	printf("%f\n", glm::distance(tmpDist, tmp));
 }

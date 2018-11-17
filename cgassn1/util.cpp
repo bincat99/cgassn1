@@ -207,6 +207,12 @@ pos2idx(float x)
 {
 	return (int)(x / 50.f);
 }
+
+float
+idx2pos(int x)
+{
+	return (float)(x * 50.f + 25.0f);
+}
 std::vector<std::string>
 split_string(std::string str) {
 	using namespace std;

@@ -6,7 +6,7 @@ class Player
 private:
 	glm::vec3 pos;
 	glm::vec2 dir;
-
+	
 	float walkSpeed = 1.0f;
 
 	clock_t rotDelay;
@@ -14,6 +14,8 @@ private:
 
 public:
 	std::string name;
+	enum Direction viewDir;
+	bool canGo;
 	void init(const glm::vec3& pos, const glm::vec2& rot);
 
 	void update();
