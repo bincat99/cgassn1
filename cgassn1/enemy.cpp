@@ -24,9 +24,89 @@ void Enemy::init(const glm::vec3& pos, const glm::vec2& dir)
 }
 
 
-void Enemy::update(void)
+void Enemy::update(glm::vec3 player)
 {
-	moveRandom();
+	if (status == ALIVE)
+	{
+		if (calDistance(player.x, player.z, pos.x, pos.z) < 250) // some condition to trace player
+		{
+			if (player.x >= pos.x)
+			{
+				if (canGo)
+				{
+					pos.x += 2 * walkSpeed;
+					viewDir = RIGHT;
+				}
+			}
+			else {
+				if (canGo)
+				{
+					pos.x -=  2 * walkSpeed;
+					viewDir = LEFT;
+				}
+			}
+
+			if (player.z >= pos.z)
+			{
+				if (canGo)
+				{
+					pos.z += 2 * walkSpeed;
+					if (abs(player.x - pos.x) < abs(player.z - pos.z)) {
+						viewDir = UP;
+
+					}
+				}
+			}
+			else
+			{
+				if (canGo)
+				{
+					pos.z -=  2 * walkSpeed;
+					if (abs(player.x - pos.x) < abs(player.z - pos.z)) {
+						viewDir = DOWN;
+
+					}
+				}
+			}
+		}
+		else
+		{
+			if (moveCount == 0)
+			{
+				viewDir = (enum Direction)(rand() % 4);
+				moveCount = 30;
+			}
+
+			switch (viewDir)
+			{
+			case 0: // Left Up Right Down
+				if (canGo)
+				{
+					pos.x -= walkSpeed;
+				}
+				break;
+			case 1:
+				if (canGo)
+				{
+					pos.z += walkSpeed;
+				}
+				break;
+			case 2:
+				if (canGo)
+				{
+					pos.x += walkSpeed;
+				}
+				break;
+			case 3:
+				if (canGo)
+				{
+					pos.z -= walkSpeed;
+				}
+				break;
+			}
+			moveCount--;
+		}
+	}
 }
 
 void Enemy::display(Mesh* mesh, Camera& camera)

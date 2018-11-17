@@ -7,7 +7,7 @@ private:
 	glm::vec3 pos;
 	glm::vec2 dir;
 	
-	float walkSpeed = 1.0f;
+	float walkSpeed = 5.0f;
 
 	clock_t rotDelay;
 	clock_t lastRot;
