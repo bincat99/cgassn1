@@ -41,4 +41,9 @@ public:
 	void checkWall();
 	void checkEnemyKill();
 	void checkWallBullet();
+	void checkPlayerKill();
+	void checkWallEnemy();
+	void moveEnemy();
+
+	void gameReset();
 };

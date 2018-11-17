@@ -14,6 +14,7 @@ private:
 
 public:
 	std::string name;
+	enum Status status;
 	enum Direction viewDir;
 	bool canGo;
 	void init(const glm::vec3& pos, const glm::vec2& rot);

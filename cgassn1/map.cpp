@@ -475,8 +475,13 @@ Map::moveObjects()
 		listBullet.push_back(new Bullet (player->getPos(), player->getDir(), player->viewDir));
 		gun->bang();
 	}
+
+	moveEnemy();
 	checkWallBullet();
+	checkWallEnemy();
 	checkEnemyKill();
+	checkPlayerKill();
+
 }
 
 void Map::checkWall()
@@ -640,4 +645,85 @@ void Map::checkEnemyKill()
 	{
 		gameClear = true;
 	}
+}
+
+void Map::checkPlayerKill()
+{
+	std::list<Enemy*>::iterator it = listEnemy.begin();
+
+	while (it != listEnemy.end())
+	{
+		if (glm::distance(player->getPos(), (*it)->getPos()) < 10.f)
+		{
+			player->status = KILLED;
+		}
+		it++;
+	}
+}
+
+void Map::checkWallEnemy()
+{
+	for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+	{
+		int fx, fy, bx, by;
+		glm::vec3 tmp = (*it)->getPos();
+		fx = pos2idx(tmp.x);
+		fy = pos2idx(tmp.z);
+		bx = fx;
+		by = fy;
+
+		float colDistance = 34.0f;
+		float dist = 0;
+		switch ((*it)->viewDir)
+		{
+		case UP:
+			fy -= 1;
+			by += 1;
+			break;
+		case DOWN:
+			fy += 1;
+			by -= 1;
+			break;
+		case LEFT:
+			fx -= 1;
+			bx += 1;
+			break;
+		case RIGHT:
+			fx += 1;
+			bx -= 1;
+			break;
+		}
+
+		glm::vec3 tmpDist;
+		if (fx == -1 || fx == 32 || fy == -1 || fy == 32 || objMap[fx][fy] == WALL)
+		{
+			switch ((*it)->viewDir)
+			{
+			case UP:
+			case DOWN:
+				tmpDist = glm::vec3(tmp.x, 0, idx2pos(fy));
+				break;
+
+			case LEFT:
+			case RIGHT:
+				tmpDist = glm::vec3(idx2pos(fx), 0, tmp.z);
+				break;
+			}
+		}
+
+		if (colDistance >= glm::distance(tmpDist, tmp))
+		{
+			(*it)->canGo = false;
+		}
+
+		else (*it)->canGo = true;
+	}
+
+}
+
+
+void Map::moveEnemy()
+{
+	for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+		(*it)->update();
 }

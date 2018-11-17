@@ -12,6 +12,7 @@ Enemy::Enemy(float x, float y, enum Direction vd)
 	setDir(dir);
 
 	status = ALIVE;
+	canGo = true;
 	viewDir = vd;
 }
 
@@ -25,7 +26,7 @@ void Enemy::init(const glm::vec3& pos, const glm::vec2& dir)
 
 void Enemy::update(void)
 {
-
+	moveRandom();
 }
 
 void Enemy::display(Mesh* mesh, Camera& camera)
@@ -77,6 +78,7 @@ void Enemy::setDir(const glm::vec2& dir)
 void Enemy::moveRandom()
 {
 	glm::vec3 tmp = pos;
+
 	tmp.x += rand() % 3 - 1;
 	tmp.z += rand() % 3 - 1;
 	setPos(tmp);

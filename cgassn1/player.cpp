@@ -10,6 +10,7 @@ void Player::init(const glm::vec3& pos, const glm::vec2& dir)
 	rotDelay = CLOCKS_PER_SEC / 2;
 	lastRot = 0;
 
+	status = ALIVE;
 	this->viewDir = UP;
 	canGo = true;
 }

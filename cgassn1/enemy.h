@@ -13,6 +13,7 @@ private:
 public:
 	enum Status status;
 	enum Direction viewDir;
+	bool canGo;
 	Enemy(float, float, enum Direction);
 	void init(const glm::vec3& pos, const glm::vec2& rot);
 
