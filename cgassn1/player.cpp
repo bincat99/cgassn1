@@ -29,11 +29,7 @@ void Player::update(void)
 	{
 		if (keyboardBuffer[i])
 		{
-			if (i == 'a' && lastRot == 0)
-			{
-				dir.y -= 90;
-				lastRot = clock();
-			}
+
 
 			if (i == 's')
 			{
@@ -41,6 +37,21 @@ void Player::update(void)
 				pos.z += sp * glm::cos(yrad) * delta;
 			}
 
+			//if (i == 'a')
+			//{
+			//	dir.y -= .5f;
+			//}
+
+			//if (i == 'd')
+			//{
+			//	dir.y += .5f;
+			//}
+
+			if (i == 'a' && lastRot == 0)
+			{
+				dir.y -= 90;
+				lastRot = clock();
+			}
 
 			if (i == 'd' && lastRot == 0)
 			{

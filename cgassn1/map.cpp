@@ -396,14 +396,14 @@ Map::moveObjects()
 	
 
 	glm::vec3 tmp = player->getPos();
-	tmp.z -= 20.f;
+
 	gun->setPos(tmp);
 
 	glm::vec2 rot = player->getDir();
 	float yrad = glm::radians(rot.y);
 	
 	gun->setDir(rot);
-
+	gun->update();
 	if (camera.mode == FPS)
 	{
 		tmp.y += 45.0f;
@@ -423,7 +423,7 @@ Map::moveObjects()
 
 
 	camera.update(1.0);
-	gun->update();
+	
 	for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
 		(*it)->update();
 
