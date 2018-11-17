@@ -22,8 +22,10 @@ void Enemy::display(Mesh* mesh, Camera& camera)
 	glm::mat4 View = camera.toViewMatrix();
 	float scaleFactor = mesh->getScaleFactor();
 	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, pos.z));
-	glm::mat4 Model =	glm::translate(glm::mat4(1.0f), glm::vec3(0, -2*scaleFactor, 0))
-						*glm::scale(glm::mat4(1.0f),glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+
+
+	glm::mat4 Model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))*glm::scale(glm::mat4(1.0f),glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+
 
 	glm::mat4 mvp = Projection * View * World * Model;
 

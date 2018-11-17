@@ -29,6 +29,7 @@
 using namespace std;
 
 
+
 //GLuint vertexbuffer;
 //GLuint uvbuffer;
 //GLuint MatrixID;
@@ -46,20 +47,24 @@ using namespace std;
 //static Gun gun;
 //static Wall wall;
 
+
 static Map* gameMap;
 
 
 void
 init(void)
 {
+
 	gameMap = new Map();
 	gameMap->init();
+
 }
 
 void
 display(void)
 {
 	gameMap->display();
+
 }
 
 void

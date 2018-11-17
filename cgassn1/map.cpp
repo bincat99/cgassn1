@@ -6,9 +6,8 @@
 #include "sys.h"
 
 
-GLuint vertexbuffer;
-GLuint uvbuffer;
-GLuint MatrixID;
+
+
 using namespace std;
 
 
@@ -26,12 +25,14 @@ Map::Map()
 {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	shaderUtil.Load("cgassn1/shaders/vs.shader", "cgassn1/shaders/fs.shader");
-	MatrixID = glGetUniformLocation(shaderUtil.getProgram(), "MVP");
 
-	M_enemy->init("cgassn1/resources/Skeleton.obj");
+	MatrixID = glGetUniformLocation(shaderUtil.getProgram(), "MVP");
+	MatrixID2 = glGetUniformLocation(shaderUtil.getProgram(), "ani");
+
+	M_enemy->init("cgassn1/resources/dummy_obj.obj");
 	M_player->init("cgassn1/resources/dummy_obj.obj");
-	M_gun->init("cgassn1/resources/M1911.obj");
-	M_wall->init("cgassn1/resources/cube.obj");
+	M_gun->init("cgassn1/resources/M1911.obj", true);
+	M_wall->init("cgassn1/resources/cube.obj", true);
 
 	player = new Player();
 	gun = new Gun();
@@ -348,6 +349,7 @@ Map::display(void)
 	glm::mat4 mvp = Projection * View * World * Model;
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+	glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 
 	glBegin(GL_LINES);
 	glVertex3f(.0f, .0f, .0f);
