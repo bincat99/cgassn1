@@ -9,9 +9,10 @@ Mesh::Mesh() {
 	memcpy(current_matrix, glm::value_ptr(glm::mat4(1.0f)), sizeof(current_matrix));
 }
 
-void Mesh::init(std::string path, bool isStatic_)
+void Mesh::init(std::string path, bool isStatic_, bool isPlayer_)
 {
 	isStatic = isStatic_;
+	isPlayer = isPlayer_;
 	Assimp::Importer importer;
 	const aiScene* sc = importer.ReadFile(path.c_str(),
 			aiProcess_Triangulate 
@@ -140,12 +141,28 @@ void Mesh::recursiveNodeProcess(aiNode * node)
 		std::string parts = tokens.at(tokens.size() - 1);
 
 		if (std::find(tokens.begin(), tokens.end(), "dummy_rshoulder") != tokens.end()) {
-			glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 2 + 3.14f/24), glm::vec3(0, 1, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(0);
-			saveMatrix(1);
-			saveMatrix(2);
-			saveMatrix(3);
+			if (isPlayer) {
+				glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 2 + 3.14f / 24), glm::vec3(0, 1, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
+				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+				saveMatrix(0);
+				saveMatrix(1);
+				saveMatrix(2);
+				saveMatrix(3);
+			}
+			else {
+				glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
+				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+				saveMatrix(0);
+				temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
+				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+				saveMatrix(1);
+				temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
+				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+				saveMatrix(2);
+				temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
+				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+				saveMatrix(3);
+			}
 
 		}
 		else if (std::find(tokens.begin(), tokens.end(), "dummy_lshoulder") != tokens.end()) {

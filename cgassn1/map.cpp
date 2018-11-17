@@ -31,7 +31,7 @@ Map::Map()
 	MatrixID2 = glGetUniformLocation(shaderUtil.getProgram(), "ani");
 
 	M_enemy->init("cgassn1/resources/dummy_obj.obj");
-	M_player->init("cgassn1/resources/dummy_obj.obj");
+	M_player->init("cgassn1/resources/dummy_obj.obj", false,true);
 	M_gun->init("cgassn1/resources/M1911.obj", true);
 	M_wall->init("cgassn1/resources/cube.obj", true);
 
@@ -336,7 +336,7 @@ Map::init(void)
 			}
 		}
 
-	remainingTime = CLOCKS_PER_SEC * 100;
+	remainingTime = CLOCKS_PER_SEC * 500;
 	startTime = clock();
 }
 
