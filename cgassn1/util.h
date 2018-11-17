@@ -63,6 +63,8 @@ specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 extern bool
 mouseBuffer[MOUSE_BUFFER_SIZE];
 
+extern unsigned mouseBefore;
+
 typedef struct
 {
     float x;

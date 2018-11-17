@@ -390,29 +390,47 @@ Map::reshape(int w, int h)
 void
 Map::moveObjects()
 {
-	camera.update(1.0);
 
-	glm::vec3 tmp = camera.getPos();
-	tmp.y -= 45.0f;
-	player->setPos(tmp);
+
+	player->update();
+	
+
+	glm::vec3 tmp = player->getPos();
 	tmp.z -= 20.f;
 	gun->setPos(tmp);
 
-	glm::vec2 rot = camera.getRot();
-	player->setDir(rot);
+	glm::vec2 rot = player->getDir();
+	float yrad = glm::radians(rot.y);
+	
 	gun->setDir(rot);
 
-	//enemy.moveRandom();
-	//printf("%f, %f\n", player.getPos().y, enemy.getPos().y);
-	//	printf("%f\n", glm::distance(player.getPos(), enemy.getPos()));
+	if (camera.mode == FPS)
+	{
+		tmp.y += 45.0f;
+		camera.setPos(tmp);
+		camera.setRot(rot);
+	}
+	else if (camera.mode == TPS)
+	{
+		tmp.y += 120.f;
+		tmp.x -= 80.f * glm::sin(yrad);
+		tmp.z += 80.f * glm::cos(yrad);
+		camera.setPos(tmp);
+		rot.x += 45.f;
+		camera.setRot(rot);
+	}
 
-	//gun.update();
+
+
+	camera.update(1.0);
+	gun->update();
 	for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
 		(*it)->update();
 
-	if (mouseBuffer[GLUT_LEFT_BUTTON])
+	if (mouseBuffer[GLUT_LEFT_BUTTON] && gun->canShoot())
 	{
 		listBullet.push_back(new Bullet (player->getPos(), player->getDir()));
+		gun->bang();
 	}
 }
 

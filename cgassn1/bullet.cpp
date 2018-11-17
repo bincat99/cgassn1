@@ -6,6 +6,7 @@ Bullet::Bullet(const glm::vec3& pos, const glm::vec2& dir)
 {
 	this->setPos(pos);
 	this->setDir(dir);
+
 }
 
 void Bullet::init(const glm::vec3& pos, const glm::vec2& dir)

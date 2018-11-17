@@ -7,15 +7,16 @@ void Gun::init(const glm::vec3& pos, const glm::vec2& dir)
 {
 	this->setPos(pos);
 	this->setDir(dir);
+	bangDelay = CLOCKS_PER_SEC / 2;
+	lastbang = 0;
 }
 
 
 void Gun::update(void)
 {
-	if (mouseBuffer[GLUT_LEFT_BUTTON])
+	if (lastbang + bangDelay < clock())
 	{
-		printf("SHOT\n");
-		//glutLeaveMainLoop();
+		lastbang = 0;
 	}
 }
 
@@ -55,17 +56,21 @@ void Gun::setPos(const glm::vec3& pos)
 
 
 glm::vec2 Gun::getDir()
-
 {
-
 	return this->dir;
-
 }
-
-
 
 void Gun::setDir(const glm::vec2& dir)
 {
 	this->dir = dir;
 }
 
+void Gun::bang()
+{
+	lastbang = clock();
+}
+
+bool Gun::canShoot()
+{
+	return lastbang == 0;
+}

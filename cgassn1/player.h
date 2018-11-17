@@ -9,6 +9,9 @@ private:
 
 	float walkSpeed = 1.0f;
 
+	clock_t rotDelay;
+	clock_t lastRot;
+
 public:
 	std::string name;
 	void init(const glm::vec3& pos, const glm::vec2& rot);

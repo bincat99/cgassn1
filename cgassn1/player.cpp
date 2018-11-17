@@ -7,11 +7,77 @@ void Player::init(const glm::vec3& pos, const glm::vec2& dir)
 {
 	this->setPos(pos);
 	this->setDir(dir);
+	rotDelay = CLOCKS_PER_SEC / 2;
+	lastRot = 0;
 }
 
 
 void Player::update(void)
 {
+	int i = 0;
+
+	float yrad = glm::radians(dir.y);
+	float delta = 1.0;
+	float sp = this->walkSpeed;
+
+	if (lastRot + rotDelay < clock())
+	{
+		lastRot = 0;
+	}
+
+	for (i = 0; i < KEYBOARD_BUFFER_SIZE; i++)
+	{
+		if (keyboardBuffer[i])
+		{
+			if (i == 'a' && lastRot == 0)
+			{
+				dir.y -= 90;
+				lastRot = clock();
+			}
+
+			if (i == 's')
+			{
+				pos.x -= sp * glm::sin(yrad) * delta;
+				pos.z += sp * glm::cos(yrad) * delta;
+			}
+
+
+			if (i == 'd' && lastRot == 0)
+			{
+				dir.y += 90;
+				lastRot = clock();
+			}
+
+
+			if (i == 'w')
+			{
+				pos.x += sp * glm::sin(yrad) * delta;
+				pos.z -= sp * glm::cos(yrad) * delta;
+			}
+
+			/*if (i == 'r')
+			{
+				rot.x += this->rotSpeed;
+			}
+			if (i == 'f')
+			{
+				rot.x -= this->rotSpeed;
+			}
+			if (i == 't')
+			{
+				pos.y += sp * glm::sin(yrad) * delta;
+				pos.z -= sp * glm::cos(yrad) * delta;
+			}
+			if (i == 'g')
+			{
+				pos.y -= sp * glm::sin(yrad) * delta;
+				pos.z += sp * glm::cos(yrad) * delta;
+			}*/
+
+
+
+		}
+	}
 
 }
 

@@ -50,6 +50,8 @@ specialKeyBuffer [KEYBOARD_BUFFER_SIZE];
 bool
 mouseBuffer[MOUSE_BUFFER_SIZE];
 
+unsigned mouseBefore;
+
 void
 utilInit ()
 {
@@ -62,6 +64,7 @@ utilInit ()
         specialKeyBuffer[i] = false;
     }
     gameClear = false;
+	mouseBefore = GLUT_UP;
 }
 //
 void
@@ -93,10 +96,16 @@ void
 myMouseFunc(int button, int state, int x, int y)
 {
 	if (state == GLUT_DOWN)
+	{
 		mouseBuffer[button] = true;
+		mouseBefore = GLUT_DOWN;
+	}
 
 	else
+	{
 		mouseBuffer[button] = false;
+		mouseBefore = GLUT_UP;
+	}
 }
 
 void
