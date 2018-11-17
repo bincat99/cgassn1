@@ -166,10 +166,14 @@ void Mesh::recursiveNodeProcess(aiNode * node)
 			glm::mat4 temp = glm::mat4(1.0f);
 			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
 			saveMatrix(0);
-			temp = glm::translate(glm::mat4(1.0f), glm::vec3(-8, 90, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(8, -90, 0));
+			temp = glm::translate(glm::mat4(1.0f), glm::vec3(-8, 90, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(8, -90, 0));
 			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
 			saveMatrix(1);
+			temp = glm::mat4(1.0f);
+			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
 			saveMatrix(2);
+			temp = glm::translate(glm::mat4(1.0f), glm::vec3(-8, 90, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(8, -90, 0));
+			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
 			saveMatrix(3);
 		}
 		else {
