@@ -3,10 +3,23 @@
 
 
 
+Enemy::Enemy(float x, float y, enum Direction vd)
+{
+	glm::vec3 pos = glm::vec3(x, 0, y);
+	glm::vec2 dir = glm::vec2(0, 0);
+
+	setPos(pos);
+	setDir(dir);
+
+	status = ALIVE;
+	viewDir = vd;
+}
+
 void Enemy::init(const glm::vec3& pos, const glm::vec2& dir)
 {
 	this->setPos(pos);
 	this->setDir(dir);
+	status = ALIVE;
 }
 
 

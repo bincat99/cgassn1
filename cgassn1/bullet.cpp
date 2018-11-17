@@ -6,7 +6,19 @@ Bullet::Bullet(const glm::vec3& pos, const glm::vec2& dir)
 {
 	this->setPos(pos);
 	this->setDir(dir);
+	this->status = ALIVE;
+	creationTime = clock();
+	lifeTime = CLOCKS_PER_SEC * 3;
+}
 
+Bullet::Bullet(const glm::vec3& pos, const glm::vec2& dir, enum Direction _viewDir)
+{
+	this->setPos(pos);
+	this->setDir(dir);
+	this->status = ALIVE;
+	creationTime = clock();
+	lifeTime = CLOCKS_PER_SEC * 3;
+	viewDir = _viewDir;
 }
 
 void Bullet::init(const glm::vec3& pos, const glm::vec2& dir)
@@ -23,6 +35,11 @@ void Bullet::update()
 	float sp = this->walkSpeed;
 	pos.x += sp * glm::sin(yrad);
 	pos.z -= sp * glm::cos(yrad);
+
+	if (creationTime + lifeTime < clock())
+	{
+		status = KILLED;
+	}
 }
 
 

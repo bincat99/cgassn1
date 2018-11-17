@@ -39,4 +39,6 @@ public:
 	void reshape(int, int);
 	void moveObjects();
 	void checkWall();
+	void checkEnemyKill();
+	void checkWallBullet();
 };
