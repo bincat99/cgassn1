@@ -569,7 +569,7 @@ void Map::checkWallBullet()
 		bx = fx;
 		by = fy;
 
-		float colDistance = 34.0f;
+		float colDistance = 17.0f;
 		float dist = 0;
 		switch ((*it)->viewDir)
 		{
