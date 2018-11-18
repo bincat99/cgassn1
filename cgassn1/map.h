@@ -29,6 +29,11 @@ class Map
 	clock_t remainingTime;
 	clock_t startTime;
 
+	Mesh* M_enemy = new Mesh();
+	Mesh* M_gun = new Mesh();
+	Mesh* M_player = new Mesh();
+	Mesh* M_wall = new Mesh();
+
 public:
 	Camera camera;
 	std::list<Enemy*> listEnemy;

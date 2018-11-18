@@ -80,6 +80,7 @@ extern ShaderUtil shaderUtil;
 
 extern GLuint MatrixID;
 extern GLuint MatrixID2;
+extern GLuint ColorID;
 
 extern GLuint vertexbuffer;
 extern GLuint uvbuffer;

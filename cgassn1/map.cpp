@@ -17,19 +17,15 @@ using namespace std;
 //Mesh * M_enemy;
 //Mesh * M_wall;
 
-Mesh* M_enemy = new Mesh();
-Mesh* M_gun = new Mesh();
-Mesh* M_player = new Mesh();
-Mesh* M_wall = new Mesh();
 
 Map::Map()
 {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
-	shaderUtil.Load("cgassn1/shaders/vs.shader", "cgassn1/shaders/fs.shader");
+	shaderUtil.Load("cgassn1/shaders/vs.glsl", "cgassn1/shaders/fs.glsl");
 
 	MatrixID = glGetUniformLocation(shaderUtil.getProgram(), "MVP");
 	MatrixID2 = glGetUniformLocation(shaderUtil.getProgram(), "ani");
-
+	ColorID = glGetUniformLocation(shaderUtil.getProgram(), "color_in");
 	M_enemy->init("cgassn1/resources/dummy_obj.obj");
 	M_player->init("cgassn1/resources/dummy_obj.obj", false,true);
 	M_gun->init("cgassn1/resources/M1911.obj", true);
@@ -361,6 +357,7 @@ Map::display(void)
 {
 	shaderUtil.Use();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 
 	glm::mat4 Projection = camera.toProjMatrix();
 	glm::mat4 View = camera.toViewMatrix();
@@ -372,26 +369,9 @@ Map::display(void)
 	glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 
 
-	displayTime();
-	glBegin(GL_LINES);
-	glVertex3f(.0f, .0f, .0f);
-	glVertex3f(10000.0f, .0f, .0f);
-	glEnd();
-
-	glBegin(GL_LINES);
-	glVertex3f(.0f, .0f, .0f);
-	glVertex3f(0.0f, 100.0f, .0f);
-	glEnd();
-
-	glBegin(GL_LINES);
-	glVertex3f(.0f, .0f, .0f);
-	glVertex3f(0.0f, .0f, 50.0f);
-	glEnd();
 
 	//wall.display(M_wall, camera);
 	//enemy.display(M_enemy, camera);
-	player->display(M_player, camera);
-	gun->display(M_gun, camera);
 
 
 
@@ -404,15 +384,17 @@ Map::display(void)
 		gun->display(M_gun, camera);
 
 
+		for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+			(*it)->display(M_enemy, camera);
 		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
 			(*it)->display(M_wall, camera);
 
-		for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
-			(*it)->display(M_enemy, camera);
 
 		for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
 			(*it)->display(M_wall, camera);
 	}
+	player->display(M_player, camera);
+	gun->display(M_gun, camera);
 	shaderUtil.Delete();
 }
 

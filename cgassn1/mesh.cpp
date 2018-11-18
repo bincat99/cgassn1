@@ -95,28 +95,21 @@ void Mesh::render()
 		// draw all meshes assigned to this node
 		for (unsigned int n = 0; n < ai_nodes[i]->mNumMeshes; ++n) {
 			if (!isStatic) {
-				switch (sprite) {
-				case 0:
-					glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices0.at(i)[0][0]);
-					break;
-				case 1:
-					glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices1.at(i)[0][0]);
-					break;
-				case 2:
-					glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices2.at(i)[0][0]);
-					break;
-				case 3:
-					glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices3.at(i)[0][0]);
-					break;
-				}
+				glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices[sprite].at(i)[0][0]);
 			}
 			else {
-				glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices0.at(i)[0][0]);
+				glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &saved_matrices[0].at(i)[0][0]);
 			}
 			//glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 			// bind VAO
 			glBindVertexArray(myMeshes[ai_nodes[i]->mMeshes[n]].vao);
 			// draw
+			glm::vec4 color = glm::vec4(1.f, 1.f, 1.f, 1.f);
+			glUniform4fv(ColorID, 1, &color[0]);
+			glDrawElements(GL_TRIANGLE_STRIP, myMeshes[ai_nodes[i]->mMeshes[n]].numFaces * 3, GL_UNSIGNED_INT, 0);
+
+			color = glm::vec4(1.f, 0.f, 0.f, 1.f);
+			glUniform4fv(ColorID, 1, glm::value_ptr(color));
 			glDrawElements(GL_LINE_STRIP, myMeshes[ai_nodes[i]->mMeshes[n]].numFaces * 3, GL_UNSIGNED_INT, 0);
 
 		}
@@ -290,20 +283,5 @@ void Mesh::popMatrix() {
 
 void Mesh::saveMatrix(int sprite_) {
 	glm::mat4 temp = glm::make_mat4(current_matrix);
-	switch (sprite_) {
-	case 0:
-		saved_matrices0.push_back(temp);
-		break;
-	case 1:
-		saved_matrices1.push_back(temp);
-		break;
-	case 2:
-		saved_matrices2.push_back(temp);
-		break;
-	case 3:
-		saved_matrices3.push_back(temp);
-		break;
-	default :
-		break;
-	}
+	saved_matrices[sprite_].push_back(temp);
 }

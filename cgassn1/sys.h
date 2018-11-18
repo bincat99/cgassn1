@@ -39,11 +39,7 @@ private:
 
 	std::vector<aiNode*> ai_nodes;
 
-	std::vector<glm::mat4> saved_matrices0;
-	std::vector<glm::mat4> saved_matrices1;
-	std::vector<glm::mat4> saved_matrices2;
-	std::vector<glm::mat4> saved_matrices3;
-
+	std::vector<glm::mat4> saved_matrices[4];
 	std::vector<float *> matrixStack;
 	float current_matrix[16];
 

@@ -32,6 +32,7 @@ ShaderUtil shaderUtil;
 
 GLuint MatrixID;
 GLuint MatrixID2;
+GLuint ColorID;
 
 GLuint vertexbuffer;
 GLuint uvbuffer;
