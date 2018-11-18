@@ -39,7 +39,7 @@ private:
 
 	std::vector<aiNode*> ai_nodes;
 
-	std::vector<glm::mat4> saved_matrices[4];
+	std::vector<glm::mat4> saved_matrices[30];
 	std::vector<float *> matrixStack;
 	float current_matrix[16];
 
@@ -50,12 +50,13 @@ private:
 	bool isStatic;
 	bool isPlayer = false;
 	unsigned int sprite = 0;
-	unsigned int fps = 0;
+	unsigned int fps = 30;
+	unsigned int frame = 0;
 public:
 
 	Mesh();
 	void init(std::string path, bool isStatic = false, bool isPlayer= false);
-	void Mesh::render();
+	void Mesh::render(int frame);
 	//void render(ProgramWrapperMain& prog);
 
 	void get_bounding_box(const aiScene* scene, aiVector3D* min, aiVector3D* max);

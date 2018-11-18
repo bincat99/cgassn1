@@ -28,7 +28,7 @@ void Wall::update(void)
 
 }
 
-void Wall::display(Mesh* mesh, Camera& camera)
+void Wall::display(Mesh* mesh, Camera& camera, int frame)
 {
 	glm::mat4 Projection = camera.toProjMatrix();
 	glm::mat4 View = camera.toViewMatrix();
@@ -39,7 +39,7 @@ void Wall::display(Mesh* mesh, Camera& camera)
 	glm::mat4 mvp = Projection * View * World * Model;
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
-	mesh->render();
+	mesh->render(frame);
 }
 
 

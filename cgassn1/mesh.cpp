@@ -4,6 +4,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#define abs(x) ((x)<0 ? -(x):(x))
 
 Mesh::Mesh() {
 	memcpy(current_matrix, glm::value_ptr(glm::mat4(1.0f)), sizeof(current_matrix));
@@ -86,11 +87,10 @@ void Mesh::init(std::string path, bool isStatic_, bool isPlayer_)
 
 }
 
-void Mesh::render()
+void Mesh::render(int frame)
 {
-	fps = (fps + 1) % 60;
-	if(fps ==0)
-		sprite = (sprite + 1) % 4;
+	if(frame ==0)
+		sprite = (sprite + 1) % fps;
 	for (unsigned int i = 0; i < ai_nodes.size(); i++) {
 		// draw all meshes assigned to this node
 		for (unsigned int n = 0; n < ai_nodes[i]->mNumMeshes; ++n) {
@@ -137,74 +137,48 @@ void Mesh::recursiveNodeProcess(aiNode * node)
 			if (isPlayer) {
 				glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 2 + 3.14f / 24), glm::vec3(0, 1, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
 				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-				saveMatrix(0);
-				saveMatrix(1);
-				saveMatrix(2);
-				saveMatrix(3);
+				for (unsigned int i = 0; i < fps; i++) {
+					saveMatrix(i);
+				}
 			}
 			else {
-				glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
-				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-				saveMatrix(0);
-				temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
-				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-				saveMatrix(1);
-				temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
-				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-				saveMatrix(2);
-				temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
-				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-				saveMatrix(3);
+				for (unsigned int i = 0; i < fps; i++) {
+					int dist = fps/2-abs((int)i-15);
+					glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4)-(3.14f/2)*((float)dist/(fps/2)), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(15, -140, 0));
+					memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+					saveMatrix(i);
+				}
 			}
 
 		}
 		else if (std::find(tokens.begin(), tokens.end(), "dummy_lshoulder") != tokens.end()) {
-			glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(0);
-			temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(1);
-			temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(2);
-			temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(3);
+			for (unsigned int i = 0; i < fps; i++) {
+				int dist = fps / 2 - abs((int)i - 15);
+				glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(15, 140, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4) - (3.14f / 2)*((float)dist / (fps / 2)), glm::vec3(0, 1, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(0, 0, 1))* glm::translate(glm::mat4(1.0f), glm::vec3(-15, -140, 0));
+				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+				saveMatrix(i);
+			}
 		}
 		else if (std::find(tokens.begin(), tokens.end(), "dummy_rpelvis") != tokens.end()) {
-			glm::mat4 temp = glm::mat4(1.0f);
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(0);
-			temp = glm::translate(glm::mat4(1.0f), glm::vec3(-8, 90, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(8, -90, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(1);
-			temp = glm::mat4(1.0f);
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(2);
-			temp = glm::translate(glm::mat4(1.0f), glm::vec3(-8, 90, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(8, -90, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(3);
+			for (unsigned int i = 0; i < fps; i++) {
+				int dist = fps / 2 - abs((int)i - 15);
+				glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(-8, 90, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4) - (3.14f / 2) *((float)dist / (fps / 2)), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(8, -90, 0));
+				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+				saveMatrix(i);
+			}
 		}
 		else if (std::find(tokens.begin(), tokens.end(), "dummy_lpelvis") != tokens.end()) {
-			glm::mat4 temp = glm::mat4(1.0f);
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(0);
-			temp = glm::translate(glm::mat4(1.0f), glm::vec3(8, 90, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(-8, -90, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(1);
-			temp = glm::mat4(1.0f);
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(2);
-			temp = glm::translate(glm::mat4(1.0f), glm::vec3(8, 90, 0))*glm::rotate(glm::mat4(1.0), (3.14f / 4), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(-8, -90, 0));
-			memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
-			saveMatrix(3);
+			for (unsigned int i = 0; i < fps; i++) {
+				int dist = fps / 2 - abs((int)i - 15);
+				glm::mat4 temp = glm::translate(glm::mat4(1.0f), glm::vec3(8, 90, 0))*glm::rotate(glm::mat4(1.0), -(3.14f / 4) + (3.14f / 2) *((float)dist / (fps / 2)), glm::vec3(1, 0, 0))* glm::translate(glm::mat4(1.0f), glm::vec3(-8, -90, 0));
+				memcpy(current_matrix, glm::value_ptr(temp), sizeof(current_matrix));
+				saveMatrix(i);
+			}
 		}
 		else {
-			saveMatrix(0);
-			saveMatrix(1);
-			saveMatrix(2);
-			saveMatrix(3);
+			for (unsigned int i = 0; i < fps; i++) {
+				saveMatrix(i);
+			}
 		}
 		
 	}
@@ -281,7 +255,7 @@ void Mesh::popMatrix() {
 	free(m);
 }
 
-void Mesh::saveMatrix(int sprite_) {
+void Mesh::saveMatrix(int frame_) {
 	glm::mat4 temp = glm::make_mat4(current_matrix);
-	saved_matrices[sprite_].push_back(temp);
+	saved_matrices[frame_].push_back(temp);
 }

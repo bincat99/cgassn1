@@ -21,7 +21,7 @@ void Gun::update(void)
 }
 
 
-void Gun::display(Mesh* mesh, Camera& camera)
+void Gun::display(Mesh* mesh, Camera& camera, int frame)
 {
 	float yrad = glm::radians(dir.y);
 	glm::mat4 Projection = camera.toProjMatrix();
@@ -34,7 +34,7 @@ void Gun::display(Mesh* mesh, Camera& camera)
 	glm::mat4 mvp = Projection * View * World * Model;
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
-	mesh->render();
+	mesh->render(frame);
 }
 
 

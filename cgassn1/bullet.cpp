@@ -43,7 +43,7 @@ void Bullet::update()
 }
 
 
-void Bullet::display(Mesh* mesh, Camera& camera)
+void Bullet::display(Mesh* mesh, Camera& camera, int frame)
 {
 	float yrad = glm::radians(dir.y);
 
@@ -56,7 +56,7 @@ void Bullet::display(Mesh* mesh, Camera& camera)
 	glm::mat4 mvp = Projection * View * World * Model;
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
-	mesh->render();
+	mesh->render(frame);
 }
 
 

@@ -374,27 +374,28 @@ Map::display(void)
 	//enemy.display(M_enemy, camera);
 
 
+	frame = (frame + 1) % 2;
 
 
 	if (!(player->status == KILLED || gameClear))
 	{
 		//wall.display(M_wall, camera);
 		//enemy.display(M_enemy, camera);
-		player->display(M_player, camera);
-		gun->display(M_gun, camera);
+		player->display(M_player, camera, frame);
+		gun->display(M_gun, camera, frame);
 
 
 		for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
-			(*it)->display(M_enemy, camera);
+			(*it)->display(M_enemy, camera, frame);
 		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
-			(*it)->display(M_wall, camera);
+			(*it)->display(M_wall, camera, frame);
 
 
 		for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
-			(*it)->display(M_wall, camera);
+			(*it)->display(M_wall, camera, frame);
 	}
-	player->display(M_player, camera);
-	gun->display(M_gun, camera);
+	player->display(M_player, camera, frame);
+	gun->display(M_gun, camera, frame);
 	shaderUtil.Delete();
 }
 

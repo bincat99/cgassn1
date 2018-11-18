@@ -34,6 +34,8 @@ class Map
 	Mesh* M_player = new Mesh();
 	Mesh* M_wall = new Mesh();
 
+	int frame;
+
 public:
 	Camera camera;
 	std::list<Enemy*> listEnemy;

@@ -17,7 +17,7 @@ public:
 	void init(const glm::vec3& pos, const glm::vec2& rot);
 
 	void update();
-	void display(Mesh*, Camera&);
+	void display(Mesh*, Camera&, int);
 
 	glm::vec3 getPos();
 
