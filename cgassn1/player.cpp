@@ -43,17 +43,17 @@ void Player::update(void)
 				pos.z += sp * glm::cos(yrad) * delta;
 			}
 
-			//if (i == 'a')
-			//{
-			//	dir.y -= .5f;
-			//}
+			if (i == 'a')
+			{
+				dir.y -= 5.5f;
+			}
 
-			//if (i == 'd')
-			//{
-			//	dir.y += .5f;
-			//}
+			if (i == 'd')
+			{
+				dir.y += 5.5f;
+			}
 
-			if (i == 'a' && lastRot == 0)
+			/*if (i == 'a' && lastRot == 0)
 			{
 				dir.y -= 90;
 				this->viewDir = (enum Direction) ((this->viewDir + 3) % 4);
@@ -65,7 +65,7 @@ void Player::update(void)
 				dir.y += 90;
 				this->viewDir = (enum Direction) ((this->viewDir + 1) % 4);
 				lastRot = clock();
-			}
+			}*/
 
 
 			if (i == 'w' && canGo)

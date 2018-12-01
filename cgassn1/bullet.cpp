@@ -14,7 +14,7 @@ Bullet::Bullet(const glm::vec3& pos, const glm::vec2& dir)
 Bullet::Bullet(const glm::vec3& pos, const glm::vec2& dir, enum Direction _viewDir)
 {
 	float yrad = glm::radians(dir.y);
-	glm::vec3& bPos = glm::vec3(pos.x + 30.f * sin(yrad), 0, pos.z + 30.f *cos(yrad));
+	glm::vec3& bPos = glm::vec3(pos.x + 30.f * glm::sin(yrad), 0, pos.z - 30.f * glm::cos(yrad));
 	this->setPos(bPos);
 	this->setDir(dir);
 	this->status = ALIVE;

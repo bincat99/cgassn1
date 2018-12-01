@@ -570,7 +570,7 @@ void Map::checkWallBullet()
 		bx = fx;
 		by = fy;
 
-		float colDistance = 17.0f;
+		/*float colDistance = 17.0f;
 		float dist = 0;
 		switch ((*it)->viewDir)
 		{
@@ -607,9 +607,10 @@ void Map::checkWallBullet()
 				tmpDist = glm::vec3(idx2pos(fx), 0, tmp.z);
 				break;
 			}
-		}
+		}*/
 
-		if (colDistance >= glm::distance(tmpDist, tmp))
+		//if (colDistance >= glm::distance(tmpDist, tmp))
+		if (fx == -1 || fx == 32 || fy == -1 || fy == 32 || objMap[fx][fy] == WALL)
 		{
 			(*it)->status = KILLED;
 		}
