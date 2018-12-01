@@ -13,7 +13,9 @@ Bullet::Bullet(const glm::vec3& pos, const glm::vec2& dir)
 
 Bullet::Bullet(const glm::vec3& pos, const glm::vec2& dir, enum Direction _viewDir)
 {
-	this->setPos(pos);
+	float yrad = glm::radians(dir.y);
+	glm::vec3& bPos = glm::vec3(pos.x + 30.f * sin(yrad), 0, pos.z + 30.f *cos(yrad));
+	this->setPos(bPos);
 	this->setDir(dir);
 	this->status = ALIVE;
 	creationTime = clock();
@@ -50,7 +52,7 @@ void Bullet::display(Mesh* mesh, Camera& camera, int frame)
 	glm::mat4 Projection = camera.toProjMatrix();
 	glm::mat4 View = camera.toViewMatrix();
 	float scaleFactor = mesh->getScaleFactor();
-	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x + 30.f * glm::sin(yrad), pos.y+40, pos.z - 30.0f*glm::cos(yrad)));
+	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x /*+ 30.f * glm::sin(yrad)*/, pos.y+40, pos.z /*- 30.0f*glm::cos(yrad)*/));
 	glm::mat4 Model = glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor/10, scaleFactor/10, scaleFactor/10));
 
 	glm::mat4 mvp = Projection * View * World * Model;

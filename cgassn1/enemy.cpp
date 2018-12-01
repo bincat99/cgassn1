@@ -121,6 +121,7 @@ void Enemy::display(Mesh* mesh, Camera& camera, int frame)
 	glm::mat4 Model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))*glm::scale(glm::mat4(1.0f),glm::vec3(scaleFactor, scaleFactor, scaleFactor));
 
 
+
 	glm::mat4 mvp = Projection * View * World * Model;
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
