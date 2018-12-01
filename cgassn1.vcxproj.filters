@@ -85,5 +85,11 @@
     <None Include="cgassn1\shaders\vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="vsWall.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fsWall.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

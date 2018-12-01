@@ -88,6 +88,7 @@ struct MyMaterial {
 
 extern ShaderUtil shaderUtil;
 
+
 extern GLuint projID;
 extern GLuint viewID;
 extern GLuint modelID;
@@ -102,6 +103,21 @@ std::map<std::string, GLuint> textureIdMap;
 
 extern GLuint vertexbuffer;
 extern GLuint uvbuffer;
+
+extern ShaderUtil shaderWallUtil;
+extern GLuint wallProgramID;
+extern GLuint MatrixID;
+extern GLuint ViewMatrixID;
+extern GLuint ModelMatrixID;
+extern GLuint ModelView3x3MatrixID;
+
+extern GLuint DiffuseTexture;
+extern GLuint NormalTexture;
+extern GLuint SpecularTexture;
+
+extern GLuint DiffuseTextureID;
+extern GLuint NormalTextureID;
+extern GLuint SpecularTextureID;
 
 extern unsigned int
 windowId;

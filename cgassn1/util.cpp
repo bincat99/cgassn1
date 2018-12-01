@@ -30,6 +30,7 @@
 
 ShaderUtil shaderUtil;
 
+
 GLuint projID;
 GLuint viewID;
 GLuint modelID;
@@ -43,6 +44,22 @@ GLuint uvbuffer;
 
 
 std::map<std::string, GLuint> textureIdMap;
+
+// for vsWall
+ShaderUtil shaderWallUtil;
+GLuint wallProgramID;
+GLuint MatrixID;
+GLuint ViewMatrixID;
+GLuint ModelMatrixID;
+GLuint ModelView3x3MatrixID;
+
+GLuint DiffuseTexture;
+GLuint NormalTexture;
+GLuint SpecularTexture;
+
+GLuint DiffuseTextureID;
+GLuint NormalTextureID;
+GLuint SpecularTextureID;
 
 unsigned int
 windowId;

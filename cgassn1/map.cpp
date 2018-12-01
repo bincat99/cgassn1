@@ -21,6 +21,7 @@ using namespace std;
 Map::Map()
 {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
+	// default shader
 	shaderUtil.Load("cgassn1/shaders/vs.glsl", "cgassn1/shaders/fs.glsl");
 
 	projID = glGetUniformLocation(shaderUtil.getProgram(), "projMatrix");
@@ -32,6 +33,25 @@ Map::Map()
 
 	glUniformBlockBinding(shaderUtil.getProgram(), glGetUniformBlockIndex(shaderUtil.getProgram(), "Material"), materialUniLoc);
 	texUnit = glGetUniformLocation(shaderUtil.getProgram(), "texUnit");
+
+	//// wall shader
+	//shaderWallUtil.Load("cgassn1/shaders/vsWall.glsl", "cgassn1/shaders/fsWall.glsl");
+
+	//// Get a handle for our "MVP" uniform
+	//GLuint MatrixID = glGetUniformLocation(wallProgramID, "MVP");
+	//GLuint ViewMatrixID = glGetUniformLocation(wallProgramID, "V");
+	//GLuint ModelMatrixID = glGetUniformLocation(wallProgramID, "M");
+	//GLuint ModelView3x3MatrixID = glGetUniformLocation(wallProgramID, "MV3x3");
+
+	//// Load the texture
+	//GLuint DiffuseTexture = loadDDS("diffuse.DDS");
+	//GLuint NormalTexture = loadBMP_custom("normal.bmp");
+	//GLuint SpecularTexture = loadDDS("specular.DDS");
+
+	//// Get a handle for our "myTextureSampler" uniform
+	//GLuint DiffuseTextureID = glGetUniformLocation(wallProgramID, "DiffuseTextureSampler");
+	//GLuint NormalTextureID = glGetUniformLocation(wallProgramID, "NormalTextureSampler");
+	//GLuint SpecularTextureID = glGetUniformLocation(wallProgramID, "SpecularTextureSampler");
 
 	M_enemy->init("cgassn1/resources/dummy_obj.obj");
 	M_player->init("cgassn1/resources/dummy_obj.obj", false,true);

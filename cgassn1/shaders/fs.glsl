@@ -13,8 +13,8 @@ uniform sampler2D texUnit;
  
 in vec3 Normal;
 in vec2 TexCoord;
-out vec4 output;
- 
+out vec4 outc;
+
 void main()
 {
     vec4 color;
@@ -35,5 +35,5 @@ void main()
         color = texture2D(texUnit, TexCoord);
         amb = color * 0.33;
     }
-    output = (color * intensity) + amb;
+    outc = (color * intensity) + amb;
 }
