@@ -36,9 +36,12 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, pos.z));
 	glm::mat4 Model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 1 * scaleFactor, 0))*glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor, scaleFactor, scaleFactor));
 
-	glm::mat4 mvp = Projection * View * World * Model;
+	glm::mat4 mw = World * Model;
 
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+	glUniformMatrix4fv(projID, 1, GL_FALSE, &Projection[0][0]);
+	glUniformMatrix4fv(viewID, 1, GL_FALSE, &View[0][0]);
+	glUniformMatrix4fv(modelID, 1, GL_FALSE, &mw[0][0]);
+
 	mesh->render(frame);
 }
 

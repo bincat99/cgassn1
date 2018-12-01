@@ -72,8 +72,8 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\install_library\glew-2.1.0\include;D:\install_library\freeglut\include;D:\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\include;D:\glm-0.9.9.3\glm-0.9.9.3;C:\Users\PLUS\Downloads\assimp-3.1.1-win-binaries\include;C:\Users\PLUS\Downloads\install_library\glew-2.1.0\include;C:\Users\PLUS\Downloads\glm-0.9.9.2;C:\Users\PLUS\Downloads\install_library\freeglut\include;C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\include;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\include;C:\Users\wonjong\Downloads\glm-0.9.9.2\glm;C:\Users\wonjong\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>D:\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\lib64;D:\install_library\freeglut\lib\x64;D:\install_library\glew-2.1.0\lib\Release\x64;C:\Users\PLUS\Downloads\assimp-3.1.1-win-binaries\lib64;C:\Users\PLUS\Downloads\install_library\freeglut\lib\x64;C:\Users\PLUS\Downloads\install_library\glew-2.1.0\lib\Release\x64;C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\lib64;C:\Users\wonjong\Downloads\install_library\freeglut\lib\x64;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\lib\Release\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>C:\Users\wonjong\Downloads\DevIL-Windows-SDK-1.8.0\DevIL Windows SDK\include;D:\install_library\glew-2.1.0\include;D:\install_library\freeglut\include;D:\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\include;D:\glm-0.9.9.3\glm-0.9.9.3;C:\Users\PLUS\Downloads\assimp-3.1.1-win-binaries\include;C:\Users\PLUS\Downloads\install_library\glew-2.1.0\include;C:\Users\PLUS\Downloads\glm-0.9.9.2;C:\Users\PLUS\Downloads\install_library\freeglut\include;C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\include;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\include;C:\Users\wonjong\Downloads\glm-0.9.9.2\glm;C:\Users\wonjong\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\wonjong\Downloads\DevIL-Windows-SDK-1.8.0\DevIL Windows SDK\lib\x64\Release;D:\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\lib64;D:\install_library\freeglut\lib\x64;D:\install_library\glew-2.1.0\lib\Release\x64;C:\Users\PLUS\Downloads\assimp-3.1.1-win-binaries\lib64;C:\Users\PLUS\Downloads\install_library\freeglut\lib\x64;C:\Users\PLUS\Downloads\install_library\glew-2.1.0\lib\Release\x64;C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\lib64;C:\Users\wonjong\Downloads\install_library\freeglut\lib\x64;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\lib\Release\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\PLUS\Downloads\assimp-3.1.1-win-binaries\include;C:\Users\PLUS\Downloads\install_library\glew-2.1.0\include;C:\Users\PLUS\Downloads\glm-0.9.9.2;C:\Users\PLUS\Downloads\install_library\freeglut\include;C:\Users\wonjong\Downloads\assimp-3.1.1-win-binaries\assimp-3.1.1-win-binaries\include;C:\Users\wonjong\Downloads\install_library\glew-2.1.0\include;C:\Users\wonjong\Downloads\glm-0.9.9.2\glm;C:\Users\wonjong\Downloads\install_library\freeglut\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
@@ -111,7 +111,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>assimp.lib;freeglut.lib;glew32.lib;Opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ILUT.lib;ILU.lib;DevIL.lib;assimp.lib;freeglut.lib;glew32.lib;Opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,8 +144,8 @@
     <ClCompile Include="cgassn1\wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cgassn1\shaders\fs.shader" />
-    <None Include="cgassn1\shaders\vs.shader" />
+    <None Include="cgassn1\shaders\fs.glsl" />
+    <None Include="cgassn1\shaders\vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

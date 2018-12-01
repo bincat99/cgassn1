@@ -68,6 +68,7 @@ public:
 	void pushMatrix();
 	void popMatrix();
 	void saveMatrix(int);
+	int LoadGLTextures(const aiScene* scene);
 };
 
 enum MODE

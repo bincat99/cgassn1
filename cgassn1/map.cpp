@@ -23,9 +23,16 @@ Map::Map()
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	shaderUtil.Load("cgassn1/shaders/vs.glsl", "cgassn1/shaders/fs.glsl");
 
-	MatrixID = glGetUniformLocation(shaderUtil.getProgram(), "MVP");
-	MatrixID2 = glGetUniformLocation(shaderUtil.getProgram(), "ani");
-	ColorID = glGetUniformLocation(shaderUtil.getProgram(), "color_in");
+	projID = glGetUniformLocation(shaderUtil.getProgram(), "projMatrix");
+	viewID = glGetUniformLocation(shaderUtil.getProgram(), "viewMatrix");
+	modelID = glGetUniformLocation(shaderUtil.getProgram(), "modelMatrix");
+
+	ani = glGetUniformLocation(shaderUtil.getProgram(), "ani");
+
+
+	glUniformBlockBinding(shaderUtil.getProgram(), glGetUniformBlockIndex(shaderUtil.getProgram(), "Material"), materialUniLoc);
+	texUnit = glGetUniformLocation(shaderUtil.getProgram(), "texUnit");
+
 	M_enemy->init("cgassn1/resources/dummy_obj.obj");
 	M_player->init("cgassn1/resources/dummy_obj.obj", false,true);
 	M_gun->init("cgassn1/resources/M1911.obj", true);
@@ -363,10 +370,13 @@ Map::display(void)
 	glm::mat4 View = camera.toViewMatrix();
 	glm::mat4 World = glm::mat4(1.0f);
 	glm::mat4 Model = glm::mat4(1.0f);
-	glm::mat4 mvp = Projection * View * World * Model;
+	glm::mat4 mw = World * Model;
 
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
-	glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
+	glUniformMatrix4fv(projID, 1, GL_FALSE, &Projection[0][0]);
+	glUniformMatrix4fv(viewID, 1, GL_FALSE, &View[0][0]);
+	glUniformMatrix4fv(modelID, 1, GL_FALSE, &mw[0][0]);
+
+	glUniformMatrix4fv(ani, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 
 
 
