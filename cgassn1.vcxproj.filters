@@ -42,6 +42,9 @@
     <ClInclude Include="cgassn1\bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cgassn1\texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cgassn1\util.cpp">
@@ -77,6 +80,9 @@
     <ClCompile Include="cgassn1\bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cgassn1\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cgassn1\shaders\fs.glsl">
@@ -85,10 +91,10 @@
     <None Include="cgassn1\shaders\vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="vsWall.glsl">
+    <None Include="cgassn1\shaders\fsWall.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="fsWall.glsl">
+    <None Include="cgassn1\shaders\vsWall.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
