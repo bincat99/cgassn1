@@ -43,16 +43,16 @@ void Player::update(void)
 				pos.z += sp * glm::cos(yrad) * delta;
 			}
 
-			//if (i == 'a')
-			//{
-			//	dir.y -= .5f;
-			//}
+			if (i == 'a')
+			{
+				dir.y -= .5f;
+			}
 
-			//if (i == 'd')
-			//{
-			//	dir.y += .5f;
-			//}
-
+			if (i == 'd')
+			{
+				dir.y += .5f;
+			}
+			/*
 			if (i == 'a' && lastRot == 0)
 			{
 				dir.y -= 90;
@@ -67,7 +67,7 @@ void Player::update(void)
 				lastRot = clock();
 			}
 
-
+			*/
 			if (i == 'w' && canGo)
 			{
 				pos.x += sp * glm::sin(yrad) * delta;

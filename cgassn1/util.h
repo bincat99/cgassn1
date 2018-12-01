@@ -93,6 +93,8 @@ extern GLuint viewID;
 extern GLuint modelID;
 extern GLuint materialUniLoc;
 extern GLuint texUnit;
+extern GLuint viewPosID;
+extern GLuint light_ID;
 
 extern GLuint ani;
 

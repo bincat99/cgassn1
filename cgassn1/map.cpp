@@ -20,16 +20,17 @@ using namespace std;
 
 Map::Map()
 {
-	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 	shaderUtil.Load("cgassn1/shaders/vs.glsl", "cgassn1/shaders/fs.glsl");
 
 	projID = glGetUniformLocation(shaderUtil.getProgram(), "projMatrix");
 	viewID = glGetUniformLocation(shaderUtil.getProgram(), "viewMatrix");
 	modelID = glGetUniformLocation(shaderUtil.getProgram(), "modelMatrix");
-
+	light_ID = glGetUniformLocation(shaderUtil.getProgram(), "light.position");
 	ani = glGetUniformLocation(shaderUtil.getProgram(), "ani");
 
 
+	viewPosID = glGetUniformLocation(shaderUtil.getProgram(), "viewPos");
 	glUniformBlockBinding(shaderUtil.getProgram(), glGetUniformBlockIndex(shaderUtil.getProgram(), "Material"), materialUniLoc);
 	texUnit = glGetUniformLocation(shaderUtil.getProgram(), "texUnit");
 
@@ -378,6 +379,11 @@ Map::display(void)
 
 	glUniformMatrix4fv(ani, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
 
+
+	glUniform4fv(viewPosID, 1, &camera.getPos()[0]);
+	glUniform4fv(light_ID, 1, &camera.getPos()[0]);
+
+	std::cout << camera.getPos()[0] << " "<<camera.getPos()[1] << " "<< camera.getPos()[2] << std::endl;
 
 
 	//wall.display(M_wall, camera);
