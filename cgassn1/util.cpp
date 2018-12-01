@@ -30,13 +30,19 @@
 
 ShaderUtil shaderUtil;
 
-GLuint MatrixID;
-GLuint MatrixID2;
-GLuint ColorID;
+GLuint projID;
+GLuint viewID;
+GLuint modelID;
+GLuint materialUniLoc;
+GLuint texUnit;
+
+GLuint ani;
 
 GLuint vertexbuffer;
 GLuint uvbuffer;
 
+
+std::map<std::string, GLuint> textureIdMap;
 
 unsigned int
 windowId;
@@ -228,4 +234,22 @@ split_string(std::string str) {
 
 	return tokens;
 
+}
+
+
+void set_float4(float f[4], float a, float b, float c, float d)
+{
+	f[0] = a;
+	f[1] = b;
+	f[2] = c;
+	f[3] = d;
+}
+
+
+void color4_to_float4(const aiColor4D *c, float f[4])
+{
+	f[0] = c->r;
+	f[1] = c->g;
+	f[2] = c->b;
+	f[3] = c->a;
 }

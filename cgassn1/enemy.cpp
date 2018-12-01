@@ -122,9 +122,12 @@ void Enemy::display(Mesh* mesh, Camera& camera, int frame)
 
 
 
-	glm::mat4 mvp = Projection * View * World * Model;
 
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+	glm::mat4 mw = World * Model;
+
+	glUniformMatrix4fv(projID, 1, GL_FALSE, &Projection[0][0]);
+	glUniformMatrix4fv(viewID, 1, GL_FALSE, &View[0][0]);
+	glUniformMatrix4fv(modelID, 1, GL_FALSE, &mw[0][0]);
 	mesh->render(frame);
 }
 

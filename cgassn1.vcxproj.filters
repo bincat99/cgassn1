@@ -79,10 +79,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cgassn1\shaders\fs.shader">
+    <None Include="cgassn1\shaders\fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="cgassn1\shaders\vs.shader">
+    <None Include="cgassn1\shaders\vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

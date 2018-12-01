@@ -75,12 +75,30 @@ typedef struct
     float y;
 }position;
 
+// This is for a shader uniform block
+struct MyMaterial {
+
+	float diffuse[4];
+	float ambient[4];
+	float specular[4];
+	float emissive[4];
+	float shininess;
+	int texCount;
+};
+
 extern ShaderUtil shaderUtil;
 
+extern GLuint projID;
+extern GLuint viewID;
+extern GLuint modelID;
+extern GLuint materialUniLoc;
+extern GLuint texUnit;
 
-extern GLuint MatrixID;
-extern GLuint MatrixID2;
-extern GLuint ColorID;
+extern GLuint ani;
+
+
+extern
+std::map<std::string, GLuint> textureIdMap;
 
 extern GLuint vertexbuffer;
 extern GLuint uvbuffer;
@@ -131,8 +149,12 @@ pos2idx(float);
 float
 idx2pos(int);
 
-std::vector<std::string>
-split_string(std::string str);
+std::vector<std::string> split_string(std::string str);
+
+
+void set_float4(float f[4], float a, float b, float c, float d);
+
+void color4_to_float4(const aiColor4D *c, float f[4]);
 
 #endif /* util_h */
 
