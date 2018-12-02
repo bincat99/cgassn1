@@ -38,10 +38,8 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 
 	glm::mat4 mw = World * Model;
 	glm::mat4 m3x3 = glm::mat3(Model);
-	glm::mat4 mvp = Projection * View * Model;
+	glm::mat4 mvp = Projection * View *World* Model;
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
 
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
@@ -56,26 +54,6 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 	glm::vec3 lightPos = glm::vec3(1, 1, 1);
 	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
-	// Bind our diffuse texture in Texture Unit 0
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, DiffuseTexture);
-	// Set our "DiffuseTextureSampler" sampler to use Texture Unit 0
-	glUniform1i(DiffuseTextureID, 0);
-
-	// Bind our normal texture in Texture Unit 1
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, NormalTexture);
-	// Set our "NormalTextureSampler" sampler to use Texture Unit 1
-	glUniform1i(NormalTextureID, 1);
-
-	// Bind our specular texture in Texture Unit 2
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, SpecularTexture);
-	// Set our "SpecularTextureSampler" sampler to use Texture Unit 2
-	glUniform1i(SpecularTextureID, 2);
-
-
-	//test
 	// Bind our diffuse texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, DiffuseTexture);
@@ -159,7 +137,12 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbufferWall);
 	
 
-	mesh->render(frame);
+	glDrawElements(
+		GL_TRIANGLES,      // mode
+		indices.size(),    // count
+		GL_UNSIGNED_SHORT, // type
+		(void*)0           // element array buffer offset
+	);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

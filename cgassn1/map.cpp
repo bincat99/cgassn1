@@ -435,26 +435,9 @@ void
 Map::display(void)
 {
 
-	//Wall
-	shaderWallUtil.Use();
-
-
-
-	if (!(player->status == KILLED || gameClear))
-	{
-		//wall.display(M_wall, camera);
-		//enemy.display(M_enemy, camera);
-
-		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
-			(*it)->display(M_wall, camera, frame);
-
-	}
-	shaderWallUtil.Delete();
-
-
-	shaderUtil.Use();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+	shaderUtil.Use();
 
 	glm::mat4 Projection = camera.toProjMatrix();
 	glm::mat4 View = camera.toViewMatrix();
@@ -509,21 +492,25 @@ Map::display(void)
 	
 	shaderUtil.Delete();
 
-	//Wall
-	//shaderWallUtil.Use();
+	shaderWallUtil.Use();
 
-	
+
 
 	if (!(player->status == KILLED || gameClear))
 	{
 		//wall.display(M_wall, camera);
 		//enemy.display(M_enemy, camera);
 
-		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++);
-		//	(*it)->display(M_wall, camera, frame);
+		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+			(*it)->display(M_wall, camera, frame);
 
 	}
-	//shaderWallUtil.Delete();
+	shaderWallUtil.Delete();
+	//Wall
+	//shaderWallUtil.Use();
+	//Wall
+
+
 }
 
 void
