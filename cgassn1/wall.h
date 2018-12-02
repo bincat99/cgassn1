@@ -14,6 +14,7 @@ public:
 
 	Wall();
 	Wall(float, float);
+	Wall(float, float, float);
 	void init(const glm::vec3& pos, const glm::vec2& rot);
 
 	void update();

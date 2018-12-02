@@ -16,6 +16,15 @@ Wall::Wall(float x, float y)
 	setDir(dir);
 }
 
+Wall::Wall(float x, float y, float z)
+{
+	glm::vec3 pos = glm::vec3(x, z, y);
+	glm::vec2 dir = glm::vec2(0, 0);
+
+	setPos(pos);
+	setDir(dir);
+}
+
 void Wall::init(const glm::vec3& pos, const glm::vec2& dir)
 {
 	this->setPos(pos);

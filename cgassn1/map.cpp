@@ -509,9 +509,13 @@ int enemyNum = 0;
 		}
 	}
 
+
+
 	for (int x = 0; x < 32; x++)
 		for (int y = 0; y < 32; y++)
 		{
+
+			listWall.push_back(new Wall(x * gridLength + 25, y * gridLength + 25, -50.0f));
 			switch (objMap[x][y])
 			{
 			case WALL:
@@ -541,6 +545,8 @@ Map::display(void)
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+
+
 
 	shaderUtil.bind();
 	shaderUtil.Use();
@@ -625,7 +631,13 @@ Map::display(void)
 	//shaderWallUtil.Use();
 	//Wall
 
-
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex3f(.0f, .0f, .0f);
+	glVertex3f(.0f, .0f, 200.f);
+	glVertex3f(.0f, 200.f, 200.f);
+	glVertex3f(.0f, 200.f, .0f);
+	glEnd();
 
 }
 
