@@ -25,7 +25,7 @@ Map::Map()
 // default shader
 
 	shaderUtil.Load("cgassn1/shaders/vs.glsl", "cgassn1/shaders/fs.glsl");
-
+	shaderUtil.bind();
 	projID = glGetUniformLocation(shaderUtil.getProgram(), "projMatrix");
 	viewID = glGetUniformLocation(shaderUtil.getProgram(), "viewMatrix");
 	modelID = glGetUniformLocation(shaderUtil.getProgram(), "modelMatrix");
@@ -36,11 +36,11 @@ Map::Map()
 	viewPosID = glGetUniformLocation(shaderUtil.getProgram(), "viewPos");
 	glUniformBlockBinding(shaderUtil.getProgram(), glGetUniformBlockIndex(shaderUtil.getProgram(), "Material"), materialUniLoc);
 	texUnit = glGetUniformLocation(shaderUtil.getProgram(), "texUnit");
-
+	shaderUtil.unbind();
 
 	// wall shader
 	shaderWallUtil.Load("cgassn1/shaders/vsWall.glsl", "cgassn1/shaders/fsWall.glsl");
-
+	shaderWallUtil.bind();
 	// Get a handle for our "MVP" uniform
 	MatrixID = glGetUniformLocation(shaderWallUtil.getProgram(), "MVP");
 	ViewMatrixID = glGetUniformLocation(shaderWallUtil.getProgram(), "V");
@@ -207,7 +207,7 @@ Map::Map()
 
 	// Index buffer
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbufferWall);
-	
+	shaderWallUtil.unbind();
 
 	M_enemy->init("cgassn1/resources/dummy_obj.obj");
 	M_player->init("cgassn1/resources/dummy_obj.obj", false,true);
