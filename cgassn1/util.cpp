@@ -36,6 +36,8 @@ GLuint viewID;
 GLuint modelID;
 GLuint materialUniLoc;
 GLuint texUnit;
+GLuint viewPosID;
+GLuint light_ID;
 
 GLuint ani;
 

@@ -8,32 +8,71 @@ layout (std140) uniform Material {
     float shininess;
     int texCount;
 };
+
+
  
 uniform sampler2D texUnit;
  
+in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoord;
-out vec4 outc;
+
+
+uniform vec3 viewPos;
+
+uniform vec3 light_position;
+
+out vec4 FragColor;
+ 
 
 void main()
 {
+	// light coefficient
+	float light_ambient = 0.2f;
+	float light_diffuse = 0.5f;
+	float light_specular = 1.0f;
+	float light_constant = 1.0f;
+	float light_linear = 0.007f;
+	float light_quadratic = 0.0002f;
+
+
     vec4 color;
     vec4 amb;
+	vec4 spec;
+	vec4 diff;
+
     float intensity;
     vec3 lightDir;
     vec3 n;
- 
+	
+	// diffuse
     lightDir = normalize(vec3(1.0,1.0,1.0));
     n = normalize(Normal);
     intensity = max(dot(lightDir,n),0.0);
- 
+
     if (texCount == 0) {
         color = diffuse;
         amb = ambient;
+		spec = specular;
     }
     else {
         color = texture2D(texUnit, TexCoord);
-        amb = color * 0.33;
+        amb = color * 0.2;
+		// specular
+		vec3 viewDir = normalize(viewPos - FragPos);
+		vec3 reflectDir = reflect(-lightDir, n);  
+		float specc = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+		spec = 0.3*specc * color;  
     }
-    outc = (color * intensity) + amb;
+
+
+	float distance = length(light_position - FragPos);
+	float attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
+	
+	
+	diff = 0.5 * color * intensity;
+ 
+
+	FragColor = (attenuation)*(amb + diff +spec);
+
 }

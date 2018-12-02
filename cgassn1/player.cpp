@@ -45,6 +45,7 @@ void Player::update(void)
 
 			if (i == 'a')
 			{
+
 				dir.y -= 5.5f;
 			}
 
@@ -54,6 +55,7 @@ void Player::update(void)
 			}
 
 			/*if (i == 'a' && lastRot == 0)
+
 			{
 				dir.y -= 90;
 				this->viewDir = (enum Direction) ((this->viewDir + 3) % 4);
@@ -67,7 +69,7 @@ void Player::update(void)
 				lastRot = clock();
 			}*/
 
-
+			
 			if (i == 'w' && canGo)
 			{
 				pos.x += sp * glm::sin(yrad) * delta;
