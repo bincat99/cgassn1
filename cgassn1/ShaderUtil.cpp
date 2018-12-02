@@ -70,3 +70,13 @@ void ShaderUtil::Delete()
 unsigned int ShaderUtil::getProgram() {
 	return mProgramId;
 }
+
+void ShaderUtil::bind()
+{
+	glBindBuffer(GL_ARRAY_BUFFER, mProgramId);
+}
+
+void ShaderUtil::unbind()
+{
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}

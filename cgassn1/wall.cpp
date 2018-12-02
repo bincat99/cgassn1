@@ -40,8 +40,8 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 	glm::mat4 m3x3 = glm::mat3(Model);
 	glm::mat4 mvp = Projection * View * Model;
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glEnable(GL_DEPTH_TEST);
 
 
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
@@ -159,7 +159,12 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbufferWall);
 	
 
-	mesh->render(frame);
+	glDrawElements(
+		GL_TRIANGLES,      // mode
+		indices.size(),    // count
+		GL_UNSIGNED_SHORT, // type
+		(void*)0           // element array buffer offset
+	); //mesh->render(frame);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
