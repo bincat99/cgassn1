@@ -20,6 +20,7 @@ uniform mat4 V;
 uniform mat4 M;
 uniform mat3 MV3x3;
 uniform vec3 LightPosition_worldspace;
+uniform vec3 LightPosition_worldspace2;
 
 void main(){
 
@@ -68,4 +69,14 @@ void main(){
 		// Specular : reflective highlight, like a mirror
 		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
 
+
+	distance = length( LightPosition_worldspace2 - Position_worldspace );
+
+	color += 
+		// Ambient : simulates indirect lighting
+		MaterialAmbientColor +
+		// Diffuse : "color" of the object
+		MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
+		// Specular : reflective highlight, like a mirror
+		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
 }

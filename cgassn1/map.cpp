@@ -30,6 +30,7 @@ Map::Map()
 	viewID = glGetUniformLocation(shaderUtil.getProgram(), "viewMatrix");
 	modelID = glGetUniformLocation(shaderUtil.getProgram(), "modelMatrix");
 	light_ID = glGetUniformLocation(shaderUtil.getProgram(), "light.position");
+	light_ID2 = glGetUniformLocation(shaderUtil.getProgram(), "light.position2");
 	ani = glGetUniformLocation(shaderUtil.getProgram(), "ani");
 
 
@@ -102,9 +103,8 @@ Map::Map()
 
 	
 	LightID = glGetUniformLocation(shaderWallUtil.getProgram(), "LightPosition_worldspace");
+	LightID2 = glGetUniformLocation(shaderWallUtil.getProgram(), "LightPosition_worldspace2");
 
-	glm::vec3 lightPos = glm::vec3(0, 300, 0);
-	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
 	// Bind our diffuse texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
@@ -547,6 +547,8 @@ Map::display(void)
 	glEnable(GL_DEPTH_TEST);
 
 
+	glm::vec3 lightPos = glm::vec3(player->getPos().x, player->getPos().y, player->getPos().z);
+	glm::vec3 lightPos2 = camera.getPos();
 
 	shaderUtil.bind();
 	shaderUtil.Use();
@@ -567,7 +569,8 @@ Map::display(void)
 
 
 	glUniform4fv(viewPosID, 1, &camera.getPos()[0]);
-	glUniform4fv(light_ID, 1, &camera.getPos()[0]);
+	glUniform3fv(light_ID, 1, &lightPos[0]);
+	glUniform3fv(light_ID2, 1, &lightPos2[0]);
 
 	std::cout << camera.getPos()[0] << " "<<camera.getPos()[1] << " "<< camera.getPos()[2] << std::endl;
 
@@ -615,8 +618,8 @@ Map::display(void)
 
 	if (!(player->status == KILLED || gameClear))
 	{
-		glm::vec3 lightPos = glm::vec3(player->getPos().x, player->getPos().y, player->getPos().z);
-		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+		glUniform3fv(LightID, 1, &lightPos[0]);
+		glUniform3fv(LightID2, 1, &lightPos2[0]);
 		//wall.display(M_wall, camera);
 		//enemy.display(M_enemy, camera);
 

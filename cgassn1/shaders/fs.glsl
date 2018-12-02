@@ -21,9 +21,11 @@ in vec2 TexCoord;
 uniform vec3 viewPos;
 
 uniform vec3 light_position;
+uniform vec3 light_position2;
 
 out vec4 FragColor;
  
+ #define MAX_LIGHTS 2
 
 void main()
 {
@@ -44,9 +46,12 @@ void main()
     float intensity;
     vec3 lightDir;
     vec3 n;
-	
+
+	float distance;
+	float attenuation;
+
 	// diffuse
-    lightDir = normalize(vec3(1.0,1.0,1.0));
+    lightDir = normalize(light_position - FragPos);
     n = normalize(Normal);
     intensity = max(dot(lightDir,n),0.0);
 
@@ -57,22 +62,53 @@ void main()
     }
     else {
         color = texture2D(texUnit, TexCoord);
-        amb = color * 0.33;
+        amb = color * light_ambient;
 		// specular
 		vec3 viewDir = normalize(viewPos - FragPos);
 		vec3 reflectDir = reflect(-lightDir, n);  
 		float specc = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-		spec = 0.5*specc * color;  
+		spec = light_specular*specc * color;  
     }
 
 
-	float distance = length(light_position - FragPos);
-	float attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
+	distance = length(light_position - FragPos);
+	attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
 	
 	
-	diff = 1.0 * color * intensity;
+	diff = light_diffuse * color * intensity;
  
 
-	FragColor = (amb + diff +spec);
+	FragColor = (attenuation)*(amb + diff +spec);
+
+	// diffuse
+    lightDir = normalize(light_position2 - FragPos);
+    n = normalize(Normal);
+    intensity = max(dot(lightDir,n),0.0);
+
+    if (texCount == 0) {
+        color = diffuse;
+        amb = ambient;
+		spec = specular;
+    }
+    else {
+        color = texture2D(texUnit, TexCoord);
+        amb = color * light_ambient;
+		// specular
+		vec3 viewDir = normalize(viewPos - FragPos);
+		vec3 reflectDir = reflect(-lightDir, n);  
+		float specc = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+		spec = light_specular*specc * color;  
+    }
+
+
+	distance = length(light_position2 - FragPos);
+	attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
+	
+	
+	diff = light_diffuse * color * intensity;
+ 
+
+	FragColor += (attenuation)*(amb + diff +spec);
+
 
 }

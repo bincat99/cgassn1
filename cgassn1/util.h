@@ -96,6 +96,7 @@ extern GLuint materialUniLoc;
 extern GLuint texUnit;
 extern GLuint viewPosID;
 extern GLuint light_ID;
+extern GLuint light_ID2;
 
 extern GLuint ani;
 
@@ -128,6 +129,7 @@ extern GLuint tangentbufferWall;
 extern GLuint bitangentbufferWall;
 extern GLuint elementbufferWall;
 extern GLuint LightID;
+extern GLuint LightID2;
 
 extern std::vector<glm::vec3> vertices;
 extern std::vector<glm::vec2> uvs;
