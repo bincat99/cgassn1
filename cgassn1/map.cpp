@@ -609,6 +609,8 @@ Map::display(void)
 
 	if (!(player->status == KILLED || gameClear))
 	{
+		glm::vec3 lightPos = glm::vec3(player->getPos().x, player->getPos().y, player->getPos().z);
+		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 		//wall.display(M_wall, camera);
 		//enemy.display(M_enemy, camera);
 

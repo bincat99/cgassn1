@@ -166,6 +166,7 @@ void Mesh::init(std::string path, bool isStatic_, bool isPlayer_)
 
 void Mesh::render(int frame)
 {
+	glUniform1i(texUnit, 2);
 	if(frame ==0)
 		sprite = (sprite + 1) % fps;
 	for (unsigned int i = 0; i < ai_nodes.size(); i++) {
