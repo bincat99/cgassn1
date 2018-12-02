@@ -119,6 +119,29 @@ extern GLuint DiffuseTextureID;
 extern GLuint NormalTextureID;
 extern GLuint SpecularTextureID;
 
+extern GLuint vertexbufferWall;
+extern GLuint uvbufferWall;
+extern GLuint normalbufferWall;
+extern GLuint tangentbufferWall;
+extern GLuint bitangentbufferWall;
+extern GLuint elementbufferWall;
+extern GLuint LightID;
+
+extern std::vector<glm::vec3> vertices;
+extern std::vector<glm::vec2> uvs;
+extern std::vector<glm::vec3> normals;
+//bool res = loadOBJ("cylinder.obj", vertices, uvs, normals);
+
+extern std::vector<glm::vec3> tangents;
+extern std::vector<glm::vec3> bitangents;
+
+extern std::vector<unsigned short> indices;
+extern std::vector<glm::vec3> indexed_vertices;
+extern std::vector<glm::vec2> indexed_uvs;
+extern std::vector<glm::vec3> indexed_normals;
+extern std::vector<glm::vec3> indexed_tangents;
+extern std::vector<glm::vec3> indexed_bitangents;
+
 extern unsigned int
 windowId;
 
@@ -171,6 +194,33 @@ std::vector<std::string> split_string(std::string str);
 void set_float4(float f[4], float a, float b, float c, float d);
 
 void color4_to_float4(const aiColor4D *c, float f[4]);
+
+void computeTangentBasis(
+	std::vector<glm::vec3> & vertices, std::vector<glm::vec2> & uvs, std::vector<glm::vec3> & normals,
+	std::vector<glm::vec3> & tangents, std::vector<glm::vec3> & bitangents
+);
+
+void indexVBO_TBN(
+	std::vector<glm::vec3> & in_vertices,
+	std::vector<glm::vec2> & in_uvs,
+	std::vector<glm::vec3> & in_normals,
+	std::vector<glm::vec3> & in_tangents,
+	std::vector<glm::vec3> & in_bitangents,
+
+	std::vector<unsigned short> & out_indices,
+	std::vector<glm::vec3> & out_vertices,
+	std::vector<glm::vec2> & out_uvs,
+	std::vector<glm::vec3> & out_normals,
+	std::vector<glm::vec3> & out_tangents,
+	std::vector<glm::vec3> & out_bitangents
+);
+
+bool loadOBJ(
+	const char * path,
+	std::vector<glm::vec3> & out_vertices,
+	std::vector<glm::vec2> & out_uvs,
+	std::vector<glm::vec3> & out_normals
+);
 
 #endif /* util_h */
 

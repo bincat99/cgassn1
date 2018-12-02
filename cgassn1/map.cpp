@@ -34,24 +34,73 @@ Map::Map()
 	glUniformBlockBinding(shaderUtil.getProgram(), glGetUniformBlockIndex(shaderUtil.getProgram(), "Material"), materialUniLoc);
 	texUnit = glGetUniformLocation(shaderUtil.getProgram(), "texUnit");
 
+
 	// wall shader
 	shaderWallUtil.Load("cgassn1/shaders/vsWall.glsl", "cgassn1/shaders/fsWall.glsl");
 
 	// Get a handle for our "MVP" uniform
-	GLuint MatrixID = glGetUniformLocation(wallProgramID, "MVP");
-	GLuint ViewMatrixID = glGetUniformLocation(wallProgramID, "V");
-	GLuint ModelMatrixID = glGetUniformLocation(wallProgramID, "M");
-	GLuint ModelView3x3MatrixID = glGetUniformLocation(wallProgramID, "MV3x3");
+	MatrixID = glGetUniformLocation(shaderWallUtil.getProgram(), "MVP");
+	ViewMatrixID = glGetUniformLocation(shaderWallUtil.getProgram(), "V");
+	ModelMatrixID = glGetUniformLocation(shaderWallUtil.getProgram(), "M");
+	ModelView3x3MatrixID = glGetUniformLocation(shaderWallUtil.getProgram(), "MV3x3");
 
 	// Load the texture
-	GLuint DiffuseTexture = loadDDS("diffuse.DDS");
-	GLuint NormalTexture = loadBMP_custom("normal.bmp");
-	GLuint SpecularTexture = loadDDS("specular.DDS");
+	DiffuseTexture = loadDDS("diffuse.DDS");
+	NormalTexture = loadBMP_custom("normal.bmp");
+	SpecularTexture = loadDDS("specular.DDS");
 
 	// Get a handle for our "myTextureSampler" uniform
-	GLuint DiffuseTextureID = glGetUniformLocation(wallProgramID, "DiffuseTextureSampler");
-	GLuint NormalTextureID = glGetUniformLocation(wallProgramID, "NormalTextureSampler");
-	GLuint SpecularTextureID = glGetUniformLocation(wallProgramID, "SpecularTextureSampler");
+	DiffuseTextureID = glGetUniformLocation(shaderWallUtil.getProgram(), "DiffuseTextureSampler");
+	NormalTextureID = glGetUniformLocation(shaderWallUtil.getProgram(), "NormalTextureSampler");
+	SpecularTextureID = glGetUniformLocation(shaderWallUtil.getProgram(), "SpecularTextureSampler");
+
+	// Read our .obj file
+
+	bool res = loadOBJ("cgassn1/resources/cube.obj", vertices, uvs, normals);
+
+	computeTangentBasis(
+		vertices, uvs, normals, // input
+		tangents, bitangents    // output
+	);
+
+
+	indexVBO_TBN(
+		vertices, uvs, normals, tangents, bitangents,
+		indices, indexed_vertices, indexed_uvs, indexed_normals, indexed_tangents, indexed_bitangents
+	);
+
+	// Load it into a VBO
+	
+
+	glGenBuffers(1, &vertexbufferWall);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbufferWall);
+	glBufferData(GL_ARRAY_BUFFER, indexed_vertices.size() * sizeof(glm::vec3), &indexed_vertices[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &uvbufferWall);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbufferWall);
+	glBufferData(GL_ARRAY_BUFFER, indexed_uvs.size() * sizeof(glm::vec2), &indexed_uvs[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &normalbufferWall);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbufferWall);
+	glBufferData(GL_ARRAY_BUFFER, indexed_normals.size() * sizeof(glm::vec3), &indexed_normals[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &tangentbufferWall);
+	glBindBuffer(GL_ARRAY_BUFFER, tangentbufferWall);
+	glBufferData(GL_ARRAY_BUFFER, indexed_tangents.size() * sizeof(glm::vec3), &indexed_tangents[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &bitangentbufferWall);
+	glBindBuffer(GL_ARRAY_BUFFER, bitangentbufferWall);
+	glBufferData(GL_ARRAY_BUFFER, indexed_bitangents.size() * sizeof(glm::vec3), &indexed_bitangents[0], GL_STATIC_DRAW);
+
+	// Generate a buffer for the indices as well
+	glGenBuffers(1, &elementbufferWall);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbufferWall);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
+
+	
+	LightID = glGetUniformLocation(shaderWallUtil.getProgram(), "LightPosition_worldspace");
+
+	
 
 	M_enemy->init("cgassn1/resources/dummy_obj.obj");
 	M_player->init("cgassn1/resources/dummy_obj.obj", false,true);
@@ -382,6 +431,24 @@ int enemyNum = 0;
 void
 Map::display(void)
 {
+
+	//Wall
+	shaderWallUtil.Use();
+
+
+
+	if (!(player->status == KILLED || gameClear))
+	{
+		//wall.display(M_wall, camera);
+		//enemy.display(M_enemy, camera);
+
+		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+			(*it)->display(M_wall, camera, frame);
+
+	}
+	shaderWallUtil.Delete();
+
+
 	shaderUtil.Use();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
@@ -407,6 +474,8 @@ Map::display(void)
 	frame = (frame + 1) % 2;
 
 
+
+
 	if (!(player->status == KILLED || gameClear))
 	{
 		//wall.display(M_wall, camera);
@@ -417,16 +486,36 @@ Map::display(void)
 
 		for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
 			(*it)->display(M_enemy, camera, frame);
-		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
-			(*it)->display(M_wall, camera, frame);
+		//for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+		//	(*it)->display(M_wall, camera, frame);
 
 
 		for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
 			(*it)->display(M_wall, camera, frame);
 	}
-	player->display(M_player, camera, frame);
-	gun->display(M_gun, camera, frame);
+	else
+	{
+		player->display(M_player, camera, frame);
+		gun->display(M_gun, camera, frame);
+	}
+	
 	shaderUtil.Delete();
+
+	//Wall
+	//shaderWallUtil.Use();
+
+	
+
+	if (!(player->status == KILLED || gameClear))
+	{
+		//wall.display(M_wall, camera);
+		//enemy.display(M_enemy, camera);
+
+		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++);
+		//	(*it)->display(M_wall, camera, frame);
+
+	}
+	//shaderWallUtil.Delete();
 }
 
 void

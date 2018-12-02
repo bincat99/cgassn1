@@ -37,12 +37,135 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 	glm::mat4 Model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 1 * scaleFactor, 0))*glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor, scaleFactor, scaleFactor));
 
 	glm::mat4 mw = World * Model;
+	glm::mat4 m3x3 = glm::mat3(Model);
+	glm::mat4 mvp = Projection * View * Model;
 
-	glUniformMatrix4fv(projID, 1, GL_FALSE, &Projection[0][0]);
-	glUniformMatrix4fv(viewID, 1, GL_FALSE, &View[0][0]);
-	glUniformMatrix4fv(modelID, 1, GL_FALSE, &mw[0][0]);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
+
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+	glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
+	glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]); //delete later
+	glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &mw[0][0]);
+	glUniformMatrix3fv(ModelView3x3MatrixID, 1, GL_FALSE, &m3x3[0][0]);
+	//glUniformMatrix4fv(ani, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
+
+	//glm::vec3 lightPos = glm::vec3(0, 0, 4);
+	//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+	glm::vec3 lightPos = glm::vec3(1, 1, 1);
+	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+
+	// Bind our diffuse texture in Texture Unit 0
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, DiffuseTexture);
+	// Set our "DiffuseTextureSampler" sampler to use Texture Unit 0
+	glUniform1i(DiffuseTextureID, 0);
+
+	// Bind our normal texture in Texture Unit 1
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, NormalTexture);
+	// Set our "NormalTextureSampler" sampler to use Texture Unit 1
+	glUniform1i(NormalTextureID, 1);
+
+	// Bind our specular texture in Texture Unit 2
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, SpecularTexture);
+	// Set our "SpecularTextureSampler" sampler to use Texture Unit 2
+	glUniform1i(SpecularTextureID, 2);
+
+
+	//test
+	// Bind our diffuse texture in Texture Unit 0
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, DiffuseTexture);
+	// Set our "DiffuseTextureSampler" sampler to use Texture Unit 0
+	glUniform1i(DiffuseTextureID, 0);
+
+	// Bind our normal texture in Texture Unit 1
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, NormalTexture);
+	// Set our "NormalTextureSampler" sampler to use Texture Unit 1
+	glUniform1i(NormalTextureID, 1);
+
+	// Bind our specular texture in Texture Unit 2
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, SpecularTexture);
+	// Set our "SpecularTextureSampler" sampler to use Texture Unit 2
+	glUniform1i(SpecularTextureID, 2);
+
+
+	// 1rst attribute buffer : vertices
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbufferWall);
+	glVertexAttribPointer(
+		0,                  // attribute
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+
+	// 2nd attribute buffer : UVs
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbufferWall);
+	glVertexAttribPointer(
+		1,                                // attribute
+		2,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
+	// 3rd attribute buffer : normals
+	glEnableVertexAttribArray(2);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbufferWall);
+	glVertexAttribPointer(
+		2,                                // attribute
+		3,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
+	// 4th attribute buffer : tangents
+	glEnableVertexAttribArray(3);
+	glBindBuffer(GL_ARRAY_BUFFER, tangentbufferWall);
+	glVertexAttribPointer(
+		3,                                // attribute
+		3,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
+	// 5th attribute buffer : bitangents
+	glEnableVertexAttribArray(4);
+	glBindBuffer(GL_ARRAY_BUFFER, bitangentbufferWall);
+	glVertexAttribPointer(
+		4,                                // attribute
+		3,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
+	// Index buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbufferWall);
+	
 
 	mesh->render(frame);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3);
+	glDisableVertexAttribArray(4);
 }
 
 

@@ -23,6 +23,9 @@ uniform mat4 M;
 uniform mat3 MV3x3;
 uniform vec3 LightPosition_worldspace;
 
+// unused
+uniform mat4 ani;
+
 void main(){
 
 	// Output position of the vertex, in clip space : MVP * position
