@@ -21,7 +21,7 @@ using namespace std;
 Map::Map()
 {
 
-	glClearColor(1.0, 1.0, 0.0, 0.0);
+	glClearColor(1.0, 1.0, 1.0, 0.0);
 // default shader
 
 	shaderUtil.Load("cgassn1/shaders/vs.glsl", "cgassn1/shaders/fs.glsl");
@@ -103,7 +103,7 @@ Map::Map()
 	
 	LightID = glGetUniformLocation(shaderWallUtil.getProgram(), "LightPosition_worldspace");
 
-	glm::vec3 lightPos = glm::vec3(1, 1, 1);
+	glm::vec3 lightPos = glm::vec3(0, 300, 0);
 	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
 	// Bind our diffuse texture in Texture Unit 0
@@ -546,6 +546,7 @@ Map::display(void)
 	shaderUtil.Use();
 
 
+
 	glm::mat4 Projection = camera.toProjMatrix();
 	glm::mat4 View = camera.toViewMatrix();
 	glm::mat4 World = glm::mat4(1.0f);
@@ -597,15 +598,13 @@ Map::display(void)
 		gun->display(M_gun, camera, frame);
 	}
 	
-	shaderUtil.Delete();
+	//shaderUtil.Delete();
 	shaderUtil.unbind();
 
 
-	////Wall
 	shaderWallUtil.bind();
 	shaderWallUtil.Use();
-	////glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	////glEnable(GL_DEPTH_TEST);
+
 
 
 	if (!(player->status == KILLED || gameClear))
@@ -614,12 +613,18 @@ Map::display(void)
 		//enemy.display(M_enemy, camera);
 
 		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
-			;	//(*it)->display(M_wall, camera, frame);
+
+			(*it)->display(M_wall, camera, frame);
 
 	}
-
-	shaderWallUtil.Delete();
+	//shaderWallUtil.Delete();
 	shaderWallUtil.unbind();
+	//Wall
+	//shaderWallUtil.Use();
+	//Wall
+
+
+
 }
 
 void
