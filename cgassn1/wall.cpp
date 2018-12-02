@@ -52,8 +52,6 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 
 	//glm::vec3 lightPos = glm::vec3(0, 0, 4);
 	//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-	glm::vec3 lightPos = glm::vec3(1, 1, 1);
-	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
 	// Bind our diffuse texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
