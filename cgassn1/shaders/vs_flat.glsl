@@ -126,5 +126,18 @@ void main()
 
 		FragColor += (attenuation)*(amb + diff +spec);
     }
+	
+	// directional light
+	lightDir = vec3(1.0,1.0,1.0);
+	intensity = max(dot(n, lightDir), 0.0);
+	diff = light_diffuse * color * intensity;
+	amb =  color * light_ambient;
 
+	vec3 viewDir = normalize(viewPos - FragPos);
+	vec3 reflectDir = reflect(-lightDir, n);  
+	float specc = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+
+	spec = light_specular*specc * color;  
+
+	FragColor += 0.1*(amb+diff+spec);
 }

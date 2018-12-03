@@ -136,6 +136,18 @@ void main(){
 		// Specular : reflective highlight, like a mirror
 		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance));
 
-
+	
+	l = vec3(1.0,1.0,1.0);
+	cosTheta = clamp( dot( n,l ), 0,1 );
+	R = reflect(-l,n);
+	cosAlpha = clamp( dot( E,R ), 0,1 );
+	LightPower = 0.1;
+	color += (
+		// Ambient : simulates indirect lighting
+		MaterialAmbientColor +
+		// Diffuse : "color" of the object
+		MaterialDiffuseColor * LightColor * LightPower * cosTheta +
+		// Specular : reflective highlight, like a mirror
+		MaterialSpecularColor * LightColor * LightPower* pow(cosAlpha,5));
 }
 
