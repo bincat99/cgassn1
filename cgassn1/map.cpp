@@ -746,6 +746,7 @@ void Map::checkWallEnemy()
 		if (colDistance >= glm::distance(tmpDist, tmp))
 		{
 			(*it)->canGo = false;
+			(*it)->goBack();
 		}
 
 		else (*it)->canGo = true;

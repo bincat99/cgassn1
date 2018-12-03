@@ -109,6 +109,32 @@ void Enemy::update(glm::vec3 player)
 	}
 }
 
+void Enemy::goBack()
+{
+	switch (viewDir)
+	{
+	case 0: // Left Up Right Down
+
+			pos.x += walkSpeed;
+		break;
+	case 1:
+
+			pos.z -= walkSpeed;
+
+		break;
+	case 2:
+
+			pos.x -= walkSpeed;
+		
+		break;
+	case 3:
+
+			pos.z += walkSpeed;
+		
+		break;
+	}
+}
+
 void Enemy::display(Mesh* mesh, Camera& camera, int frame)
 {
 
