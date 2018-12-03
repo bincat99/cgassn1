@@ -1,5 +1,16 @@
 #version 330
  
+ 
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec3 normal;
+layout(location = 2) in vec2 texCoord;
+
+uniform mat4 projMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 ani;
+
+
 layout (std140) uniform Material {
     vec4 diffuse;
     vec4 ambient;
@@ -13,10 +24,6 @@ layout (std140) uniform Material {
  
 uniform sampler2D texUnit;
  
-in vec3 FragPos;
-in vec3 Normal;
-in vec2 TexCoord;
-
 
 uniform vec3 viewPos;
 
@@ -24,11 +31,20 @@ uniform vec3 light_position;
 uniform vec3 light_position2;
 
 out vec4 FragColor;
- 
- #define MAX_LIGHTS 2
+
 
 void main()
 {
+	vec3 FragPos; 
+	vec2 TexCoord;
+	vec3 Normal;
+
+    Normal = normalize(vec3(viewMatrix * modelMatrix * ani * vec4(normal,0.0)));
+    TexCoord = vec2(texCoord);
+    gl_Position = projMatrix * viewMatrix * modelMatrix * ani * vec4(position,1.0);
+	FragPos = vec3(viewMatrix*modelMatrix * ani * vec4(position,1.0));
+
+	
 	// light coefficient
 	float light_ambient = 0.2f;
 	float light_diffuse = 0.5f;
@@ -89,6 +105,7 @@ void main()
         color = diffuse;
         amb = ambient;
 		spec = specular;
+		FragColor = attenuation*(vec4(1.0,1.0,1.0,1.0));
     }
     else {
         color = texture2D(texUnit, TexCoord);
@@ -98,17 +115,16 @@ void main()
 		vec3 reflectDir = reflect(-lightDir, n);  
 		float specc = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
 		spec = light_specular*specc * color;  
-    }
 
 
-	distance = length(light_position2 - FragPos);
-	attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
+		distance = length(light_position2 - FragPos);
+		attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
 	
 	
-	diff = light_diffuse * color * intensity;
+		diff = light_diffuse * color * intensity;
  
 
-	FragColor += (attenuation)*(amb + diff +spec);
-
+		FragColor += (attenuation)*(amb + diff +spec);
+    }
 
 }

@@ -89,6 +89,7 @@ void main()
         color = diffuse;
         amb = ambient;
 		spec = specular;
+		FragColor = attenuation*(vec4(1.0,1.0,1.0,1.0));
     }
     else {
         color = texture2D(texUnit, TexCoord);
@@ -98,17 +99,17 @@ void main()
 		vec3 reflectDir = reflect(-lightDir, n);  
 		float specc = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
 		spec = light_specular*specc * color;  
-    }
 
 
-	distance = length(light_position2 - FragPos);
-	attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
+		distance = length(light_position2 - FragPos);
+		attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
 	
 	
-	diff = light_diffuse * color * intensity;
+		diff = light_diffuse * color * intensity;
  
 
-	FragColor += (attenuation)*(amb + diff +spec);
+		FragColor += (attenuation)*(amb + diff +spec);
+    }
 
 
 }

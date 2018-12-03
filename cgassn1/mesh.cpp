@@ -187,7 +187,7 @@ void Mesh::render(int frame)
 			glBindVertexArray(myMeshes[ai_nodes[i]->mMeshes[n]].vao);
 
 			// draw
-			glDrawElements(GL_TRIANGLES, myMeshes[ai_nodes[i]->mMeshes[n]].numFaces * 3, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLE_STRIP, myMeshes[ai_nodes[i]->mMeshes[n]].numFaces * 3, GL_UNSIGNED_INT, 0);
 		}
 		
 	}
