@@ -12,10 +12,10 @@
 using namespace std;
 
 
-//Mesh * M_player;
-//Mesh * M_gun;
-//Mesh * M_enemy;
-//Mesh * M_wall;
+Mesh * M_player;
+Mesh * M_gun;
+Mesh * M_enemy;
+Mesh * M_wall;
 Timer timer;
 
 
@@ -25,19 +25,19 @@ Map::Map()
 	glClearColor(.0, .0, .4, 0.0);
 // default shader
 
-	//shaderUtil.Load("cgassn1/shaders/vs.glsl", "cgassn1/shaders/fs.glsl");
-	//shaderUtil.bind();
-	//projID = glGetUniformLocation(shaderUtil.getProgram(), "projMatrix");
-	//viewID = glGetUniformLocation(shaderUtil.getProgram(), "viewMatrix");
-	//modelID = glGetUniformLocation(shaderUtil.getProgram(), "modelMatrix");
-	//light_ID = glGetUniformLocation(shaderUtil.getProgram(), "light.position");
-	//ani = glGetUniformLocation(shaderUtil.getProgram(), "ani");
+	shaderUtil.Load("cgassn1/shaders/vs.glsl", "cgassn1/shaders/fs.glsl");
+	shaderUtil.bind();
+	projID = glGetUniformLocation(shaderUtil.getProgram(), "projMatrix");
+	viewID = glGetUniformLocation(shaderUtil.getProgram(), "viewMatrix");
+	modelID = glGetUniformLocation(shaderUtil.getProgram(), "modelMatrix");
+	light_ID = glGetUniformLocation(shaderUtil.getProgram(), "light.position");
+	ani = glGetUniformLocation(shaderUtil.getProgram(), "ani");
 
 
-	//viewPosID = glGetUniformLocation(shaderUtil.getProgram(), "viewPos");
-	//glUniformBlockBinding(shaderUtil.getProgram(), glGetUniformBlockIndex(shaderUtil.getProgram(), "Material"), materialUniLoc);
-	//texUnit = glGetUniformLocation(shaderUtil.getProgram(), "texUnit");
-	//shaderUtil.unbind();
+	viewPosID = glGetUniformLocation(shaderUtil.getProgram(), "viewPos");
+	glUniformBlockBinding(shaderUtil.getProgram(), glGetUniformBlockIndex(shaderUtil.getProgram(), "Material"), materialUniLoc);
+	texUnit = glGetUniformLocation(shaderUtil.getProgram(), "texUnit");
+	shaderUtil.unbind();
 
 	//// wall shader
 	//shaderWallUtil.Load("cgassn1/shaders/vsWall.glsl", "cgassn1/shaders/fsWall.glsl");
@@ -111,10 +111,10 @@ Map::Map()
 
 	timer.init();
 
-	//M_enemy->init("cgassn1/resources/dummy_obj.obj");
-	//M_player->init("cgassn1/resources/dummy_obj.obj", false,true);
-	//M_gun->init("cgassn1/resources/M1911.obj", true);
-	//M_wall->init("cgassn1/resources/cube.obj", true);
+	M_enemy->init("cgassn1/resources/dummy_obj.obj");
+	M_player->init("cgassn1/resources/dummy_obj.obj", false,true);
+	M_gun->init("cgassn1/resources/M1911.obj", true);
+	M_wall->init("cgassn1/resources/cube.obj", true);
 
 	player = new Player();
 	gun = new Gun();
@@ -450,49 +450,49 @@ Map::display(void)
 
 
 
-	//shaderUtil.bind();
-	//shaderUtil.Use();
-	//glm::mat4 Projection = camera.toProjMatrix();
-	//glm::mat4 View = camera.toViewMatrix();
-	//glm::mat4 World = glm::mat4(1.0f);
-	//glm::mat4 Model = glm::mat4(1.0f);
-	//glm::mat4 mw = World * Model;
+	shaderUtil.bind();
+	shaderUtil.Use();
+	glm::mat4 Projection = camera.toProjMatrix();
+	glm::mat4 View = camera.toViewMatrix();
+	glm::mat4 World = glm::mat4(1.0f);
+	glm::mat4 Model = glm::mat4(1.0f);
+	glm::mat4 mw = World * Model;
 
-	//glUniformMatrix4fv(projID, 1, GL_FALSE, &Projection[0][0]);
-	//glUniformMatrix4fv(viewID, 1, GL_FALSE, &View[0][0]);
-	//glUniformMatrix4fv(modelID, 1, GL_FALSE, &mw[0][0]);
-	//glUniformMatrix4fv(ani, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
-	//glUniform4fv(viewPosID, 1, &camera.getPos()[0]);
-	//glUniform4fv(light_ID, 1, &camera.getPos()[0]);
-
-
-
-	//frame = (frame + 1) % 2;
-	//if (!(player->status == KILLED || gameClear))
-	//{
-	//	//wall.display(M_wall, camera);
-	//	//enemy.display(M_enemy, camera);
-	//	player->display(M_player, camera, frame);
-	//	gun->display(M_gun, camera, frame);
+	glUniformMatrix4fv(projID, 1, GL_FALSE, &Projection[0][0]);
+	glUniformMatrix4fv(viewID, 1, GL_FALSE, &View[0][0]);
+	glUniformMatrix4fv(modelID, 1, GL_FALSE, &mw[0][0]);
+	glUniformMatrix4fv(ani, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
+	glUniform4fv(viewPosID, 1, &camera.getPos()[0]);
+	glUniform4fv(light_ID, 1, &camera.getPos()[0]);
 
 
-	//	for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
-	//		(*it)->display(M_enemy, camera, frame);
-	//	//for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
-	//	//	(*it)->display(M_wall, camera, frame);
+
+	frame = (frame + 1) % 2;
+	if (!(player->status == KILLED || gameClear))
+	{
+		//wall.display(M_wall, camera);
+		//enemy.display(M_enemy, camera);
+		player->display(M_player, camera, frame);
+		gun->display(M_gun, camera, frame);
 
 
-	//	for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
-	//		(*it)->display(M_wall, camera, frame);
-	//}
-	//else
-	//{
-	//	player->display(M_player, camera, frame);
-	//	gun->display(M_gun, camera, frame);
-	//}
-	//
+		for (std::list<Enemy*>::iterator it = listEnemy.begin(); it != listEnemy.end(); it++)
+			(*it)->display(M_enemy, camera, frame);
+		//for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
+		//	(*it)->display(M_wall, camera, frame);
 
-	//shaderUtil.unbind();
+
+		for (std::list<Bullet*>::iterator it = listBullet.begin(); it != listBullet.end(); it++)
+			(*it)->display(M_wall, camera, frame);
+	}
+	else
+	{
+		player->display(M_player, camera, frame);
+		gun->display(M_gun, camera, frame);
+	}
+	
+
+	shaderUtil.unbind();
 
 
 	//shaderWallUtil.bind();

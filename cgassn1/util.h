@@ -113,6 +113,8 @@ extern GLuint ViewMatrixID;
 extern GLuint ModelMatrixID;
 extern GLuint ModelView3x3MatrixID;
 
+
+
 extern GLuint DiffuseTexture;
 extern GLuint NormalTexture;
 extern GLuint SpecularTexture;

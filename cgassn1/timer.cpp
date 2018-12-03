@@ -8,9 +8,9 @@
 void Timer::init()
 {
 	//initText2D();
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 	// Initialize Shader
 	textShader.Load("vsText.glsl", "fsText.glsl");
 	// Initialize texture
@@ -122,13 +122,15 @@ void Timer::display(Camera& camera, int frame)
 	glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(glm::vec2), &UVs[0], GL_STATIC_DRAW);
 
 	// Bind shader
-	glUseProgram(textShader.getProgram());
+	//glUseProgram(textShader.getProgram());
 
 	// Bind texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Text2DTextureID);
+	glBindVertexArray(this->vao);
 	// Set our "myTextureSampler" sampler to use Texture Unit 0
 	glUniform1i(Text2DUniformID, 0);
+	
 
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);
