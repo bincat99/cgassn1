@@ -18,9 +18,9 @@ void Timer::init()
 	// Initialize Shader
 	textShader.Load("vsText.glsl", "fsText.glsl");
 	textShader.bind();
-	GLuint MatrixID = glGetUniformLocation(textShader.getProgram(), "MVP");
-	GLuint ViewMatrixID = glGetUniformLocation(textShader.getProgram(), "V");
-	GLuint ModelMatrixID = glGetUniformLocation(textShader.getProgram(), "M");
+	MatrixID = glGetUniformLocation(textShader.getProgram(), "MVP");
+	ViewMatrixID = glGetUniformLocation(textShader.getProgram(), "V");
+	ModelMatrixID = glGetUniformLocation(textShader.getProgram(), "M");
 
 	// Initialize uniforms' IDs
 	Text2DUniformID = glGetUniformLocation(textShader.getProgram(), "myTextureSampler");
@@ -41,7 +41,7 @@ void Timer::setPos(glm::vec3 _pos)
 void Timer::bind()
 {
 	this->textShader.bind();
-	//this->shader.Use();
+	this->textShader.Use();
 }
 void Timer::unbind()
 {
@@ -118,7 +118,6 @@ void Timer::display(Camera& camera, int frame)
 	glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(glm::vec2), &UVs[0], GL_STATIC_DRAW);
 
 	// Bind shader
-	glUseProgram(textShader.getProgram());
 
 	// Bind texture
 	glActiveTexture(GL_TEXTURE4);
@@ -146,7 +145,6 @@ void Timer::display(Camera& camera, int frame)
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
-	textShader.unbind();
 }
 
 

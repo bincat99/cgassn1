@@ -443,10 +443,10 @@ Map::display(void)
 	}
 	shaderWallUtil.unbind();
 
-	//timer.bind();
-	//timer.display(camera, frame);
+	timer.bind();
+	timer.display(camera, frame);
 
-	//timer.unbind();
+	timer.unbind();
 
 }
 
