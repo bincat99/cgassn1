@@ -128,6 +128,7 @@
     <ClInclude Include="cgassn1\ShaderUtil.h" />
     <ClInclude Include="cgassn1\sys.h" />
     <ClInclude Include="cgassn1\texture.h" />
+    <ClInclude Include="cgassn1\timer.h" />
     <ClInclude Include="cgassn1\util.h" />
     <ClInclude Include="cgassn1\wall.h" />
   </ItemGroup>
@@ -142,13 +143,16 @@
     <ClCompile Include="cgassn1\player.cpp" />
     <ClCompile Include="cgassn1\ShaderUtil.cpp" />
     <ClCompile Include="cgassn1\texture.cpp" />
+    <ClCompile Include="cgassn1\timer.cpp" />
     <ClCompile Include="cgassn1\util.cpp" />
     <ClCompile Include="cgassn1\wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cgassn1\shaders\fs.glsl" />
+    <None Include="cgassn1\shaders\fsText.glsl" />
     <None Include="cgassn1\shaders\fsWall.glsl" />
     <None Include="cgassn1\shaders\vs.glsl" />
+    <None Include="cgassn1\shaders\vsText.glsl" />
     <None Include="cgassn1\shaders\vsWall.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

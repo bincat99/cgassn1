@@ -180,8 +180,10 @@ void Mesh::render(int frame)
 			}
 
 			// bind material uniform
+			
 			glBindBufferRange(GL_UNIFORM_BUFFER, materialUniLoc, myMeshes[ai_nodes[i]->mMeshes[n]].uniformBlockIndex, 0, sizeof(struct MyMaterial));
 			// bind texture
+			glActiveTexture(GL_TEXTURE2);
 			glBindTexture(GL_TEXTURE_2D, myMeshes[ai_nodes[i]->mMeshes[n]].texIndex); 
 			// bind VAO
 			glBindVertexArray(myMeshes[ai_nodes[i]->mMeshes[n]].vao);

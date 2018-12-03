@@ -4,6 +4,11 @@
 #include "util.h"
 #include "sys.h"
 
+//void initText2D(const char * texturePath);
+//void printText2D(const char * text, int x, int y, int size);
+//void cleanupText2D();
+//
+//extern ShaderUtil textShader;
 
 // Load a .BMP file using our custom loader
 GLuint loadBMP_custom(const char * imagepath);
