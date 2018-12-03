@@ -8,12 +8,18 @@
 void Timer::init()
 {
 	//initText2D();
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	// Initialize Shader
+	textShader.Load("vsText.glsl", "fsText.glsl");
 	// Initialize texture
 	Text2DTextureID = loadDDS("cgassn1/resources/Holstein.DDS");
 
 	// Initialize VBO
 	glGenBuffers(1, &Text2DVertexBufferID);
 	glGenBuffers(1, &Text2DUVBufferID);
+
 
 	// Initialize Shader
 	textShader.Load("vsText.glsl", "fsText.glsl");
@@ -22,9 +28,9 @@ void Timer::init()
 	ViewMatrixID = glGetUniformLocation(textShader.getProgram(), "V");
 	ModelMatrixID = glGetUniformLocation(textShader.getProgram(), "M");
 
+
 	// Initialize uniforms' IDs
 	Text2DUniformID = glGetUniformLocation(textShader.getProgram(), "myTextureSampler");
-	textShader.unbind();
 }
 void Timer::set(glm::vec3 _pos)
 {
@@ -58,7 +64,9 @@ void Timer::display(Camera& camera, int frame)
 	//computeMatricesFromInputs();
 	glm::mat4 ProjectionMatrix = camera.toProjMatrix();
 	glm::mat4 ViewMatrix = camera.toViewMatrix();
-	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x + 25.f * glm::sin(yrad), pos.y + 35, pos.z - 25.0f*glm::cos(yrad)));
+	//glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x + 25.f * glm::sin(yrad), pos.y + 35, pos.z - 25.0f*glm::cos(yrad)));
+	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 1.0, 1.0));
+	
 	glm::mat4 ModelMatrix = glm::mat4(1.0);
 	glm::mat4 MVP = ProjectionMatrix * ViewMatrix * World * ModelMatrix;
 
@@ -67,17 +75,17 @@ void Timer::display(Camera& camera, int frame)
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
 	glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix4fv(this->ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-	glUniformMatrix4fv(this->ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
+	//glUniformMatrix4fv(this->ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+	//glUniformMatrix4fv(this->ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 
 	char text[256] = { 0, };
-	sprintf(text, "12341");
+	sprintf(text, "12341%d\0", 3);
 	
 
 	std::vector<glm::vec2> vertices;
 	std::vector<glm::vec2> UVs;
-	int x = 100;
-	int y = 0;
+	int x = 10;
+	int y = 500;
 	int size = 60;
 	unsigned int length = strlen(text);
 
@@ -117,13 +125,15 @@ void Timer::display(Camera& camera, int frame)
 	glBindBuffer(GL_ARRAY_BUFFER, Text2DUVBufferID);
 	glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(glm::vec2), &UVs[0], GL_STATIC_DRAW);
 
-	// Bind shader
+
 
 	// Bind texture
-	glActiveTexture(GL_TEXTURE4);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Text2DTextureID);
+	glBindVertexArray(this->vao);
 	// Set our "myTextureSampler" sampler to use Texture Unit 0
-	glUniform1i(Text2DUniformID, 3);
+	glUniform1i(Text2DUniformID, 0);
+	
 
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);

@@ -12,10 +12,10 @@
 using namespace std;
 
 
-//Mesh * M_player;
-//Mesh * M_gun;
-//Mesh * M_enemy;
-//Mesh * M_wall;
+Mesh * M_player;
+Mesh * M_gun;
+Mesh * M_enemy;
+Mesh * M_wall;
 Timer timer;
 
 
@@ -25,6 +25,7 @@ Map::Map()
 
 
 	setShader();
+
 
 	timer.init();
 
@@ -363,7 +364,7 @@ Map::display(void)
 {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 
 	glm::vec3 lightPos = glm::vec3(player->getPos().x, player->getPos().y, player->getPos().z);
@@ -373,9 +374,6 @@ Map::display(void)
 
 	shaderUtil.bind();
 	shaderUtil.Use();
-
-
-
 	glm::mat4 Projection = camera.toProjMatrix();
 	glm::mat4 View = camera.toViewMatrix();
 	glm::mat4 World = glm::mat4(1.0f);
@@ -385,10 +383,7 @@ Map::display(void)
 	glUniformMatrix4fv(projID, 1, GL_FALSE, &Projection[0][0]);
 	glUniformMatrix4fv(viewID, 1, GL_FALSE, &View[0][0]);
 	glUniformMatrix4fv(modelID, 1, GL_FALSE, &mw[0][0]);
-
 	glUniformMatrix4fv(ani, 1, GL_FALSE, &glm::mat4(1.0f)[0][0]);
-
-
 	glUniform4fv(viewPosID, 1, &camera.getPos()[0]);
 	glUniform3fv(light_ID, 1, &lightPos[0]);
 	glUniform3fv(light_ID2, 1, &lightPos2[0]);
@@ -396,10 +391,6 @@ Map::display(void)
 
 
 	frame = (frame + 1) % 2;
-
-
-
-
 	if (!(player->status == KILLED || gameClear))
 	{
 		//wall.display(M_wall, camera);
@@ -423,8 +414,6 @@ Map::display(void)
 		gun->display(M_gun, camera, frame);
 	}
 	
-	//shaderUtil.Delete();
-	shaderUtil.unbind();
 
 
 	shaderWallUtil.bind();
@@ -436,17 +425,18 @@ Map::display(void)
 		//wall.display(M_wall, camera);
 		//enemy.display(M_enemy, camera);
 
-		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
 
+		for (std::list<Wall*>::iterator it = listWall.begin(); it != listWall.end(); it++)
 			 (*it)->display(M_wall, camera, frame);
 
+
 	}
-	shaderWallUtil.unbind();
+	//shaderWallUtil.unbind();
 
 	timer.bind();
 	timer.display(camera, frame);
 
-	timer.unbind();
+	//timer.unbind();
 
 }
 

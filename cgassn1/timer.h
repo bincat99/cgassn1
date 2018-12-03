@@ -12,6 +12,7 @@ private:
 
 	glm::vec3 pos;
 
+	unsigned int vao;
 	unsigned int Text2DTextureID;
 	unsigned int Text2DVertexBufferID;
 	unsigned int Text2DUVBufferID;

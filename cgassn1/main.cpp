@@ -30,22 +30,22 @@ using namespace std;
 
 
 
-//GLuint vertexbuffer;
-//GLuint uvbuffer;
-//GLuint MatrixID;
+//gluint vertexbuffer;
+//gluint uvbuffer;
+//gluint matrixid;
 //
 //
-//Mesh* M_enemy = new Mesh();
-//Mesh* M_gun = new Mesh();
-//Mesh* M_player = new Mesh();
-//Mesh* M_wall = new Mesh();
-//
-//static Camera camera;
-//
-//static Enemy enemy;
-//static Player player;
-//static Gun gun;
-//static Wall wall;
+//mesh* m_enemy = new mesh();
+//mesh* m_gun = new mesh();
+//mesh* m_player = new mesh();
+//mesh* m_wall = new mesh();
+//////
+static Camera camera;
+////
+////static Enemy enemy;
+////static Player player;
+////static Gun gun;
+////static Wall wall;
 
 
 static Map* gameMap;
@@ -103,6 +103,13 @@ main(int argc, char * argv[])
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glewInit();
 	init();
+
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
+	// Cull triangles which normal is not towards the camera
+	glEnable(GL_CULL_FACE);
 
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
