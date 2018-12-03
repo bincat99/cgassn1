@@ -76,15 +76,15 @@ void Player::update(void)
 				pos.z -= sp * glm::cos(yrad) * delta;
 			}
 
-			/*if (i == 'r')
-			{
-				rot.x += this->rotSpeed;
-			}
-			if (i == 'f')
-			{
-				rot.x -= this->rotSpeed;
-			}
-			if (i == 't')
+			//if (i == 'r')
+			//{
+			//	dir.x += 1.5f;
+			//}
+			//if (i == 'f')
+			//{
+			//	dir.x -= 1.5;
+			//}
+	/*		if (i == 't')
 			{
 				pos.y += sp * glm::sin(yrad) * delta;
 				pos.z -= sp * glm::cos(yrad) * delta;

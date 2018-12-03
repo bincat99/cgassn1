@@ -81,7 +81,7 @@ reshape(int w, int h)
 void
 moveObjects()
 {
-	gameMap->moveObjects();
+	//gameMap->moveObjects();
 	glutPostRedisplay();
 	glutSwapBuffers();
 }
@@ -103,6 +103,13 @@ main(int argc, char * argv[])
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glewInit();
 	init();
+
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
+	// Cull triangles which normal is not towards the camera
+	glEnable(GL_CULL_FACE);
 
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
