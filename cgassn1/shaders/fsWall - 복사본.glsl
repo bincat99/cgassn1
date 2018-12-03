@@ -24,15 +24,10 @@ uniform vec3 LightPosition_worldspace2;
 
 void main(){
 
-	float light_constant = 1.0f;
-	float light_linear = 0.007f;
-	float light_quadratic = 0.0002f;
-	float attenuation;
-
 	// Light emission properties
 	// You probably want to put them as uniforms
 	vec3 LightColor = vec3(1,1,1);
-	float LightPower = 10.0;
+	float LightPower = 4000.0;
 	
 	// Material properties
 	vec3 MaterialDiffuseColor = texture( DiffuseTextureSampler, UV ).rgb;
@@ -44,7 +39,6 @@ void main(){
 	
 	// Distance to the light
 	float distance = length( LightPosition_worldspace - Position_worldspace );
-	attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
 
 	// Normal of the computed fragment, in camera space
 	vec3 n = TextureNormal_tangentspace;
@@ -67,23 +61,22 @@ void main(){
 	//  - Looking elsewhere -> < 1
 	float cosAlpha = clamp( dot( E,R ), 0,1 );
 	
-	color = attenuation*(
+	color = 
 		// Ambient : simulates indirect lighting
 		MaterialAmbientColor +
 		// Diffuse : "color" of the object
-		MaterialDiffuseColor * LightColor * LightPower * cosTheta +
+		MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
 		// Specular : reflective highlight, like a mirror
-		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) );
+		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
 
 
 	distance = length( LightPosition_worldspace2 - Position_worldspace );
-	
-	attenuation = 1.0 / (light_constant + light_linear * distance + light_quadratic * (distance * distance));
-	color += attenuation*(
+
+	color += 
 		// Ambient : simulates indirect lighting
 		MaterialAmbientColor +
 		// Diffuse : "color" of the object
-		MaterialDiffuseColor * LightColor * LightPower * cosTheta+
+		MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
 		// Specular : reflective highlight, like a mirror
-		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5));
+		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
 }
