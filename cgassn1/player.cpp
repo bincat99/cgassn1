@@ -16,6 +16,14 @@ void Player::init(const glm::vec3& pos, const glm::vec2& dir)
 	status = ALIVE;
 }
 
+void Player::goBack()
+{
+	float yrad = glm::radians(dir.y);
+	float delta = 1.0;
+	float sp = this->walkSpeed;
+	pos.x -= sp * glm::sin(yrad) * delta;
+	pos.z += sp * glm::cos(yrad) * delta;
+}
 
 void Player::update(void)
 {

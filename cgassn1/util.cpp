@@ -38,6 +38,7 @@ GLuint materialUniLoc;
 GLuint texUnit;
 GLuint viewPosID;
 GLuint light_ID;
+GLuint light_ID2;
 
 GLuint ani;
 
@@ -70,6 +71,7 @@ GLuint tangentbufferWall;
 GLuint bitangentbufferWall;
 GLuint elementbufferWall;
 GLuint LightID;
+GLuint LightID2;
 
 std::vector<glm::vec3> vertices;
 std::vector<glm::vec2> uvs;
@@ -167,7 +169,7 @@ myMouseUpFunc(int, int, int, int)
 }
 
 unsigned int
-CheckCollision (position pos1, position pos2)
+CheckCollision (position pos1, position pos2, float len1, float len2)
 {
     unsigned int ret = 0;
     

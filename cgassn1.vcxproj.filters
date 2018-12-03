@@ -109,5 +109,17 @@
     <None Include="cgassn1\shaders\fsText.glsl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="cgassn1\shaders\fsWall_flat.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cgassn1\shaders\vsWall_flat.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cgassn1\shaders\fs_flat.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cgassn1\shaders\vs_flat.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

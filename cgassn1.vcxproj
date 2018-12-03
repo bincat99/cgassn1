@@ -151,9 +151,13 @@
     <None Include="cgassn1\shaders\fs.glsl" />
     <None Include="cgassn1\shaders\fsText.glsl" />
     <None Include="cgassn1\shaders\fsWall.glsl" />
+    <None Include="cgassn1\shaders\fsWall_flat.glsl" />
+    <None Include="cgassn1\shaders\fs_flat.glsl" />
     <None Include="cgassn1\shaders\vs.glsl" />
     <None Include="cgassn1\shaders\vsText.glsl" />
     <None Include="cgassn1\shaders\vsWall.glsl" />
+    <None Include="cgassn1\shaders\vsWall_flat.glsl" />
+    <None Include="cgassn1\shaders\vs_flat.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

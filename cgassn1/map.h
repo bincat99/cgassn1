@@ -36,6 +36,8 @@ class Map
 
 	int frame;
 
+	bool is_phong = true;
+
 public:
 	Camera camera;
 	std::list<Enemy*> listEnemy;
@@ -65,6 +67,7 @@ public:
 
 	void checkTimeout();
 
+	void setShader();
 
 
 };
