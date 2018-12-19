@@ -41,9 +41,11 @@ void Wall::display(Mesh* mesh, Camera& camera, int frame)
 {
 	glm::mat4 Projection = camera.toProjMatrix();
 	glm::mat4 View = camera.toViewMatrix();
-	float scaleFactor = mesh->getScaleFactor();
+	float scaleFactor = 50.0f;//mesh->getScaleFactor();
 	glm::mat4 World = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, pos.z));
-	glm::mat4 Model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 1 * scaleFactor, 0))*glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+	glm::mat4 Model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 1 * scaleFactor, 0))
+		*glm::rotate(glm::mat4(1.0f), glm::radians(180.f), glm::vec3(0.0f, 0.0f, 1.0f))
+		*glm::scale(glm::mat4(1.0f), glm::vec3(scaleFactor, scaleFactor, scaleFactor));
 
 	glm::mat4 mw = World * Model;
 	glm::mat4 m3x3 = glm::mat3(Model);

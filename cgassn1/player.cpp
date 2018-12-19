@@ -30,7 +30,7 @@ void Player::update(void)
 	int i = 0;
 
 	float yrad = glm::radians(dir.y);
-	float delta = 1.0;
+	float delta = .3;
 	float sp = this->walkSpeed;
 
 	if (lastRot + rotDelay < clock())
@@ -54,12 +54,12 @@ void Player::update(void)
 			if (i == 'a')
 			{
 
-				dir.y -= 5.5f;
+				dir.y -= .5f;
 			}
 
 			if (i == 'd')
 			{
-				dir.y += 5.5f;
+				dir.y += .5f;
 			}
 
 			/*if (i == 'a' && lastRot == 0)

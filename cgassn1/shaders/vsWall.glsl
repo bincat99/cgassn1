@@ -13,6 +13,8 @@ out vec3 Position_worldspace;
 out vec3 EyeDirection_cameraspace;
 out vec3 LightDirection_cameraspace;
 
+out vec3 normal;
+
 out vec3 LightDirection_tangentspace;
 out vec3 EyeDirection_tangentspace;
 
@@ -44,7 +46,7 @@ void main(){
 	LightDirection_cameraspace = LightPosition_cameraspace + EyeDirection_cameraspace;
 	
 	// UV of the vertex. No special space for this one.
-	UV = vertexUV;
+	UV = vec2(vertexUV.x, 1.0 - vertexUV.y);
 	
 	// model to camera = ModelView
 	vec3 vertexTangent_cameraspace = MV3x3 * vertexTangent_modelspace;
@@ -60,6 +62,7 @@ void main(){
 	LightDirection_tangentspace = TBN * LightDirection_cameraspace;
 	EyeDirection_tangentspace =  TBN * EyeDirection_cameraspace;
 	
+	normal = vertexNormal_modelspace;
 	
 }
 
